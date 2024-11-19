@@ -9,19 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   [#39](https://github.com/green-code-initiative/ecoCode-javascript/issues/39) Add rule `@ecocode/avoid-brightness-override` (EC522)
--   [#41](https://github.com/green-code-initiative/ecoCode-javascript/pull/41) Add rule `@ecocode/no-torch` (EC530)
+-   [#39](https://github.com/green-code-initiative/ecoCode-javascript/issues/39) Add rule `@creedengo/avoid-brightness-override` (GCI522)
+-   [#41](https://github.com/green-code-initiative/ecoCode-javascript/pull/41) Add rule `@creedengo/no-torch` (GCI530)
+-   Rename plugin to creedengo-javascript
 -   Add support for SonarQube up to 10.7
 
 ### Changed
 
--   [#44](https://github.com/green-code-initiative/ecoCode-javascript/pull/44) Implement the rule EC523 for React Native
+-   [#44](https://github.com/green-code-initiative/ecoCode-javascript/pull/44) Implement the rule GCI523 for React Native
 -   [#52](https://github.com/green-code-initiative/ecoCode-javascript/pull/52) Remove trailing dots in Sonar rules descriptions
 -   Update Docker Compose configuration file to V2
 
 ### Deleted
 
--   [#44](https://github.com/green-code-initiative/ecoCode-javascript/pull/44) Merge the rule EC8 with EC523
+-   [#44](https://github.com/green-code-initiative/ecoCode-javascript/pull/44) Merge the rule EC8 with GCI523
 
 ## [1.5.0] - 2024-03-13
 

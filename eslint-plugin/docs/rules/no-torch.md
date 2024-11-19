@@ -1,4 +1,4 @@
-# Should not programmatically enable torch mode (`@ecocode/no-torch`)
+# Should not programmatically enable torch mode (`@creedengo/no-torch`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

@@ -1,4 +1,4 @@
-# Should avoid to override brightness (`@ecocode/avoid-brightness-override`)
+# Should avoid to override brightness (`@creedengo/avoid-brightness-override`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

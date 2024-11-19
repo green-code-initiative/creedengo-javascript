@@ -1,17 +1,17 @@
 {
-  "name": "@ecocode/eslint-plugin",
+  "name": "@creedengo/eslint-plugin",
   "version": "1.5.0",
-  "description": "JavaScript linter of ecoCode project",
+  "description": "JavaScript linter of creedengo project",
   "keywords": [
     "eslint",
     "eslintplugin",
     "eslint-plugin",
-    "ecocode",
+    "creedengo",
     "greenit"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/green-code-initiative/ecoCode-javascript.git",
+    "url": "git+https://github.com/green-code-initiative/creedengo-javascript.git",
     "directory": "eslint-plugin"
   },
   "license": "GPL-3.0",
@@ -26,7 +26,7 @@
     "lint:eslint-docs": "eslint-doc-generator --check",
     "lint:js": "eslint .",
     "lint:fix": "eslint . --fix",
-    "pack:sonar": "npm pkg set main=\"./lib/sonar.js\" && mkdirp dist/pack && yarn pack -o dist/pack/ecocode-eslint-plugin.tgz && npm pkg set main=\"./lib/standalone.js\"",
+    "pack:sonar": "npm pkg set main=\"./lib/sonar.js\" && mkdirp dist/pack && yarn pack -o dist/pack/creedengo-eslint-plugin.tgz && npm pkg set main=\"./lib/standalone.js\"",
     "test": "mocha tests --recursive",
     "test:cov": "nyc --reporter=lcov --reporter=text mocha tests --recursive",
     "update:eslint-docs": "eslint-doc-generator"
