@@ -25,6 +25,7 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = NoTorch.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC530")
 public class NoTorch implements EslintBasedCheck {
 
     public static final String RULE_KEY = "GCI530";

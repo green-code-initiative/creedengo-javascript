@@ -27,6 +27,7 @@ import org.sonarsource.analyzer.commons.annotations.DeprecatedRuleKey;
 @TypeScriptRule
 @Rule(key = AvoidHighAccuracyGeolocation.RULE_KEY)
 @DeprecatedRuleKey(ruleKey = "EC8")
+@DeprecatedRuleKey(ruleKey = "EC523")
 public class AvoidHighAccuracyGeolocation implements EslintBasedCheck {
 
     public static final String RULE_KEY = "GCI523";

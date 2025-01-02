@@ -25,6 +25,7 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = ProvidePrintCSS.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC30")
 public class ProvidePrintCSS implements EslintBasedCheck {
 
     public static final String RULE_KEY = "GCI30";
