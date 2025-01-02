@@ -1,15 +1,15 @@
 {
   "name": "ecoCode",
   "ruleKeys": [
-    "EC9",
-    "EC11",
-    "EC12",
-    "EC24",
-    "EC25",
-    "EC26",
-    "EC29",
-    "EC30",
-    "EC523",
-    "EC530"
+    "GCI9",
+    "GCI11",
+    "GCI12",
+    "GCI24",
+    "GCI25",
+    "GCI26",
+    "GCI29",
+    "GCI30",
+    "GCI523",
+    "GCI530"
   ]
 }

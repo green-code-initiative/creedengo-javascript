@@ -25,9 +25,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = NoMultipleAccessDomElement.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC11")
 public class NoMultipleAccessDomElement implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC11";
+    public static final String RULE_KEY = "GCI11";
 
     @Override
     public String eslintKey() {

@@ -25,9 +25,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = LimitDbQueryResult.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC24")
 public class LimitDbQueryResult implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC24";
+    public static final String RULE_KEY = "GCI24";
 
     @Override
     public String eslintKey() {

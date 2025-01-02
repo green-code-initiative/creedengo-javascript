@@ -25,9 +25,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = NoMultipleStyleChanges.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC12")
 public class NoMultipleStyleChanges implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC12";
+    public static final String RULE_KEY = "GCI12";
 
     @Override
     public String eslintKey() {

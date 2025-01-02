@@ -25,9 +25,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = NoEmptyImageSrcAttribute.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC25")
 public class NoEmptyImageSrcAttribute implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC25";
+    public static final String RULE_KEY = "GCI25";
 
     @Override
     public String eslintKey() {

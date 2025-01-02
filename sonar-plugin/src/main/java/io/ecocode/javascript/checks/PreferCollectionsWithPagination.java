@@ -23,9 +23,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 
 @TypeScriptRule
 @Rule(key = PreferCollectionsWithPagination.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC13")
 public class PreferCollectionsWithPagination implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC13";
+    public static final String RULE_KEY = "GCI13";
 
     @Override
     public String eslintKey() {

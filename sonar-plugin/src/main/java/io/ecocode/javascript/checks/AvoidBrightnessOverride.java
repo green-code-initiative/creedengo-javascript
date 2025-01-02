@@ -25,9 +25,10 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = AvoidBrightnessOverride.RULE_KEY)
+@DeprecatedRuleKey(ruleKey = "EC522")
 public class AvoidBrightnessOverride implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "EC522";
+    public static final String RULE_KEY = "GCI522";
 
     @Override
     public String eslintKey() {
