@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       strategy:
-        description: 'Strategy of semantic version to apply'
+        description: "Strategy of semantic version to apply"
         required: true
         type: choice
         options:
@@ -37,7 +37,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Use JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: ${{ env.JDK_VERSION }}
@@ -94,7 +94,7 @@ jobs:
           tag_name: ${{ steps.package-version.outputs.version }}
           body: ${{ steps.extract-release-notes.outputs.release_notes }}
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: sonar-plugin/target/ecocode-javascript-plugin-${{ steps.package-version.outputs.version }}.jar
+          files: sonar-plugin/target/creedengo-javascript-plugin-${{ steps.package-version.outputs.version }}.jar
 
   prepare-next-release:
     name: Prepare next release
@@ -108,7 +108,7 @@ jobs:
           token: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Use JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: ${{ env.JDK_VERSION }}

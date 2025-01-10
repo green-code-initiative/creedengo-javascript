@@ -1,6 +1,6 @@
 name: 🐞 Bug Report
-description: This form is to report unexpected behavior in ecoCode-javascript.
-labels: [ "💉 bug: unconfirmed" ]
+description: This form is to report unexpected behavior in creedengo-javascript.
+labels: ["💉 bug: unconfirmed"]
 body:
   - type: markdown
     attributes:
@@ -40,8 +40,8 @@ body:
   - type: input
     id: plugin-version
     attributes:
-      label: ecoCode-javascript Version
-      description: Please provide the version of ecoCode-javascript that you are using.
+      label: creedengo-javascript Version
+      description: Please provide the version of creedengo-javascript that you are using.
     validations:
       required: true
   - type: input

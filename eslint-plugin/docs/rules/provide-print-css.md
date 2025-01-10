@@ -1,4 +1,4 @@
-# Enforce providing a print stylesheet (`@ecocode/provide-print-css`)
+# Enforce providing a print stylesheet (`@creedengo/provide-print-css`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

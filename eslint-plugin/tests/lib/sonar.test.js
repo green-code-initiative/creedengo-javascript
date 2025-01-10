@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ describe("sonar.js", () => {
   it("should export all rules with a specific rule id pattern", () => {
     const { rules } = require("../../lib/sonar");
     assert.notEqual(rules.length, 0);
-    assert.match(rules[0].ruleId, /@ecocode\/.*/);
+    assert.match(rules[0].ruleId, /@creedengo\/.*/);
     assert.equal(rules[0].ruleConfig.length, 0);
   });
 });

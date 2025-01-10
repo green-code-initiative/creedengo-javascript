@@ -1,4 +1,4 @@
-# Avoid usage of CSS animations (`@ecocode/avoid-css-animations`)
+# Avoid usage of CSS animations (`@creedengo/avoid-css-animations`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

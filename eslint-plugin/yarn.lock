@@ -247,9 +247,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ecocode/eslint-plugin@workspace:.":
+"@creedengo/eslint-plugin@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@ecocode/eslint-plugin@workspace:."
+  resolution: "@creedengo/eslint-plugin@workspace:."
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^5.62.0"
     "@typescript-eslint/parser": "npm:^5.62.0"

@@ -1,10 +1,10 @@
 ---
-name: sonarqube_ecocode_javascript
+name: sonarqube_creedengo_javascript
 
 services:
   sonar:
     image: sonarqube:10.7-community
-    container_name: sonar_ecocode_javascript
+    container_name: sonar_creedengo_javascript
     ports:
       - "9000:9000"
     networks:
@@ -19,8 +19,8 @@ services:
       SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
     volumes:
       - type: bind
-        source: ./sonar-plugin/target/ecocode-javascript-plugin-1.5.1-SNAPSHOT.jar
-        target: /opt/sonarqube/extensions/plugins/ecocode-javascript-plugin-1.5.1-SNAPSHOT.jar
+        source: ./sonar-plugin/target/creedengo-javascript-plugin-1.5.1-SNAPSHOT.jar
+        target: /opt/sonarqube/extensions/plugins/creedengo-javascript-plugin-1.5.1-SNAPSHOT.jar
       - "extensions:/opt/sonarqube/extensions"
       - "logs:/opt/sonarqube/logs"
       - "data:/opt/sonarqube/data"
@@ -32,7 +32,7 @@ services:
 
   db:
     image: postgres:16-alpine
-    container_name: postgresql_ecocode_javascript
+    container_name: postgresql_creedengo_javascript
     networks:
       - sonarnet
     volumes:

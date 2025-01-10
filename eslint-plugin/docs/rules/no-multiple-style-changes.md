@@ -1,4 +1,4 @@
-# Disallow multiple style changes at once (`@ecocode/no-multiple-style-changes`)
+# Disallow multiple style changes at once (`@creedengo/no-multiple-style-changes`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

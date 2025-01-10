@@ -3,32 +3,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.ecocode</groupId>
-    <artifactId>ecocode-javascript-plugin</artifactId>
+    <groupId>org.green-code-initiative</groupId>
+    <artifactId>creedengo-javascript-plugin</artifactId>
     <version>1.5.1-SNAPSHOT</version>
 
     <packaging>sonar-plugin</packaging>
 
-    <name>ecoCode JavaScript plugin</name>
+    <name>Creedengo JavaScript plugin</name>
     <description>Provides rules to reduce the environmental footprint of your JavaScript programs</description>
     <inceptionYear>2023</inceptionYear>
 
-    <url>https://github.com/green-code-initiative/ecoCode-javascript</url>
+    <url>https://github.com/green-code-initiative/creedengo-javascript</url>
     <organization>
         <name>green-code-initiative</name>
         <url>https://github.com/green-code-initiative</url>
     </organization>
 
     <scm>
-        <connection>scm:git:https://github.com/green-code-initiative/ecocode-javascript</connection>
-        <developerConnection>scm:git:https://github.com/green-code-initiative/ecocode-javascript</developerConnection>
-        <url>https://github.com/green-code-initiative/ecocode-javascript</url>
+        <connection>scm:git:https://github.com/green-code-initiative/creedengo-javascript</connection>
+        <developerConnection>scm:git:https://github.com/green-code-initiative/creedengo-javascript</developerConnection>
+        <url>https://github.com/green-code-initiative/creedengo-javascript</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/green-code-initiative/ecocode-javascript/issues</url>
+        <url>https://github.com/green-code-initiative/creedengo-javascript/issues</url>
     </issueManagement>
 
     <licenses>
@@ -49,7 +49,7 @@
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-        <version.ecocode-rules-specifications>1.6.4</version.ecocode-rules-specifications>
+        <version.creedengo-rules-specifications>2.1.0</version.creedengo-rules-specifications>
         <version.sonarqube>9.14.0.375</version.sonarqube>
         <version.sonar-javascript>9.13.0.20537</version.sonar-javascript>
         <version.sonar-packaging>1.23.0.740</version.sonar-packaging>
@@ -68,9 +68,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>io.ecocode</groupId>
-            <artifactId>ecocode-rules-specifications</artifactId>
-            <version>${version.ecocode-rules-specifications}</version>
+            <groupId>org.green-code-initiative</groupId>
+            <artifactId>creedengo-rules-specifications</artifactId>
+            <version>${version.creedengo-rules-specifications}</version>
             <classifier>javascript</classifier>
         </dependency>
 
@@ -135,9 +135,9 @@
                 <version>${version.sonar-packaging}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <pluginKey>ecocodejavascript</pluginKey>
+                    <pluginKey>creedengojavascript</pluginKey>
                     <pluginName>${project.name}</pluginName>
-                    <pluginClass>io.ecocode.javascript.JavaScriptPlugin</pluginClass>
+                    <pluginClass>org.greencodeinitiative.creedengo.javascript.JavaScriptPlugin</pluginClass>
                     <sonarLintSupported>false</sonarLintSupported>
                     <pluginApiMinVersion>${version.sonarqube}</pluginApiMinVersion>
                     <skipDependenciesPackaging>true</skipDependenciesPackaging>
@@ -172,7 +172,7 @@
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>org.*:*</artifact>
+                                    <artifact>org.sonarsource.*:*</artifact>
                                     <excludes>
                                         <exclude>META-INF/**</exclude>
                                         <exclude>javax/annotation/**</exclude>
@@ -264,7 +264,7 @@
                 <configuration>
                     <properties>
                         <owner>Green Code Initiative</owner>
-                        <email>https://www.ecocode.io</email>
+                        <email>https://green-code-initiative.org</email>
                     </properties>
                     <licenseSets>
                         <licenseSet>
