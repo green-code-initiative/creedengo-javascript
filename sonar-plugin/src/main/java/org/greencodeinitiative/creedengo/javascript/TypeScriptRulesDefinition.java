@@ -47,7 +47,7 @@ public class TypeScriptRulesDefinition implements RulesDefinition {
         List<Class<?>> checks = Collections.unmodifiableList(CheckList.getTypeScriptChecks());
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
-        EcoCodeRule.addOnRepository(repository, TypeScriptRuleRepository.OLD_KEY, checks);
+        DeprecatedEcoCodeRule.addOnRepository(repository, TypeScriptRuleRepository.OLD_KEY, checks);
 
         repository.done();
     }

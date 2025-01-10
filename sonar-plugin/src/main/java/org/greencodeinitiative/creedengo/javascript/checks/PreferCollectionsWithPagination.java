@@ -17,14 +17,14 @@
  */
 package org.greencodeinitiative.creedengo.javascript.checks;
 
-import org.greencodeinitiative.creedengo.javascript.EcoCodeRule;
+import org.greencodeinitiative.creedengo.javascript.DeprecatedEcoCodeRule;
 import org.sonar.check.Rule;
 import org.sonar.plugins.javascript.api.EslintBasedCheck;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
 
 @TypeScriptRule
 @Rule(key = PreferCollectionsWithPagination.RULE_KEY)
-@EcoCodeRule.Key("EC13")
+@DeprecatedEcoCodeRule.Key("EC13")
 public class PreferCollectionsWithPagination implements EslintBasedCheck {
 
     public static final String RULE_KEY = "GCI13";

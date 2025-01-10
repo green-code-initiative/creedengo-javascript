@@ -47,7 +47,7 @@ public class JavaScriptRulesDefinition implements RulesDefinition {
         List<Class<?>> checks = Collections.unmodifiableList(CheckList.getJavaScriptChecks());
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
-        EcoCodeRule.addOnRepository(repository, JavaScriptRuleRepository.OLD_KEY, checks);
+        DeprecatedEcoCodeRule.addOnRepository(repository, JavaScriptRuleRepository.OLD_KEY, checks);
 
         repository.done();
     }

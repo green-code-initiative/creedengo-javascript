@@ -17,7 +17,7 @@
  */
 package org.greencodeinitiative.creedengo.javascript.checks;
 
-import org.greencodeinitiative.creedengo.javascript.EcoCodeRule;
+import org.greencodeinitiative.creedengo.javascript.DeprecatedEcoCodeRule;
 import org.sonar.check.Rule;
 import org.sonar.plugins.javascript.api.EslintBasedCheck;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
@@ -26,7 +26,7 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = AvoidCSSAnimations.RULE_KEY)
-@EcoCodeRule.Key("EC29")
+@DeprecatedEcoCodeRule.Key("EC29")
 public class AvoidCSSAnimations implements EslintBasedCheck {
 
     public static final String RULE_KEY = "GCI29";

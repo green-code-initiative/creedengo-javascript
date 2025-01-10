@@ -29,7 +29,7 @@ import org.sonar.check.Rule;
 /**
  * Used to handle old ecoCode rule keys.
  */
-public class EcoCodeRule {
+public class DeprecatedEcoCodeRule {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ ElementType.TYPE })
