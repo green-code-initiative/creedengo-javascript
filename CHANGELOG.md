@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   [#39](https://github.com/green-code-initiative/creedengo-javascript/issues/39) Add rule `@creedengo/avoid-brightness-override` (GCI522)
 -   [#41](https://github.com/green-code-initiative/creedengo-javascript/pull/41) Add rule `@creedengo/no-torch` (GCI530)
--   Rename plugin to creedengo-javascript
--   Add support for SonarQube up to 10.7
+-   [#58](https://github.com/green-code-initiative/creedengo-javascript/pull/58) Add support for SonarQube up to 25.1
 
 ### Changed
 
+-   [#56](https://github.com/green-code-initiative/creedengo-javascript/issues/56) **BREAKING:** Rename plugin to creedengo-javascript
 -   [#44](https://github.com/green-code-initiative/creedengo-javascript/pull/44) Implement the rule GCI523 for React Native
 -   [#52](https://github.com/green-code-initiative/creedengo-javascript/pull/52) Remove trailing dots in Sonar rules descriptions
 -   Update Docker Compose configuration file to V2
