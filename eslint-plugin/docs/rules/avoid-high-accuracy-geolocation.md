@@ -1,4 +1,4 @@
-# Avoid using high accuracy geolocation in web applications (`@ecocode/avoid-high-accuracy-geolocation`)
+# Avoid using high accuracy geolocation in web applications (`@creedengo/avoid-high-accuracy-geolocation`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

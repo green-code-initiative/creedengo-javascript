@@ -1,4 +1,4 @@
-# Should not import all from library (`@ecocode/no-import-all-from-library`)
+# Should not import all from library (`@creedengo/no-import-all-from-library`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 
