@@ -53,6 +53,8 @@ ruleTester.run("avoid-css-animations", rule, {
     `,
     `<div style={{ width: '100px', height: '100px' }}>Hello world</div>`,
     `<div style="border: 2px solid red">My red element</div>`,
+    // spread attributes should not throw an error (#49)
+    "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
   ],
 
   invalid: [
