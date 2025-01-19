@@ -73,6 +73,8 @@ ruleTester.run("prefer-shorthand-css-notations", rule, {
       code: "<div style={{ animationName: 'example', animationDuration: '5s' }}/>",
       options: [{ disableProperties: ["animation"] }],
     },
+    // spread attributes should not throw an error (#49)
+    "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
   ],
   invalid: [
     {

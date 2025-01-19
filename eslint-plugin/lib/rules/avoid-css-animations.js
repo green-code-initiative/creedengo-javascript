@@ -37,7 +37,7 @@ module.exports = {
     return {
       JSXOpeningElement(node) {
         const styleAttribute = node.attributes.find(
-          (attribute) => attribute.name.name === "style",
+          (attribute) => attribute.name?.name === "style",
         );
 
         if (styleAttribute?.value.expression) {
