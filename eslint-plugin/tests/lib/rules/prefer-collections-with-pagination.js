@@ -30,6 +30,7 @@ const RuleTester = require("eslint").RuleTester;
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
+  // eslint-disable-next-line node/no-missing-require
   parser: require.resolve("@typescript-eslint/parser"),
 });
 
@@ -46,35 +47,35 @@ ruleTester.run("prefer-collections-with-pagination", rule, {
   valid: [
     `
     @Controller()
-    public class Test {
+    class Test {
         @Get()
         public find(): Page {}
     }
     `,
     `
     @Controller()
-    public class Test {
+    class Test {
         @Get()
         public find(): Promise<Pagination> {}
     }
     `,
     `
     @Controller()
-    public class Test {
+    class Test {
         @Get()
         public find() {}
     }
     `,
     `
     @Controller()
-    public class Test {
+    class Test {
         @Get(':id')
         public findOne(): Promise<string> {}
     }
     `,
     `
     @Controller()
-    public class Test {
+    class Test {
         @Get()
         public find(): Promise<{items: string[], currentPage: number, totalPages: number}> {}
     }
@@ -83,42 +84,42 @@ ruleTester.run("prefer-collections-with-pagination", rule, {
   invalid: [
     {
       code: `
-    @Controller()
-    public class Test {
-        @Get()
-        public find(): Promise<string[]> {}
-    }
-    `,
+        @Controller()
+        class Test {
+            @Get()
+            public find(): Promise<string[]> {}
+        }
+      `,
       errors: [expectedReferenceError],
     },
     {
       code: `
-    @Controller()
-    public class Test {
-        @Get()
-        public find(): Promise<ClassicList> {}
-    }
-    `,
+        @Controller()
+        class Test {
+            @Get()
+            public find(): Promise<ClassicList> {}
+        }
+      `,
       errors: [expectedReferenceError],
     },
     {
       code: `
-    @Controller()
-    public class Test {
-        @Get()
-        public find(): string[] {}
-    }
-    `,
+        @Controller()
+        class Test {
+            @Get()
+            public find(): string[] {}
+        }
+      `,
       errors: [expectedArrayError],
     },
     {
       code: `
-    @Controller()
-    public class Test {
-        @Get()
-        public find(): Promise<{items: string[]}> {}
-    }
-    `,
+        @Controller()
+        class Test {
+            @Get()
+            public find(): Promise<{items: string[]}> {}
+        }
+      `,
       errors: [expectedReferenceError],
     },
   ],
