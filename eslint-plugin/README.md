@@ -57,6 +57,16 @@ Add `@creedengo` to the `plugins` section of your `.eslintrc`, followed by rules
 }
 ```
 
+## ⚙ Configs
+
+<!-- begin auto-generated configs list -->
+
+|    | Name          |
+| :- | :------------ |
+| ✅  | `recommended` |
+
+<!-- end auto-generated configs list -->
+
 ## 🔨 Rules
 
 <!-- begin auto-generated rules list -->

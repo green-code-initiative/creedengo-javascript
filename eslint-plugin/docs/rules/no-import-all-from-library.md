@@ -17,6 +17,15 @@ leading to faster execution and improved overall performance.
 
 ## Options
 
+<!-- begin auto-generated rule options list -->
+
+| Name                                   | Type     |
+| :------------------------------------- | :------- |
+| `importByNamespaceNotAllowedLibraries` | String[] |
+| `notAllowedLibraries`                  | String[] |
+
+<!-- end auto-generated rule options list -->
+
 You can externally add your own libraries to be checked.
 To add your own libraries you need to modify your .eslintrc.js by adding the following rule configuration:
 
@@ -52,10 +61,10 @@ import _ from "underscore";
 
 **Size of your bundle, if you use the whole lodash library:**
 
-* **index.js - 531.46 KB**
-    * node_modules/lodash - 531.35 KB
-        * lodash.js - 531.35 KB
-    * index.js - 112 B
+- **index.js - 531.46 KB**
+  - node_modules/lodash - 531.35 KB
+    - lodash.js - 531.35 KB
+  - index.js - 112 B
 
 ---
 
@@ -72,13 +81,13 @@ import map from "underscore/modules/map.js";
 
 Size of your bundle, if you use only the "isEmpty" method:
 
-* **index.js - 24.42 KB**
-    * node_modules/lodash - 24.31 KB
-        * isEmpty - 1.95 KB
-        * _nodeUtil.js - 995 B
-        * isArrayLike.js - 830 B
-        * ...
-    * index.js - 110 B
+- **index.js - 24.42 KB**
+  - node_modules/lodash - 24.31 KB
+    - isEmpty - 1.95 KB
+    - \_nodeUtil.js - 995 B
+    - isArrayLike.js - 830 B
+    - ...
+  - index.js - 110 B
 
 ## Resources
 
