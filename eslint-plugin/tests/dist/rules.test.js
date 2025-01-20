@@ -18,9 +18,9 @@
 
 const assert = require("assert");
 
-describe("sonar.js", () => {
+describe("rules.js", () => {
   it("should export all rules with a specific rule id pattern", () => {
-    const { rules } = require("../../lib/sonar");
+    const { rules } = require("../../dist/rules");
     assert.notEqual(rules.length, 0);
     assert.match(rules[0].ruleId, /@creedengo\/.*/);
     assert.equal(rules[0].ruleConfig.length, 0);

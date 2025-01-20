@@ -22,7 +22,7 @@
  */
 "use strict";
 
-const rules = require("./rule-list");
+const rules = require("../lib/rule-list");
 
 module.exports = {
   rules: rules.map((rule) => ({
