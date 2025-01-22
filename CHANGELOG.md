@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-01-22
+
 ### Added
 
 -   [#39](https://github.com/green-code-initiative/creedengo-javascript/issues/39) Add rule `@creedengo/avoid-brightness-override` (GCI522)
@@ -83,7 +85,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Setup basic coding style tools
 -   Write complete contributing guide
 
-[Unreleased]: https://github.com/green-code-initiative/ecoCode-javascript/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/green-code-initiative/creedengo-javascript/compare/2.0.0...HEAD
+
+[2.0.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/1.5.0...2.0.0
 
 [1.5.0]: https://github.com/green-code-initiative/ecoCode-javascript/compare/1.4.0...1.5.0
 
