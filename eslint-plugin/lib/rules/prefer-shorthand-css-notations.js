@@ -86,7 +86,7 @@ module.exports = {
         const styleAttribute = node.attributes.find(
           (attr) => attr.name?.name === "style",
         );
-        if (styleAttribute) {
+        if (styleAttribute?.value.expression?.properties) {
           const nodePropertyNames =
             styleAttribute.value.expression.properties.map(
               (property) => property.key.name,
