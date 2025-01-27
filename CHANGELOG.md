@@ -9,11 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Add rule EC36
+-   [#40](https://github.com/green-code-initiative/creedengo-javascript/pull/40) Add rule `@creedengo/avoid-autoplay` (GCI36)
+
+## [2.0.0] - 2025-01-22
+
+### Added
+
+-   [#39](https://github.com/green-code-initiative/creedengo-javascript/issues/39) Add rule `@creedengo/avoid-brightness-override` (GCI522)
+-   [#41](https://github.com/green-code-initiative/creedengo-javascript/pull/41) Add rule `@creedengo/no-torch` (GCI530)
+-   [#58](https://github.com/green-code-initiative/creedengo-javascript/pull/58) Add support for SonarQube up to 25.1
 
 ### Changed
 
+-   [#56](https://github.com/green-code-initiative/creedengo-javascript/issues/56) **BREAKING:** Rename plugin to creedengo-javascript
+-   [#44](https://github.com/green-code-initiative/creedengo-javascript/pull/44) Implement the rule GCI523 for React Native
+-   [#52](https://github.com/green-code-initiative/creedengo-javascript/pull/52) Remove trailing dots in Sonar rules descriptions
+-   [#62](https://github.com/green-code-initiative/creedengo-javascript/pull/62) Fix style attribute checks in GCI26 and GCI29
 -   Update Docker Compose configuration file to V2
+
+### Deleted
+
+-   [#44](https://github.com/green-code-initiative/creedengo-javascript/pull/44) Merge the rule EC8 with GCI523
 
 ## [1.5.0] - 2024-03-13
 
@@ -73,7 +89,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Setup basic coding style tools
 -   Write complete contributing guide
 
-[Unreleased]: https://github.com/green-code-initiative/ecoCode-javascript/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/green-code-initiative/creedengo-javascript/compare/2.0.0...HEAD
+
+[2.0.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/1.5.0...2.0.0
 
 [1.5.0]: https://github.com/green-code-initiative/ecoCode-javascript/compare/1.4.0...1.5.0
 

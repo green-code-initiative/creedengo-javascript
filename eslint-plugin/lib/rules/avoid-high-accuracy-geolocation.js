@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,12 +18,16 @@
 
 "use strict";
 
+const geolocationLibrariesMethods = {
+  "expo-location": ["enableNetworkProviderAsync"],
+};
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "Avoid using high accuracy geolocation in web applications.",
+      description: "Avoid using high accuracy geolocation in web applications",
       category: "eco-design",
       recommended: "warn",
     },
@@ -33,15 +37,41 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
+    const librariesFoundInImports = [];
+
     return {
+      ImportDeclaration(node) {
+        const currentLibrary = node.source.value;
+
+        if (geolocationLibrariesMethods[currentLibrary]) {
+          librariesFoundInImports.push(currentLibrary);
+        }
+      },
+      MemberExpression(node) {
+        if (librariesFoundInImports.length === 0) {
+          return;
+        }
+
+        if (
+          librariesFoundInImports.some((library) =>
+            geolocationLibrariesMethods[library].includes(node.property.name),
+          )
+        ) {
+          reportAvoidUsingAccurateGeolocation(context, node);
+        }
+      },
       Property(node) {
         if (
           node?.key.name === "enableHighAccuracy" &&
           node?.value.value === true
         ) {
-          context.report({ node, messageId: "AvoidUsingAccurateGeolocation" });
+          reportAvoidUsingAccurateGeolocation(context, node);
         }
       },
     };
   },
 };
+
+function reportAvoidUsingAccurateGeolocation(context, node) {
+  context.report({ node, messageId: "AvoidUsingAccurateGeolocation" });
+}

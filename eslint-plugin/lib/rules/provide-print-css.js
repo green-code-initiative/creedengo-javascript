@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,14 +43,11 @@ module.exports = {
           } else if (child.expression != null) {
             if (child.expression.value != null) {
               element = child.expression.value;
-            } else if (
-              child.expression.quasis != null &&
-              child.expression.quasis.length > 0
-            ) {
+            } else if (child.expression.quasis?.length > 0) {
               element = child.expression.quasis[0].value.cooked;
             }
           }
-          return element != null && element.includes("@media print");
+          return element?.includes("@media print");
         })
       );
     };
@@ -71,10 +68,7 @@ module.exports = {
           );
 
           if (!hasValidElement) {
-            context.report({
-              node: node,
-              messageId: "noPrintCSSProvided",
-            });
+            context.report({ node, messageId: "noPrintCSSProvided" });
           }
         }
       },

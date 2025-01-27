@@ -1,4 +1,4 @@
-# Disallow autoplay and enforce preload='none' for video and audio elements (`@ecocode/avoid-autoplay`)
+# Disallow autoplay and enforce preload='none' for video and audio elements (`@creedengo/avoid-autoplay`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

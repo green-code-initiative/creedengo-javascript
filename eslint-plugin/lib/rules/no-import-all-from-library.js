@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,18 +74,14 @@ module.exports = {
       ImportDeclaration(node) {
         const currentLibrary = node.source.value;
 
-        if (notAllowedLibraries.includes(currentLibrary)) {
-          context.report({
-            node,
-            messageId: "ShouldNotImportAllFromLibrary",
-            data: { library: currentLibrary },
-          });
-        } else if (
+        const forbiddenByName = notAllowedLibraries.includes(currentLibrary);
+        const forbiddenByNamespace =
           importByNamespaceNotAllowedLibraries.includes(currentLibrary) &&
           node.specifiers.some(
             (specifier) => specifier.type === "ImportNamespaceSpecifier",
-          )
-        ) {
+          );
+
+        if (forbiddenByName || forbiddenByNamespace) {
           context.report({
             node,
             messageId: "ShouldNotImportAllFromLibrary",
