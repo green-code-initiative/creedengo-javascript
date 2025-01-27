@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,18 +23,15 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      description:
-        "Disallow autoplay and enforce preload='none' for video and audio elements",
+      description: "Avoid autoplay for videos and audio content",
       category: "eco-design",
       recommended: "warn",
     },
     messages: {
-      NoAutoplay:
-        "Avoid using autoplay attribute for <video> and <audio> elements. Reference to Rule RGESN 4.1 : https://www.arcep.fr/mes-demarches-et-services/entreprises/fiches-pratiques/referentiel-general-ecoconception-services-numeriques.html",
-      EnforcePreloadNone:
-        "Set preload='none' for <video> and <audio> elements. Reference to Rule RGESN 4.1 : https://www.arcep.fr/mes-demarches-et-services/entreprises/fiches-pratiques/referentiel-general-ecoconception-services-numeriques.html",
-      NoAutoplay_EnforcePreloadNone:
-        "Avoid using autoplay attribute and set preload='none' for <video> and <audio> elements. Reference to Rule RGESN 4.1 : https://www.arcep.fr/mes-demarches-et-services/entreprises/fiches-pratiques/referentiel-general-ecoconception-services-numeriques.html ",
+      NoAutoplay: "Avoid autoplay for video and audio elements.",
+      EnforcePreloadNone: "Set preload='none' for video and audio elements.",
+      NoAutoplayAndEnforcePreloadNone:
+        "Avoid autoplay and set preload='none' for video and audio elements.",
     },
     schema: [],
   },
@@ -43,10 +40,10 @@ module.exports = {
       JSXOpeningElement(node) {
         if (node.name.name === "video" || node.name.name === "audio") {
           const autoplayAttr = node.attributes.find(
-            (attr) => attr.name.name === "autoplay",
+            (attr) => attr.name?.name.toLowerCase() === "autoplay",
           );
           const preloadAttr = node.attributes.find(
-            (attr) => attr.name.name === "preload",
+            (attr) => attr.name?.name.toLowerCase() === "preload",
           );
           if (
             autoplayAttr &&
@@ -54,7 +51,7 @@ module.exports = {
           ) {
             context.report({
               node: autoplayAttr || preloadAttr,
-              messageId: "NoAutoplay_EnforcePreloadNone",
+              messageId: "NoAutoplayAndEnforcePreloadNone",
             });
           } else {
             if (autoplayAttr) {

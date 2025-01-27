@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,47 +38,50 @@ const ruleTester = new RuleTester({
     },
   },
 });
-const expectedError1 = {
+
+const noAutoplayError = {
   messageId: "NoAutoplay",
   type: "JSXAttribute",
 };
-const expectedError2 = {
+const enforcePreloadNoneError = {
   messageId: "EnforcePreloadNone",
   type: "JSXAttribute",
 };
-const expectedError3 = {
-  messageId: "NoAutoplay_EnforcePreloadNone",
+const BothError = {
+  messageId: "NoAutoplayAndEnforcePreloadNone",
   type: "JSXAttribute",
 };
 
 ruleTester.run("autoplay-audio-video-attribute-not-present", rule, {
   valid: [
-    `
-      <audio preload="none"></audio>
-    `,
+    '<audio preload="none"></audio>',
     '<video preload="none"></video>',
+    '<video preload="none" {...props}></video>',
   ],
-
   invalid: [
     {
-      code: `
-        <audio autoplay></audio>
-      `,
-      errors: [expectedError3],
+      code: "<audio autoplay></audio>",
+      errors: [BothError],
     },
     {
-      code: `
-        <video autoplay preload="auto"></video>
-           `,
-      errors: [expectedError3],
+      code: "<audio autoPlay></audio>",
+      errors: [BothError],
+    },
+    {
+      code: "<audio autoPlay={true}></audio>",
+      errors: [BothError],
+    },
+    {
+      code: '<video autoplay preload="auto"></video>',
+      errors: [BothError],
     },
     {
       code: '<video autoplay preload="none"></video>',
-      errors: [expectedError1],
+      errors: [noAutoplayError],
     },
     {
-      code: '<audio  preload="auto"></audio>',
-      errors: [expectedError2],
+      code: '<audio preload="auto"></audio>',
+      errors: [enforcePreloadNoneError],
     },
   ],
 });

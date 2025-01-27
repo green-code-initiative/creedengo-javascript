@@ -1,8 +1,4 @@
-# Disallow autoplay and enforce preload='none' for video and audio elements (`@creedengo/avoid-autoplay`)
-
-⚠️ This rule _warns_ in the ✅ `recommended` config.
-
-<!-- end auto-generated rule header -->
+# Avoid autoplay for videos and audio content (`@creedengo/avoid-autoplay`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 
@@ -43,5 +39,6 @@ This rule is build for [React](https://react.dev/) and JSX.
 - [Mozilla Web Technology for Developers](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-preload) -
   Preload in HTML
 - [W3C](https://w3c.github.io/sustyweb/star.html#UX16-1) - Autoplay attribute
+- [RGESN](https://www.arcep.fr/mes-demarches-et-services/entreprises/fiches-pratiques/referentiel-general-ecoconception-services-numeriques.html) - Reference Rule 4.1
 
 
