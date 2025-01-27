@@ -76,6 +76,7 @@ Add `@creedengo` to the `plugins` section of your `.eslintrc`, followed by rules
 
 | Name                                                                                   | Description                                               | ⚠️ |
 | :------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- |
+| [avoid-autoplay](docs/rules/avoid-autoplay.md)                                         | Avoid autoplay for videos and audio content               | ✅  |
 | [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                   | Should avoid to override brightness                       | ✅  |
 | [avoid-css-animations](docs/rules/avoid-css-animations.md)                             | Avoid usage of CSS animations                             | ✅  |
 | [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)       | Avoid using high accuracy geolocation in web applications | ✅  |

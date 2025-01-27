@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   [#40](https://github.com/green-code-initiative/creedengo-javascript/pull/40) Add rule `@creedengo/avoid-autoplay` (GCI36)
+
 ## [2.0.0] - 2025-01-22
 
 ### Added

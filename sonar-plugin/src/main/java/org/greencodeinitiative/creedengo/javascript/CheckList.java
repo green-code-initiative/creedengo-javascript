@@ -34,6 +34,7 @@ public class CheckList {
 
     public static List<Class<? extends JavaScriptCheck>> getAllChecks() {
         return Arrays.asList(
+                AvoidAutoPlay.class,
                 AvoidBrightnessOverride.class,
                 AvoidCSSAnimations.class,
                 AvoidHighAccuracyGeolocation.class,
