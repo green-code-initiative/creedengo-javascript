@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -84,9 +84,9 @@ module.exports = {
     return {
       JSXOpeningElement(node) {
         const styleAttribute = node.attributes.find(
-          (attr) => attr.name.name === "style",
+          (attr) => attr.name?.name === "style",
         );
-        if (styleAttribute) {
+        if (styleAttribute?.value.expression?.properties) {
           const nodePropertyNames =
             styleAttribute.value.expression.properties.map(
               (property) => property.key.name,

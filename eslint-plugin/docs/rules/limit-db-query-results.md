@@ -1,4 +1,4 @@
-# Should limit the number of returns for a SQL query (`@ecocode/limit-db-query-results`)
+# Should limit the number of returns for a SQL query (`@creedengo/limit-db-query-results`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

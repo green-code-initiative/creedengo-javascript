@@ -1,10 +1,8 @@
-# Prefer lighter formats for image files (`@ecocode/prefer-lighter-formats-for-image-files`)
+# Prefer lighter formats for image files (`@creedengo/prefer-lighter-formats-for-image-files`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
-
-⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 ## Why is this an issue?
 
