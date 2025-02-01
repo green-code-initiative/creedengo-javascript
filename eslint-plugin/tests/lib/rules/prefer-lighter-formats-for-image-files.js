@@ -38,10 +38,7 @@ const ruleTester = new RuleTester({
     },
   },
 });
-const defineFormatsForImageFilesError = {
-  messageId: "DefineFormatsForImageFiles",
-  type: "JSXOpeningElement",
-};
+
 const preferLighterFormatsForImageFilesError = {
   messageId: "PreferLighterFormatsForImageFiles",
   type: "JSXOpeningElement",
@@ -65,6 +62,9 @@ ruleTester.run("prefer-lighter-formats-for-image-files", rule, {
       </picture>
     `,
     `
+      <img src="./assets/images/cat" alt="A cat" />
+    `,
+    `
       <img src="" alt="" />
     `,
   ],
@@ -81,24 +81,6 @@ ruleTester.run("prefer-lighter-formats-for-image-files", rule, {
         <img src="./assets/images/cat.png" alt="A cat"/>
       `,
       errors: [preferLighterFormatsForImageFilesError],
-    },
-    {
-      code: `
-        <img src="./assets/images/cat" alt="A cat"/>
-      `,
-      errors: [defineFormatsForImageFilesError],
-    },
-    {
-      code: `
-        <img src="assets/images.dir/cat" alt="A cat"/>
-      `,
-      errors: [defineFormatsForImageFilesError],
-    },
-    {
-      code: `
-        <img src="./assets/images.dir/cat" alt="A cat"/>
-      `,
-      errors: [defineFormatsForImageFilesError],
     },
   ],
 });

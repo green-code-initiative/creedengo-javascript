@@ -12,15 +12,17 @@ Some image formats are generally considered better for eco-friendly web design a
 
 We recommend using the following formats:
 
-- *WebP*, developed by Google, is a modern image format that provides high compression efficiency without significant loss of quality.
-- *AVIF* (AV1 Image File Format) is a relatively new and highly efficient image format that is based on the AV1 video codec.
-- *SVG* (Scalable Vector Graphics) is a vector image format that is based on XML.
-Files are lightweight and can be scaled without loss of quality.
+- **WebP**, developed by Google, is a modern image format that provides high compression efficiency without significant loss of quality.
+- **AVIF** (AV1 Image File Format) is a relatively new and highly efficient image format that is based on the AV1 video codec.
+- **SVG** (Scalable Vector Graphics) is a vector image format that is based on XML.
+  Files are lightweight and can be scaled without loss of quality.
 
 ```html
-<img src="./assets/images/cat.jpg" alt="Unoptimized image of a cat"/> // Non-compliant
+<img src="./assets/images/cat.jpg" alt="Unoptimized image of a cat" /> //
+Non-compliant
 
-<img src="./assets/images/cat.webp" alt="Optimized image of a cat"/> // Compliant
+<img src="./assets/images/cat.webp" alt="Optimized image of a cat" /> //
+Compliant
 ```
 
 Remember that the best image format may vary depending on the specific use case, content, and requirements of your website.
@@ -43,7 +45,7 @@ Format importantly impacts images size: on average, .webp images will be 30% lig
 images or .png images. .avif images can be up to 20% lighter than .webp image and 50% lighter than .jepg images.
 
 Don't forget to pay attention to browser support. .webp images will not be recognized by
-old browsers and will not be displayed. It is possible to provide several formats for the same image 
+old browsers and will not be displayed. It is possible to provide several formats for the same image
 to overcome this issue. Some server-side modules (such as Google's modPageSpeed, also available for Apache
 and Nginx) even allow you to provide the appropriate image for the browser that is calling the server.
 
@@ -58,13 +60,13 @@ Many tools will help you minimize images size:
 ### Example
 
 In this example, the DOM <picture> element informs the browser that there are two images: a .webp image and a
-.jpg image, which is used by default. The browser will decide which image will be downloaded. If the .webp format 
+.jpg image, which is used by default. The browser will decide which image will be downloaded. If the .webp format
 is supported, the image.webp image will be downloaded; otherwise, image.jpg image will be downloaded.
 
 ```html
 <picture>
-    <source srcset="image.webp" type="image/webp">
-    <img src="image.jpg" alt="..." loading="lazy">
+  <source srcset="image.webp" type="image/webp" />
+  <img src="image.jpg" alt="..." loading="lazy" />
 </picture>
 ```
 
@@ -76,25 +78,11 @@ To address this issue, you can supply multiple formats for the same image.
 
 ### Documentation
 
-- https://github.com/cnumr/best-practices/blob/main/chapters/BP_080_en.md[CNUMR best practices] - Optimize images
+- [CNUMR best practices](https://github.com/cnumr/best-practices/blob/main/chapters/BP_080_en.md) - Optimize images
+- [WSG UX15-2](https://w3c.github.io/sustyweb/star.html#UX15-2) - Optimizing All Image Assets for a Variety of Different Resolutions
+- [RGESN 5.1](https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/critere/5.1/) - Référentiel général d'écoconception de services numériques 🇫🇷
 
 ### Articles & blog posts
 
-- https://greenspector.com/en/which-image-format-to-choose-to-reduce-its-energy-consumption-and-its-environmental-impact/[greenspector.com - Which image format choose to reduce energy consumption and environmental impact?]
-- https://dodonut.com/blog/use-cases-of-web-image-formats/[dodonut.com - The Most Efficient Web Image Formats. Use Cases For Different Types Of Images.]
-
-### WSG
-- [UX15-2: Optimizing All Image Assets for a Variety of Different Resolutions](https://w3c.github.io/sustyweb/star.html#UX15-2)
-
-### RGESN 5.1
-
-- https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/critere/5.1/
-
-#### Objective
-Reduce the size of files downloaded by users.
-
-#### How to implement
-Choose the image format best suited to the type of image and display context: use vector formats such as svg whenever possible (illustrations, icons, logos, graphs, etc.), jpg for photos and png for illustrations with solid colors.
-
-#### Means of test or control
-Evaluate the relevance of the image format displayed.
+- [greenspector.com - Which image format choose to reduce energy consumption and environmental impact?](https://greenspector.com/en/which-image-format-to-choose-to-reduce-its-energy-consumption-and-its-environmental-impact/)
+- [dodonut.com - The Most Efficient Web Image Formats. Use Cases For Different Types Of Images.](https://dodonut.com/blog/use-cases-of-web-image-formats/)

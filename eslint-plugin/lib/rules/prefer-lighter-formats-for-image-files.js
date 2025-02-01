@@ -28,14 +28,14 @@ module.exports = {
       recommended: "warn",
     },
     messages: {
-      DefineFormatsForImageFiles:
-        "You should define a format for your image files and use light formats such as {{ eligibleExtensions }}",
       PreferLighterFormatsForImageFiles:
-        "You should use lighter formats for image files such as : {{ eligibleExtensions }}",
+        "You should use lighter formats for image files such as {{ eligibleExtensions }}",
     },
     schema: [],
   },
   create(context) {
+    const eligibleExtensions = ["webp", "avif", "svg", "jxl"];
+
     return {
       JSXOpeningElement(node) {
         const tagName = node.name.name;
@@ -43,8 +43,6 @@ module.exports = {
 
         const parentTagName = node.parent?.parent?.openingElement?.name?.name;
         if (parentTagName?.toLowerCase() === "picture") return;
-
-        const eligibleExtensions = ["webp", "avif", "svg", "jxl"];
 
         const srcAttribut = node.attributes.find(
           (attr) => attr.name.name === "src",
@@ -57,14 +55,7 @@ module.exports = {
         srcValue = srcValue.substring(srcValue.lastIndexOf("/") + 1);
         const dotIndex = srcValue.lastIndexOf(".");
 
-        if (dotIndex === -1) {
-          context.report({
-            node,
-            messageId: "DefineFormatsForImageFiles",
-            data: { eligibleExtensions: eligibleExtensions.join(", ") },
-          });
-          return;
-        }
+        if (dotIndex === -1) return;
 
         const imgExtension = srcValue.substring(dotIndex + 1);
 
