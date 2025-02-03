@@ -45,6 +45,7 @@ public class CheckList {
                 NoMultipleStyleChanges.class,
                 NoTorch.class,
                 PreferCollectionsWithPagination.class,
+                PreferLighterFormatsForImageFiles.class,
                 PreferShorthandCSSNotations.class,
                 ProvidePrintCSS.class
         );
