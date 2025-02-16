@@ -1,4 +1,4 @@
-# Prefer API collections with pagination (`@ecocode/prefer-collections-with-pagination`)
+# Prefer API collections with pagination (`@creedengo/prefer-collections-with-pagination`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

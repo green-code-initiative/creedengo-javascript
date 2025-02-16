@@ -1,4 +1,4 @@
-# Disallow usage of image with empty source attribute (`@ecocode/no-empty-image-src-attribute`)
+# Disallow usage of image with empty source attribute (`@creedengo/no-empty-image-src-attribute`)
 
 ⚠️ This rule _warns_ in the ✅ `recommended` config.
 

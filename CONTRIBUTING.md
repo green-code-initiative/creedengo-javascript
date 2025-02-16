@@ -1,9 +1,9 @@
 ## Hello! We are pleased to see you here 👋
 
 Please read
-common [CONTRIBUTING.md](https://github.com/green-code-initiative/ecoCode-common/blob/main/doc/CONTRIBUTING.md)
-in `ecoCode-common` repository first.\
-Also check the [starter pack](https://github.com/green-code-initiative/ecoCode-common/blob/main/doc/starter-pack.md) to
+common [CONTRIBUTING.md](https://github.com/green-code-initiative/creedengo-common/blob/main/doc/CONTRIBUTING.md)
+in `creedengo-common` repository first.\
+Also check the [starter pack](https://github.com/green-code-initiative/creedengo-common/blob/main/doc/starter-pack.md) to
 have the basic information before starting.
 
 ## Structure
@@ -49,9 +49,9 @@ But it can be useful to prepare a test project to check the correct execution of
 
 ### Before starting
 
-Before even starting to implement the rule, it must have been discussed, mesured and documented in the ecoCode
+Before even starting to implement the rule, it must have been discussed, mesured and documented in the Creedengo
 referential. Please follow
-the [dedicated documentation](https://github.com/green-code-initiative/ecoCode/blob/main/ecocode-rules-specifications/README.md)
+the [dedicated documentation](https://github.com/green-code-initiative/creedengo-rules-specifications/blob/main/README.md#creedengo-rules-specification-repository)
 to find out how to proceed.
 
 ### In the ESLint plugin
@@ -74,11 +74,11 @@ The project itself uses ESLint to helps linting rule algorithms.
 
 ### In the SonarQube plugin
 
-Now that the rule has been implemented in the ecoCode referential and its implementation written in the ESLint plugin,
+Now that the rule has been implemented in the Creedengo referential and its implementation written in the ESLint plugin,
 all that remains is to reference it in the SonarQube plugin. Here are the simple steps:
 
-1. Create a Java class in `src/main/java/io/ecocode/javascript/checks/` with the declaration of the SonarQube key and
-   the ESLint key (check other classes to have an example)
+1. Create a Java class in `src/main/java/fr/greencodeinitiative/creedengo/javascript/checks/` with
+   the declaration of the SonarQube key and the ESLint key (check other classes to have an example)
 2. Reference created in method `getAllChecks()` of Java class `CheckList` (please use alphabetical order)
 3. Add the SonarQube key of the rule in the appropriate profile Json file.
 
