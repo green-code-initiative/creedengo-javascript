@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,12 +41,12 @@ const ruleTester = new RuleTester({
 
 const expectedErrorHook = {
   messageId: "AvoidKeepAwake",
-  type: "Identifier",
+  type: "CallExpression",
 };
 
 const expectedErrorFunction = {
   messageId: "AvoidKeepAwake",
-  type: "Identifier",
+  type: "CallExpression",
 };
 
 ruleTester.run("avoid-keep-awake", rule, {
@@ -68,10 +68,12 @@ ruleTester.run("avoid-keep-awake", rule, {
     {
       code: `
       import React from 'react';
+      import { useKeepAwake } from 'other-library';
       import { Button, View } from 'react-native';
       
       export default class ValidExample extends React.Component {
         render() {
+          useKeepAwake();
           return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             </View>

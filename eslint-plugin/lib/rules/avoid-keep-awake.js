@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,10 @@
 
 "use strict";
 
+const keepAwakeLibrariesMethods = {
+  "expo-keep-awake": ["activateKeepAwake", "useKeepAwake"],
+};
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -33,16 +37,25 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
+    const librariesFoundInImports = [];
+
     return {
-      Identifier(node) {
+      ImportDeclaration(node) {
+        const currentLibrary = node.source.value;
+
+        if (keepAwakeLibrariesMethods[currentLibrary]) {
+          librariesFoundInImports.push(currentLibrary);
+        }
+      },
+      CallExpression(node) {
+        if (librariesFoundInImports.length === 0) {
+          return;
+        }
+
         if (
-          node?.name === "useKeepAwake" &&
-          node?.parent.type === "CallExpression"
-        ) {
-          context.report({ node, messageId: "AvoidKeepAwake" });
-        } else if (
-          node?.name === "activateKeepAwake" &&
-          node?.parent.type === "CallExpression"
+          librariesFoundInImports.some((library) =>
+            keepAwakeLibrariesMethods[library].includes(node.callee.name),
+          )
         ) {
           context.report({ node, messageId: "AvoidKeepAwake" });
         }
