@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   [#40](https://github.com/green-code-initiative/creedengo-javascript/pull/40) Add rule `@creedengo/avoid-autoplay` (GCI36)
 -   [#45](https://github.com/green-code-initiative/creedengo-javascript/pull/45) Add rule `@creedengo/avoid-keep-awake` (GCI505)
 -   [#46](https://github.com/green-code-initiative/creedengo-javascript/pull/46) Add rule `@creedengo/prefer-lighter-formats-for-image-files` (GCI31)
+-   [#68](https://github.com/green-code-initiative/creedengo-javascript/pull/68) Add support for SonarQube up to 25.3
 
 ## [2.0.0] - 2025-01-22
 
