@@ -38,6 +38,7 @@ public class CheckList {
                 AvoidBrightnessOverride.class,
                 AvoidCSSAnimations.class,
                 AvoidHighAccuracyGeolocation.class,
+                AvoidKeepAwake.class,
                 LimitDbQueryResult.class,
                 NoEmptyImageSrcAttribute.class,
                 NoImportAllFromLibrary.class,
