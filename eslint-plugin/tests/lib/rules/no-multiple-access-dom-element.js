@@ -49,6 +49,12 @@ ruleTester.run("no-multiple-access-dom-element", rule, {
     function test() { var link = document.getElementsByTagName('a'); }
     var link = document.getElementsByTagName('a');
     `,
+    `
+    for (var i = 0; i < 10; i++) {
+      var test = document.getElementsByName("test" + i)[0].value;
+      var test2 = document.getElementsByName("test2" + i)[0].value;
+    }
+    `,
   ],
 
   invalid: [
