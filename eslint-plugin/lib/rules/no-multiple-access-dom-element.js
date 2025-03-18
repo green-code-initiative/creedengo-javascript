@@ -48,7 +48,9 @@ module.exports = {
       CallExpression(node) {
         if (
           node.callee.object?.name === "document" &&
-          DOMAccessMethods.includes(node.callee.property.name)
+          DOMAccessMethods.includes(node.callee.property.name) &&
+          // We only accept string literals as arguments for now
+          node.arguments[0].type === "Literal"
         ) {
           const selectorValue = node.arguments[0].value;
           const uniqueCallStr = node.callee.property.name + selectorValue;

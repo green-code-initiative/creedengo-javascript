@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   [#46](https://github.com/green-code-initiative/creedengo-javascript/pull/46) Add rule `@creedengo/prefer-lighter-formats-for-image-files` (GCI31)
 -   [#68](https://github.com/green-code-initiative/creedengo-javascript/pull/68) Add support for SonarQube up to 25.3
 
+### Fixed
+
+-   [#69](https://github.com/green-code-initiative/creedengo-javascript/pull/69) Only support string literals in GCI11
+
 ## [2.0.0] - 2025-01-22
 
 ### Added
