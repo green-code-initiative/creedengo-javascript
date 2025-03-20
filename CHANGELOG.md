@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
--   [#69](https://github.com/green-code-initiative/creedengo-javascript/pull/69) Only support string literals in GCI11
+-   [#69](https://github.com/green-code-initiative/creedengo-javascript/pull/69) Only support string literals (GCI11)
+-   [#70](https://github.com/green-code-initiative/creedengo-javascript/pull/70) Only support SQL queries within standard methods (GCI24)
 
 ## [2.0.0] - 2025-01-22
 

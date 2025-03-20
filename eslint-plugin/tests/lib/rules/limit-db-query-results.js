@@ -34,6 +34,7 @@ const ruleTester = new RuleTester({
     sourceType: "module",
   },
 });
+
 const expectedError = {
   messageId: "LimitTheNumberOfReturns",
   type: "Literal",
@@ -42,25 +43,36 @@ const expectedError = {
 ruleTester.run("limit-db-query-results", rule, {
   valid: [
     `
-      const query = "SELECT id, name, email FROM customers LIMIT 10;";
+      sqlClient.query("SELECT id, name, email FROM customers LIMIT 10;");
     `,
     `
-      const query = "SELECT TOP 5 * FROM products;";
+      sqlClient.query("SELECT TOP 5 * FROM products;");
     `,
     `
-      const query = "SELECT id, name, email FROM customers WHERE id = 1;";
+      sqlClient.query("SELECT id, name, email FROM customers WHERE id = 1");
     `,
     `
-      const query = "SELECT * FROM orders FETCH FIRST 20 ROWS ONLY;";    
+      sqlClient.query("SELECT * FROM orders FETCH FIRST 20 ROWS ONLY");
     `,
     `
-      const query = "WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50;";  
+      sqlClient.query("WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50");
+    `,
+    `
+      console.log("SELECT id, name, email FROM customers WHERE id = 1");
     `,
   ],
 
   invalid: [
     {
-      code: `const query = "SELECT * FROM bikes;";`,
+      code: `sqlClient.query("SELECT * FROM bikes");`,
+      errors: [expectedError],
+    },
+    {
+      code: `sqlClient.run("SELECT id, departure, arrival FROM flights");`,
+      errors: [expectedError],
+    },
+    {
+      code: `sqlClient.execute("SELECT * FROM cars");`,
       errors: [expectedError],
     },
   ],
