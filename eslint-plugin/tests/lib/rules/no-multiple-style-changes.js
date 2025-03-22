@@ -41,11 +41,14 @@ ruleTester.run("no-multiple-style-changes", rule, {
       code: 'element.style.height = "800px";',
     },
     {
-      code: `element.style.height = "800px";
-      element2.style.width = "800px";`,
+      code: `
+      element.style.height = "800px";
+      element2.style.width = "800px";
+      `,
     },
     {
-      code: `element.style.height = "800px";
+      code: `
+      element.style.height = "800px";
       function a() { element.style.width = "800px"; }
       `,
     },
@@ -53,15 +56,19 @@ ruleTester.run("no-multiple-style-changes", rule, {
 
   invalid: [
     {
-      code: `function a(element){
-          element.style.height = "800px";
-          element.style.width = "800px";
-        }`,
+      code: `
+      function a(element){
+        element.style.height = "800px";
+        element.style.width = "800px";
+      }
+      `,
       errors: [expectedError],
     },
     {
-      code: `element.style.height = "800px";
-      element.style.width = "800px";`,
+      code: `
+      element.style.height = "800px";
+      element.style.width = "800px";
+      `,
       errors: [expectedError],
     },
     {
