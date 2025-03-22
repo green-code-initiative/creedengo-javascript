@@ -42,7 +42,12 @@ module.exports = {
       "FETCH FIRST",
       "WHERE",
     ];
+
+    // List of known SQL client methods or functions
+    const sqlClientMethods = ["query", "execute", "run"];
+
     return {
+      // Detect SQL queries in string literals
       Literal: function (node) {
         if (typeof node.value == "string") {
           const query = node.value.toUpperCase();
@@ -51,10 +56,16 @@ module.exports = {
             query.includes("FROM") &&
             !limitingClauses.some((clause) => query.includes(clause))
           ) {
-            context.report({
-              node: node,
-              messageId: "LimitTheNumberOfReturns",
-            });
+            // Check if the query is used within a SQL client
+            const parent = node.parent;
+
+            if (
+              parent?.type === "CallExpression" &&
+              parent.callee.type === "MemberExpression" &&
+              sqlClientMethods.includes(parent.callee.property.name)
+            ) {
+              context.report({ node, messageId: "LimitTheNumberOfReturns" });
+            }
           }
         }
       },
