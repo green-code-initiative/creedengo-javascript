@@ -29,7 +29,12 @@ const RuleTester = require("eslint").RuleTester;
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester();
+const ruleTester = new RuleTester({
+  parserOptions: {
+    ecmaVersion: 2021,
+    sourceType: "module",
+  },
+});
 const expectedError = {
   messageId: "UseClassInstead",
   type: "AssignmentExpression",
@@ -52,6 +57,22 @@ ruleTester.run("no-multiple-style-changes", rule, {
       function a() { element.style.width = "800px"; }
       `,
     },
+    {
+      name: "should not report on different elements in same object",
+      code: `
+      var elements = { element1, element2 };
+      elements.element1.style.height = "800px";
+      elements.element2.style.height = "800px";
+      `,
+    },
+    {
+      code: `
+      var offsetWidth = 5;
+      var offsetLeft = 3;
+      element.style.width = \`\${offsetWidth}px\`;
+      element.style.left = \`\${offsetLeft}px\`;
+      `,
+    },
   ],
 
   invalid: [
@@ -68,6 +89,14 @@ ruleTester.run("no-multiple-style-changes", rule, {
       code: `
       element.style.height = "800px";
       element.style.width = "800px";
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+      var elements = { element1 };
+      elements.element1.style.height = "800px";
+      elements.element1.style.height = "800px";
       `,
       errors: [expectedError],
     },

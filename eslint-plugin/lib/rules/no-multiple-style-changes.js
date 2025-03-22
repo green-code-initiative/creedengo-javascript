@@ -37,11 +37,23 @@ module.exports = {
     const isNodeUseStyleProperty = (node) =>
       node?.object?.property?.name === "style";
 
+    const getNodeFullName = (node) => {
+      let names = [];
+      do {
+        names.unshift(node.name ?? node.property.name);
+        node = node.object;
+      } while (node);
+      return names.join(".");
+    };
+
     return {
       AssignmentExpression(node) {
-        // Are we checking an assignation on a style property
-        if (isNodeUseStyleProperty(node.left)) {
-          const domElementName = node.left.object.object.name;
+        // Check if there is a literal assignation on a style property
+        if (
+          node.right.type === "Literal" &&
+          isNodeUseStyleProperty(node.left)
+        ) {
+          const domElementName = getNodeFullName(node.left.object.object);
           const currentRangestart = node.left.object.object.range[0];
 
           /**
@@ -58,7 +70,8 @@ module.exports = {
               e.type === "ExpressionStatement" &&
               e.expression.type === "AssignmentExpression" &&
               isNodeUseStyleProperty(e.expression.left) &&
-              e.expression.left.object.object.name === domElementName,
+              getNodeFullName(e.expression.left.object.object) ===
+                domElementName,
           );
 
           // De-duplication, prevents multiple alerts for each line involved
