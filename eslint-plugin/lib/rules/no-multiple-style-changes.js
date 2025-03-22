@@ -34,9 +34,8 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
-    function isNodeUseStyleProperty(node) {
-      return node?.object?.property?.name === "style";
-    }
+    const isNodeUseStyleProperty = (node) =>
+      node?.object?.property?.name === "style";
 
     return {
       AssignmentExpression(node) {
@@ -45,8 +44,10 @@ module.exports = {
           const domElementName = node.left.object.object.name;
           const currentRangestart = node.left.object.object.range[0];
 
-          /** We get the parent AST to check if there is more than one assignation on
-           the style of the same domElement */
+          /**
+           * Store parent AST to check if there is more
+           * than one assignation on the style of the same domElement
+           */
           const currentScopeASTBody =
             context.getScope().block.body.length != null
               ? context.getScope().block.body
@@ -62,10 +63,11 @@ module.exports = {
 
           // De-duplication, prevents multiple alerts for each line involved
           const isCurrentNodeTheFirstAssignation =
+            filtered.length > 1 &&
             currentRangestart <=
-            filtered[0].expression.left.object.object.range[0];
+              filtered[0].expression.left.object.object.range[0];
 
-          if (filtered.length > 1 && isCurrentNodeTheFirstAssignation) {
+          if (isCurrentNodeTheFirstAssignation) {
             context.report({
               node,
               messageId: "UseClassInstead",
