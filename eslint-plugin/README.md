@@ -10,7 +10,7 @@ An ESLint plugin which provides JavaScript and TypeScript rules of the Creedengo
 
 ### Installation
 
-You'll need to install [ESLint](https://eslint.org/) (v7 or newer) and this plugin:
+You'll need to install [ESLint](https://eslint.org/) (v7 or v8) and this plugin:
 
 ```sh
 # yarn
