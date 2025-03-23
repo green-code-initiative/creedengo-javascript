@@ -4,8 +4,6 @@ An ESLint plugin which provides JavaScript and TypeScript rules of the Creedengo
 
 👉 See [creedengo-javascript README](../README.md) to have more information.
 
-> ⚠️ This plugin is in a very early stage and need improvements. Any contribution will be appreciated.
-
 ## 🚀 Getting started
 
 ### Installation
