@@ -1,6 +1,6 @@
 # Disallow multiple access of same DOM element (`@creedengo/no-multiple-access-dom-element`)
 
-⚠️ This rule _warns_ in the following configs: `flat/recommended`, ✅ `recommended`.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

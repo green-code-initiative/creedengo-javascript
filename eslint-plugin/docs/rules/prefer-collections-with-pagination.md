@@ -1,6 +1,6 @@
 # Prefer API collections with pagination (`@creedengo/prefer-collections-with-pagination`)
 
-⚠️ This rule _warns_ in the following configs: `flat/recommended`, ✅ `recommended`.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

@@ -1,6 +1,6 @@
 # Avoid usage of CSS animations (`@creedengo/avoid-css-animations`)
 
-⚠️ This rule _warns_ in the following configs: `flat/recommended`, ✅ `recommended`.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

@@ -1,6 +1,6 @@
 # Prefer lighter formats for image files (`@creedengo/prefer-lighter-formats-for-image-files`)
 
-⚠️ This rule _warns_ in the ✅ `recommended` config.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

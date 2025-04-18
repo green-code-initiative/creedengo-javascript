@@ -1,6 +1,6 @@
 # Avoid using high accuracy geolocation in web applications (`@creedengo/avoid-high-accuracy-geolocation`)
 
-⚠️ This rule _warns_ in the following configs: `flat/recommended`, ✅ `recommended`.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 
