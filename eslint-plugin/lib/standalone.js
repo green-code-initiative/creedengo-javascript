@@ -22,12 +22,12 @@
  */
 "use strict";
 
-const rulesList = require("./rule-list");
+const rules = require("./rule-list");
 
 const allRules = {};
 const recommendedRules = {};
 
-for (let { ruleName, ruleModule } of rulesList) {
+for (let { ruleName, ruleModule } of rules) {
   allRules[ruleName] = ruleModule;
   const { recommended } = ruleModule.meta.docs;
   const ruleConfiguration = recommended === false ? "off" : recommended;
@@ -37,7 +37,7 @@ for (let { ruleName, ruleModule } of rulesList) {
 const plugin = {
   meta: {
     name: "@creedengo/eslint-plugin",
-    version: "1.6.0",
+    version: "2.1.0", // dynamically updated by the release workflow
   },
   rules: allRules,
 };
