@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,10 +37,10 @@ module.exports = {
     return {
       JSXOpeningElement(node) {
         const styleAttribute = node.attributes.find(
-          (attribute) => attribute.name.name === "style",
+          (attribute) => attribute.name?.name === "style",
         );
 
-        if (styleAttribute?.value.expression) {
+        if (styleAttribute?.value.expression?.properties) {
           // To prevent (for example) <div style={{ animate: 'width 2s' }}>
           const property = styleAttribute.value.expression.properties.find(
             (prop) =>

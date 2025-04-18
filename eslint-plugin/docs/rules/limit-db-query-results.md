@@ -1,4 +1,4 @@
-# Should limit the number of returns for a SQL query (`@ecocode/limit-db-query-results`)
+# Should limit the number of returns for a SQL query (`@creedengo/limit-db-query-results`)
 
 ⚠️ This rule _warns_ in the following configs: `flat/recommended`, ✅ `recommended`.
 
@@ -19,13 +19,27 @@ If you store data about customers, you certainly don’t need to retrieve inform
 the table will be, the more elements the query will return.
 
 ```js
-const query = "SELECT * FROM customers"; // Non-compliant
+// Non-compliant: Direct SQL query without LIMIT
+const mysql = require("mysql2");
+const connection = mysql.createConnection({ host: "localhost", user: "root" });
+
+connection.query("SELECT * FROM users", (err, results) => {
+  if (err) throw err;
+  console.log(results);
+});
 ```
 
 It may therefore be a good idea to limit the results and use pagination, for example.
 
 ```js
-const query = "SELECT id,name,email FROM customers FETCH FIRST 10 ROWS ONLY"; // Compliant
+// Compliant: SQL query with LIMIT clause
+const mysql = require("mysql2");
+const connection = mysql.createConnection({ host: "localhost", user: "root" });
+
+connection.query("SELECT * FROM users LIMIT 10", (err, results) => {
+  if (err) throw err;
+  console.log(results);
+});
 ```
 
 ## Resources

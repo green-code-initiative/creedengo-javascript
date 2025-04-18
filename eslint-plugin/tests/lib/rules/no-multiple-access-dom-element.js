@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,12 @@ ruleTester.run("no-multiple-access-dom-element", rule, {
     `
     function test() { var link = document.getElementsByTagName('a'); }
     var link = document.getElementsByTagName('a');
+    `,
+    `
+    for (var i = 0; i < 10; i++) {
+      var test = document.getElementsByName("test" + i)[0].value;
+      var test2 = document.getElementsByName("test2" + i)[0].value;
+    }
     `,
   ],
 

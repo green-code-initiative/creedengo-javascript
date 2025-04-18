@@ -1,6 +1,6 @@
 /*
- * ecoCode JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
- * Copyright © 2023 Green Code Initiative (https://www.ecocode.io)
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,9 @@ module.exports = {
       CallExpression(node) {
         if (
           node.callee.object?.name === "document" &&
-          DOMAccessMethods.includes(node.callee.property.name)
+          DOMAccessMethods.includes(node.callee.property.name) &&
+          // We only accept string literals as arguments for now
+          node.arguments[0].type === "Literal"
         ) {
           const selectorValue = node.arguments[0].value;
           const uniqueCallStr = node.callee.property.name + selectorValue;

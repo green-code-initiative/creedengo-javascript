@@ -3,32 +3,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.ecocode</groupId>
-    <artifactId>ecocode-javascript-plugin</artifactId>
-    <version>1.5.1-SNAPSHOT</version>
+    <groupId>org.green-code-initiative</groupId>
+    <artifactId>creedengo-javascript-plugin</artifactId>
+    <version>2.1.1-SNAPSHOT</version>
 
     <packaging>sonar-plugin</packaging>
 
-    <name>ecoCode JavaScript plugin</name>
+    <name>Creedengo JavaScript plugin</name>
     <description>Provides rules to reduce the environmental footprint of your JavaScript programs</description>
     <inceptionYear>2023</inceptionYear>
 
-    <url>https://github.com/green-code-initiative/ecoCode-javascript</url>
+    <url>https://github.com/green-code-initiative/creedengo-javascript</url>
     <organization>
         <name>green-code-initiative</name>
         <url>https://github.com/green-code-initiative</url>
     </organization>
 
     <scm>
-        <connection>scm:git:https://github.com/green-code-initiative/ecocode-javascript</connection>
-        <developerConnection>scm:git:https://github.com/green-code-initiative/ecocode-javascript</developerConnection>
-        <url>https://github.com/green-code-initiative/ecocode-javascript</url>
+        <connection>scm:git:https://github.com/green-code-initiative/creedengo-javascript</connection>
+        <developerConnection>scm:git:https://github.com/green-code-initiative/creedengo-javascript</developerConnection>
+        <url>https://github.com/green-code-initiative/creedengo-javascript</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/green-code-initiative/ecocode-javascript/issues</url>
+        <url>https://github.com/green-code-initiative/creedengo-javascript/issues</url>
     </issueManagement>
 
     <licenses>
@@ -49,33 +49,33 @@
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-        <version.ecocode-rules-specifications>1.6.0</version.ecocode-rules-specifications>
-        <version.sonarqube>9.4.0.54424</version.sonarqube>
+        <version.creedengo-rules-specifications>2.2.2</version.creedengo-rules-specifications>
+        <version.sonarqube>9.14.0.375</version.sonarqube>
         <version.sonar-javascript>9.13.0.20537</version.sonar-javascript>
         <version.sonar-packaging>1.23.0.740</version.sonar-packaging>
-        <version.sonar-analyzer-commons>2.7.0.1482</version.sonar-analyzer-commons>
+        <version.sonar-analyzer-commons>2.14.0.3087</version.sonar-analyzer-commons>
         <version.buildnumber>3.1.0</version.buildnumber>
         <version.maven-exec>3.1.0</version.maven-exec>
         <version.maven-shade>3.4.1</version.maven-shade>
         <version.license-maven-plugin>4.1</version.license-maven-plugin>
 
-        <version.junit>5.10.1</version.junit>
-        <version.mockito>5.7.0</version.mockito>
-        <version.assertj>3.24.2</version.assertj>
+        <version.junit>5.10.3</version.junit>
+        <version.mockito>5.12.0</version.mockito>
+        <version.assertj>3.26.3</version.assertj>
         <version.jacoco>0.8.11</version.jacoco>
     </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>io.ecocode</groupId>
-            <artifactId>ecocode-rules-specifications</artifactId>
-            <version>${version.ecocode-rules-specifications}</version>
+            <groupId>org.green-code-initiative</groupId>
+            <artifactId>creedengo-rules-specifications</artifactId>
+            <version>${version.creedengo-rules-specifications}</version>
             <classifier>javascript</classifier>
         </dependency>
 
         <dependency>
-            <groupId>org.sonarsource.sonarqube</groupId>
+            <groupId>org.sonarsource.api.plugin</groupId>
             <artifactId>sonar-plugin-api</artifactId>
             <version>${version.sonarqube}</version>
             <scope>provided</scope>
@@ -135,9 +135,9 @@
                 <version>${version.sonar-packaging}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <pluginKey>ecocodejavascript</pluginKey>
+                    <pluginKey>creedengojavascript</pluginKey>
                     <pluginName>${project.name}</pluginName>
-                    <pluginClass>io.ecocode.javascript.JavaScriptPlugin</pluginClass>
+                    <pluginClass>org.greencodeinitiative.creedengo.javascript.JavaScriptPlugin</pluginClass>
                     <sonarLintSupported>false</sonarLintSupported>
                     <pluginApiMinVersion>${version.sonarqube}</pluginApiMinVersion>
                     <skipDependenciesPackaging>true</skipDependenciesPackaging>
@@ -172,7 +172,7 @@
                                     </excludes>
                                 </filter>
                                 <filter>
-                                    <artifact>org.*:*</artifact>
+                                    <artifact>org.sonarsource.*:*</artifact>
                                     <excludes>
                                         <exclude>META-INF/**</exclude>
                                         <exclude>javax/annotation/**</exclude>
@@ -264,7 +264,7 @@
                 <configuration>
                     <properties>
                         <owner>Green Code Initiative</owner>
-                        <email>https://www.ecocode.io</email>
+                        <email>https://green-code-initiative.org</email>
                     </properties>
                     <licenseSets>
                         <licenseSet>
