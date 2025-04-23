@@ -54,15 +54,18 @@ module.exports = {
         ) {
           const selectorValue = node.arguments[0].value;
           const uniqueCallStr = node.callee.property.name + selectorValue;
+          // todo: legacy support of context#getScope for eslint v7
+          const scope =
+            context.sourceCode?.getScope(node) ?? context.getScope();
 
-          if (map[uniqueCallStr] === context.getScope()) {
+          if (map[uniqueCallStr] === scope) {
             context.report({
               node,
               messageId: "ShouldBeAssignToVariable",
               data: { selector: selectorValue },
             });
           } else {
-            map[uniqueCallStr] = context.getScope();
+            map[uniqueCallStr] = scope;
           }
         }
       },
