@@ -24,19 +24,33 @@
 
 const rules = require("./rule-list");
 
-const ruleModules = rules.reduce((map, rule) => {
-  map[rule.ruleName] = rule.ruleModule;
-  return map;
-}, {});
+const allRules = {};
+const recommendedRules = {};
 
-const ruleConfigs = rules.reduce((map, rule) => {
-  const recommended = rule.ruleModule.meta.docs.recommended;
-  map[`@creedengo/${rule.ruleName}`] =
-    recommended === false ? "off" : recommended;
-  return map;
-}, {});
+for (let { ruleName, ruleModule } of rules) {
+  allRules[ruleName] = ruleModule;
+  const { recommended } = ruleModule.meta.docs;
+  const ruleConfiguration = recommended === false ? "off" : recommended;
+  recommendedRules[`@creedengo/${ruleName}`] = ruleConfiguration;
+}
 
-module.exports = {
-  rules: ruleModules,
-  configs: { recommended: { plugins: ["@creedengo"], rules: ruleConfigs } },
+const plugin = {
+  meta: {
+    name: "@creedengo/eslint-plugin",
+    version: "2.1.0", // dynamically updated by the release workflow
+  },
+  rules: allRules,
 };
+
+plugin.configs = {
+  recommended: {
+    plugins: ["@creedengo"],
+    rules: recommendedRules,
+  },
+  ["flat/recommended"]: {
+    plugins: { "@creedengo": plugin },
+    rules: recommendedRules,
+  },
+};
+
+module.exports = plugin;

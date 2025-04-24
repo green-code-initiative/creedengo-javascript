@@ -40,7 +40,7 @@ module.exports = {
     const getNodeFullName = (node) => {
       let names = [];
       do {
-        names.unshift(node.name ?? node.property.name);
+        names.unshift(node.name ?? node.property?.name);
         node = node.object;
       } while (node);
       return names.join(".");
@@ -60,10 +60,13 @@ module.exports = {
            * Store parent AST to check if there is more
            * than one assignation on the style of the same domElement
            */
+          // todo: legacy support of context#getScope for eslint v7
+          const scope =
+            context.sourceCode?.getScope(node) ?? context.getScope();
           const currentScopeASTBody =
-            context.getScope().block.body.length != null
-              ? context.getScope().block.body
-              : context.getScope().block.body.body;
+            scope.block.body.length != null
+              ? scope.block.body
+              : scope.block.body.body;
 
           const filtered = currentScopeASTBody.filter(
             (e) =>

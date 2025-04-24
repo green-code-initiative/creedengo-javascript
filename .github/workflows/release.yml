@@ -57,6 +57,9 @@ jobs:
       - name: Update Docker Compose configuration
         run: sed -i -E 's/plugin-(.*).jar/plugin-${{ steps.package-version.outputs.version }}.jar/' docker-compose.yml
 
+      - name: Update ESLint plugin version
+        run: 'sed -i -E ''s/version: "(.*)"/version: "${{ steps.package-version.outputs.version }}"/'' eslint-plugin/lib/standalone.js'
+
       - name: Extract release notes
         id: extract-release-notes
         uses: ffurrer2/extract-release-notes@v1

@@ -1,6 +1,6 @@
 # Disallow multiple style changes at once (`@creedengo/no-multiple-style-changes`)
 
-⚠️ This rule _warns_ in the ✅ `recommended` config.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

@@ -1,6 +1,6 @@
 # Avoid autoplay for videos and audio content (`@creedengo/avoid-autoplay`)
 
-⚠️ This rule _warns_ in the ✅ `recommended` config.
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 
 <!-- end auto-generated rule header -->
 

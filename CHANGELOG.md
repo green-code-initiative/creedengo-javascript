@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-   [#51](https://github.com/green-code-initiative/creedengo-javascript/pull/51) Add ESLint v9 and flat config support
+
 ## [2.1.0] - 2025-03-31
 
 ### Added

@@ -90,10 +90,12 @@ module.exports = {
               returnType.type === "TSTypeReference" &&
               returnType.typeName.name === "Promise"
             ) {
-              if (
-                returnType.typeParameters.params.length === 1 &&
-                !isPaginated(returnType.typeParameters.params[0])
-              ) {
+              // todo: legacy support of typeParameters for eslint v7
+              const params = (
+                returnType.typeArguments ?? returnType.typeParameters
+              ).params;
+
+              if (params.length === 1 && !isPaginated(params[0])) {
                 report(context, returnType);
               }
             } else if (

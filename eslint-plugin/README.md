@@ -8,7 +8,7 @@ An ESLint plugin which provides JavaScript and TypeScript rules of the Creedengo
 
 ### Installation
 
-You'll need to install [ESLint](https://eslint.org/) (v7 or v8) and this plugin:
+You'll need to install [ESLint](https://eslint.org/) (v7+) and this plugin:
 
 ```sh
 # yarn
@@ -32,19 +32,54 @@ yarn add -D eslint @green-code-initiative/creedengo-eslint-plugin
 npm install -D eslint @green-code-initiative/creedengo-eslint-plugin
 ```
 
-### Enable whole plugin
+### Enable plugin with recommended configuration
 
-Add `@creedengo` recommended configuration to `extends` section of your `.eslintrc`:
+#### ESLint Flat Configuration (`eslint.config.js`)
 
-```jsonc
+Add `@creedengo` **"flat/recommended"** configuration to your `eslint.config.js`:
+
+```js
+import creedengo from "@creedengo/eslint-plugin";
+
+export default [
+  /* other eslint configurations */
+  creedengo.configs["flat/recommended"],
+];
+```
+
+#### ESLint deprecated legacy configuration (`.eslintrc`)
+
+For legacy ESLint versions using the deprecated `.eslintrc` file, add the `@creedengo` **"recommended"** configuration to the `extends` array :
+
+```json
 {
-  "extends": ["plugin:@creedengo/recommended"],
+  "extends": ["plugin:@creedengo/recommended"]
 }
 ```
 
-### Enable only some rules
+### Enable specific rules
 
-Add `@creedengo` to the `plugins` section of your `.eslintrc`, followed by rules configuration:
+#### ESLint Flat configuration (`eslint.config.js`)
+
+Add the `creedengo` plugin configuration to your `eslint.config.js` and select the rules to activate:
+
+```js
+import creedengo from "@creedengo/eslint-plugin";
+
+export default [
+  /* other eslint configurations */
+  {
+    plugins: { "@creedengo": creedengo },
+    rules: {
+      "@creedengo/no-multiple-access-dom-element": "error",
+    },
+  },
+];
+```
+
+#### ESLint deprecated legacy configuration (`.eslintrc`)
+
+If your project uses a legacy ESLint version, it may use as well the now deprecated `.eslintrc` file. In such case, add `@creedengo` to the `plugins` array, potentially followed by rules specific configurations:
 
 ```jsonc
 {
@@ -59,9 +94,10 @@ Add `@creedengo` to the `plugins` section of your `.eslintrc`, followed by rules
 
 <!-- begin auto-generated configs list -->
 
-|    | Name          |
-| :- | :------------ |
-| ✅  | `recommended` |
+|    | Name               |
+| :- | :----------------- |
+| ✅  | `flat/recommended` |
+| ✅  | `recommended`      |
 
 <!-- end auto-generated configs list -->
 
@@ -70,25 +106,26 @@ Add `@creedengo` to the `plugins` section of your `.eslintrc`, followed by rules
 <!-- begin auto-generated rules list -->
 
 ⚠️ Configurations set to warn in.\
+✅ Set in the `flat/recommended` configuration.\
 ✅ Set in the `recommended` configuration.
 
-| Name                                                                                           | Description                                               | ⚠️ |
-| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- |
-| [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content               | ✅  |
-| [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                       | ✅  |
-| [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                             | ✅  |
-| [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)               | Avoid using high accuracy geolocation in web applications | ✅  |
-| [avoid-keep-awake](docs/rules/avoid-keep-awake.md)                                             | Avoid screen keep awake                                   | ✅  |
-| [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query        | ✅  |
-| [no-empty-image-src-attribute](docs/rules/no-empty-image-src-attribute.md)                     | Disallow usage of image with empty source attribute       | ✅  |
-| [no-import-all-from-library](docs/rules/no-import-all-from-library.md)                         | Should not import all from library                        | ✅  |
-| [no-multiple-access-dom-element](docs/rules/no-multiple-access-dom-element.md)                 | Disallow multiple access of same DOM element              | ✅  |
-| [no-multiple-style-changes](docs/rules/no-multiple-style-changes.md)                           | Disallow multiple style changes at once                   | ✅  |
-| [no-torch](docs/rules/no-torch.md)                                                             | Should not programmatically enable torch mode             | ✅  |
-| [prefer-collections-with-pagination](docs/rules/prefer-collections-with-pagination.md)         | Prefer API collections with pagination                    | ✅  |
-| [prefer-lighter-formats-for-image-files](docs/rules/prefer-lighter-formats-for-image-files.md) | Prefer lighter formats for image files                    | ✅  |
-| [prefer-shorthand-css-notations](docs/rules/prefer-shorthand-css-notations.md)                 | Encourage usage of shorthand CSS notations                | ✅  |
-| [provide-print-css](docs/rules/provide-print-css.md)                                           | Enforce providing a print stylesheet                      | ✅  |
+| Name                                                                                           | Description                                               | ⚠️  |
+| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :-- |
+| [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content               | ✅ |
+| [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                       | ✅ |
+| [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                             | ✅ |
+| [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)               | Avoid using high accuracy geolocation in web applications | ✅ |
+| [avoid-keep-awake](docs/rules/avoid-keep-awake.md)                                             | Avoid screen keep awake                                   | ✅ |
+| [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query        | ✅ |
+| [no-empty-image-src-attribute](docs/rules/no-empty-image-src-attribute.md)                     | Disallow usage of image with empty source attribute       | ✅ |
+| [no-import-all-from-library](docs/rules/no-import-all-from-library.md)                         | Should not import all from library                        | ✅ |
+| [no-multiple-access-dom-element](docs/rules/no-multiple-access-dom-element.md)                 | Disallow multiple access of same DOM element              | ✅ |
+| [no-multiple-style-changes](docs/rules/no-multiple-style-changes.md)                           | Disallow multiple style changes at once                   | ✅ |
+| [no-torch](docs/rules/no-torch.md)                                                             | Should not programmatically enable torch mode             | ✅ |
+| [prefer-collections-with-pagination](docs/rules/prefer-collections-with-pagination.md)         | Prefer API collections with pagination                    | ✅ |
+| [prefer-lighter-formats-for-image-files](docs/rules/prefer-lighter-formats-for-image-files.md) | Prefer lighter formats for image files                    | ✅ |
+| [prefer-shorthand-css-notations](docs/rules/prefer-shorthand-css-notations.md)                 | Encourage usage of shorthand CSS notations                | ✅ |
+| [provide-print-css](docs/rules/provide-print-css.md)                                           | Enforce providing a print stylesheet                      | ✅ |
 
 <!-- end auto-generated rules list -->
 
