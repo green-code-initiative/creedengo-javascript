@@ -1,0 +1,27 @@
+{
+  "name": "creedengo-javascript-test-project",
+  "version": "1.0.0",
+  "description": "JavaScript project to test ESLint and SonarQube plugins of creedengo",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/green-code-initiative/creedengo-javascript-test-project.git"
+  },
+  "license": "GPL-3.0",
+  "author": "Green Code Initiative",
+  "scripts": {
+    "lint": "eslint src/.",
+    "lint:report": "eslint src/. -f json -o eslint-report.json",
+    "sonar": "sonar-scanner"
+  },
+  "devDependencies": {
+    "@creedengo/eslint-plugin": "../eslint-plugin",
+    "@eslint/js": "^9.25.0",
+    "@nestjs/common": "^11.0.20",
+    "eslint": "^9.25.0",
+    "globals": "^16.0.0",
+    "sonarqube-scanner": "^4.3.0",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.30.1"
+  },
+  "packageManager": "yarn@4.9.1"
+}

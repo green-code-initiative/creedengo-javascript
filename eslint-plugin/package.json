@@ -55,5 +55,5 @@
   "peerDependencies": {
     "eslint": ">= 7 < 10"
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.9.1"
 }
