@@ -8,10 +8,11 @@ have the basic information before starting.
 
 ## Structure
 
-The JavaScript plugin is divided into 2 modules:
+The JavaScript plugin is divided into 3 modules:
 
 - `eslint-plugin` contains the ESLint plugin part
 - `sonar-plugin` contains the SonarQube plugin implementation
+- `test-project` contains a project to test the rules on SonarQube
 
 The ESLint plugin **can be standalone** and is packed inside SonarQube plugin during the build phase.
 
@@ -96,6 +97,12 @@ To display tests coverage, use `yarn run test:cov`.
 
 > ℹ You don't need to add a test in the Sonar plugin, the class will be tested automatically.
 
+### Add an integration test
+
+It is also necessary to add an example of non-compliant code to the test project in the
+repository. This allows to check that the plgin works correctly with a real
+SonarQube instance. A README is present in `test-project` directory to help running a local analysis.
+
 ### Generate rule documentation
 
 A tool called [eslint-doc-generator](https://github.com/bmish/eslint-doc-generator) is used in the project to update
@@ -110,9 +117,17 @@ Two npm scripts are available:
 All the generated code is between commented lines with "auto-generated" in the text.\
 **Please run update script** after a rule creation.
 
-## End of development?
+## What else?
 
-The last step is to open a PR on this project with the implementation of the rule, and a second one on the test
-project with an exemple of a code not following rule needs. Keep an eye on the coverage of your rule implementation 👀
+You should be ready to open a PR on GitHub with all your code!
+
+Check one last time that you have respected the following points:
+
+- [ ] My rule implementation covers the use case without false-positive
+- [ ] My code is explicit or well documented
+- [ ] I have provided unit tests
+- [ ] I have added a non-compliant example code inside the test project
+- [ ] The coverage of my code is greather than 80%
+- [ ] I have modified the CHANGELOG with my change
 
 This is the end of this guide, thank you for reading this far and contributing to the project 🙏.
