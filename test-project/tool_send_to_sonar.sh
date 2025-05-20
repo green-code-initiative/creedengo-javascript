@@ -7,4 +7,4 @@
 yarn install
 
 # sending to Sonar phase
-yarn sonar -Dsonar.host.url=http://0.0.0.0:9000 -Dsonar.token=$1
+yarn sonar -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.token=$1

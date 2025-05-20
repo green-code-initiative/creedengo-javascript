@@ -28,7 +28,7 @@ Use the following Shell script which will do the job for you:
 Or you can manually run these commands:
 
 - Install dependencies: `yarn install`
-- Start Sonar Scanner: `yarn sonar -Dsonar.token=MY_SONAR_TOKEN`
+- Start Sonar Scanner: `yarn sonar -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.token=MY_SONAR_TOKEN`
 
 ### 3. Check errors
 
