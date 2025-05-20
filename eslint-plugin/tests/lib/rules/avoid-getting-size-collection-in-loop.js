@@ -22,7 +22,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/getting-collection-size-in-collection");
+const rule = require("../../../lib/rules/avoid-getting-size-collection-in-loop");
 const RuleTester = require("eslint").RuleTester;
 
 //------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ const expectedError = {
   messageId: "avoidSizeInLoop",
 };
 
-ruleTester.run("getting-collection-size-in-collection", rule, {
+ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
   valid: [
     // size/length assigned before loop, not used in loop
     `
