@@ -1,6 +1,7 @@
 {
   "name": "creedengo-angular-test-project",
   "version": "0.0.0",
+  "description": "Angular project to test ESLint and SonarQube plugins of creedengo",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
