@@ -10,3 +10,4 @@ dependency-reduced-pom.xml
 
 # Auto-generated files
 coverage
+/node_modules/.yarn-integrity

@@ -14,10 +14,10 @@ __metadata:
 
 "@creedengo/eslint-plugin@file:../eslint-plugin::locator=creedengo-javascript-test-project%40workspace%3A.":
   version: 2.1.0
-  resolution: "@creedengo/eslint-plugin@file:../eslint-plugin#../eslint-plugin::hash=af861c&locator=creedengo-javascript-test-project%40workspace%3A."
+  resolution: "@creedengo/eslint-plugin@file:../eslint-plugin#../eslint-plugin::hash=15c70e&locator=creedengo-javascript-test-project%40workspace%3A."
   peerDependencies:
     eslint: ">= 7 < 10"
-  checksum: 10c0/64fa2595a6d49b62975f706677898013c257500f8b2a06f0e66b2885f9f24143340efb6ad6b916012772c362d94536c61cdd708802124f96745936dde66a1807
+  checksum: 10c0/d742c9787b62f061f3be5c4b8f29c35fb2d5130390d51c1a5d7991b95da6a07932e83f84d7f0cc81d2edb58eb61af8b45b5fa8ce428cc7ca1d4422553a18680a
   languageName: node
   linkType: hard
 
