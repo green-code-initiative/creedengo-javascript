@@ -119,6 +119,7 @@ If your project uses a legacy ESLint version, it may use as well the now depreca
 | [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query        | ✅ |
 | [no-empty-image-src-attribute](docs/rules/no-empty-image-src-attribute.md)                     | Disallow usage of image with empty source attribute       | ✅ |
 | [no-import-all-from-library](docs/rules/no-import-all-from-library.md)                         | Should not import all from library                        | ✅ |
+| [no-imported-number-format-library](docs/rules/no-imported-number-format-library.md)           | You should not format number with an external library     | ✅ |
 | [no-multiple-access-dom-element](docs/rules/no-multiple-access-dom-element.md)                 | Disallow multiple access of same DOM element              | ✅ |
 | [no-multiple-style-changes](docs/rules/no-multiple-style-changes.md)                           | Disallow multiple style changes at once                   | ✅ |
 | [no-torch](docs/rules/no-torch.md)                                                             | Should not programmatically enable torch mode             | ✅ |

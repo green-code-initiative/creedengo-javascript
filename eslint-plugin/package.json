@@ -29,6 +29,7 @@
     "lint:fix": "eslint . --fix",
     "pack:sonar": "npm pkg set main=\"./dist/rules.js\" && mkdirp dist/pack && yarn pack -o dist/pack/creedengo-eslint-plugin.tgz && npm pkg set main=\"./lib/standalone.js\"",
     "test": "mocha tests --recursive",
+    "test:watch": "mocha tests --watch --recursive",
     "test:cov": "nyc --reporter=lcov --reporter=text mocha tests --recursive",
     "update:eslint-docs": "eslint-doc-generator"
   },

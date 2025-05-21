@@ -42,9 +42,10 @@ But it can be useful to prepare a test project to check the correct execution of
 ## Installation
 
 1. Clone the Git repository
-2. Run `yarn install` inside **eslint-plugin** directory
-3. Synchronize dependencies using Maven inside **sonar-plugin** directory
-4. You are good to go! 🚀
+1. Inside **eslint-plugin** directory, run `yarn install` 
+1. Inside **sonar-plugin** directory, synchronize dependencies using Maven with `mvn clean install -DskipTests`
+1. Inside root directory, initialize docker with `docker compose up --build -d`
+1. You are good to go! 🚀
 
 ## Create a rule
 
