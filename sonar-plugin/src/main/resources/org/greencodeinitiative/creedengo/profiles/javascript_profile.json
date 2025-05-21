@@ -1,6 +1,10 @@
 {
   "name": "Creedengo",
   "ruleKeys": [
+<<<<<<< Updated upstream
+=======
+    "GCI7",
+>>>>>>> Stashed changes
     "GCI9",
     "GCI11",
     "GCI12",
