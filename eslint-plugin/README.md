@@ -114,6 +114,7 @@ If your project uses a legacy ESLint version, it may use as well the now depreca
 | [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content               | ✅ |
 | [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                       | ✅ |
 | [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                             | ✅ |
+| [avoid-getting-size-collection-in-loop](docs/rules/avoid-getting-size-collection-in-loop.md)   | Avoid getting size collection in loop                             | ✅ |
 | [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)               | Avoid using high accuracy geolocation in web applications | ✅ |
 | [avoid-keep-awake](docs/rules/avoid-keep-awake.md)                                             | Avoid screen keep awake                                   | ✅ |
 | [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query        | ✅ |
