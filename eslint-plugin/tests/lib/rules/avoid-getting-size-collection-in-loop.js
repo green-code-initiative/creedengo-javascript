@@ -49,6 +49,11 @@ ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
         doSomething(arr[i - 5]);
       }
     `,
+    `
+      for (let i = n, n = arr.length; i < n + 5; i++) {
+        doSomething(arr[i - 5]);
+      }
+    `,
     // unrelated property in loop condition
     `
       for (let i = 0; i < arr.customProp; i++) {

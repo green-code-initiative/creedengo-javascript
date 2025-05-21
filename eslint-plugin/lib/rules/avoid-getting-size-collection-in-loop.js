@@ -42,7 +42,6 @@ module.exports = {
       "findIndex",
       "findLast",
       "findLastIndex",
-      "some",
       "every",
       "flatMap",
       "forEach",
