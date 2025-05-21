@@ -34,7 +34,7 @@ module.exports = {
   },
   create: function (context) {
     const SIZE_PROPERTIES = ["length", "size"]; // We only include static analysis on size and length properties at the moment
-    const CALLBACK_METHODS = ["map", "forEach", "filter", "some", "every"];
+    const CALLBACK_METHODS = ["filter", "find", "findIndex", "findLast", "findLastIndex", "some", "every", "flatMap", "forEach", "map", "reduce", "reduceRight", "some"];
 
     /**
      * Checks if a node is a .length or .size property access (dot or bracket notation).

@@ -182,10 +182,10 @@ ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
       errors: [expectedError],
     },
 
-    // 5. In callback of array methods
+    // 5. In callback of collection methods
     {
       code: `
-        arr.forEach(item => {
+        arr.filter(item => {
           doSomething(arr.length);
         });
       `,
@@ -193,19 +193,89 @@ ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
     },
     {
       code: `
-        arr.map(function(x) {
-          return set.size;
+        arr.find(item => {
+          doSomething(arr.length);
         });
       `,
       errors: [expectedError],
     },
     {
       code: `
-        arr.filter(x => arr.size());
+        arr.findIndex(item => {
+          doSomething(arr.length);
+        });
       `,
       errors: [expectedError],
     },
-
+    {
+      code: `
+        arr.findLast(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+        arr.findLastIndex(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+        arr.some(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+        arr.every(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+        arr.flatMap(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
+    {
+      code: `
+        arr.forEach(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },{
+      code: `
+        arr.map(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },{
+      code: `
+        arr.reduce(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },{
+      code: `
+        arr.reduceRight(item => {
+          doSomething(arr.length);
+        });
+      `,
+      errors: [expectedError],
+    },
     // 6. Multiple in one loop
     {
       code: `
