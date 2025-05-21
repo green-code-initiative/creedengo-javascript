@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   [#51](https://github.com/green-code-initiative/creedengo-javascript/pull/51) Add ESLint v9 and flat config support
+-   [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
 
 ### Changed
 
