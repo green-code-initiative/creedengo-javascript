@@ -16,31 +16,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
+export type Rule = {
+  ruleName: string,
+  ruleModule: RuleModule
+}
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.ts"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
-};
+export type RuleModule = any;
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+export const rules: Rule[] = [];
+const rulesDirectory = path.resolve(__dirname, "rules");
+
+fs.readdirSync(rulesDirectory).forEach((file) => {
+  const ruleName = path.parse(file).name;
+  const ruleModule = require(path.join(rulesDirectory, ruleName));
+  if (ruleModule != null) {
+    rules.push({ ruleName, ruleModule });
+  }
+});
+

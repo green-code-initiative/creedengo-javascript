@@ -1,5 +1,5 @@
 /*
- * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * Creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
  * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,32 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+package org.greencodeinitiative.creedengo.javascript.checks;
 
-"use strict";
+import org.sonar.check.Rule;
+import org.sonar.plugins.javascript.api.EslintBasedCheck;
+import org.sonar.plugins.javascript.api.JavaScriptRule;
+import org.sonar.plugins.javascript.api.TypeScriptRule;
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.ts"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
-};
+@JavaScriptRule
+@TypeScriptRule
+@Rule(key = PreferOnPushComponentChangeDetection.RULE_KEY)
+public class PreferOnPushComponentChangeDetection implements EslintBasedCheck {
+
+    public static final String RULE_KEY = "GCI36";
+
+    @Override
+    public String eslintKey() {
+        return "@creedengo/prefer-component-on-push-change-detection";
+    }
+
+}

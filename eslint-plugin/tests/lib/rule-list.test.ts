@@ -16,31 +16,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
+import * as assert from 'assert';
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.ts"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
-};
+describe("rule-list.ts", () => {
+  it("should export list of valid rule modules", () => {
+    const rules = require("../../lib/rule-list");
+    assert.notEqual(rules.length, 0);
+    const firstRule = rules[0];
+    assert.notEqual(firstRule.ruleName, null);
+    assert.notEqual(firstRule.ruleModule, null);
+  });
+});

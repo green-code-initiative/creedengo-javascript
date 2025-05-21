@@ -16,18 +16,18 @@
   },
   "license": "GPL-3.0",
   "author": "Green Code Initiative",
-  "main": "./lib/standalone.js",
+  "main": "./lib/standalone.ts",
   "files": [
     "lib",
-    "./dist/rules.js"
+    "./dist/rules.ts"
   ],
   "scripts": {
     "clean": "rimraf dist/pack",
-    "lint": "yarn lint:eslint-docs && yarn lint:js",
+    "lint": "yarn lint:eslint-docs && yarn lint:ts",
     "lint:eslint-docs": "eslint-doc-generator --check",
-    "lint:js": "eslint .",
+    "lint:ts": "eslint .",
     "lint:fix": "eslint . --fix",
-    "pack:sonar": "npm pkg set main=\"./dist/rules.js\" && mkdirp dist/pack && yarn pack -o dist/pack/creedengo-eslint-plugin.tgz && npm pkg set main=\"./lib/standalone.js\"",
+    "pack:sonar": "npm pkg set main=\"./dist/rules.ts\" && mkdirp dist/pack && yarn pack -o dist/pack/creedengo-eslint-plugin.tgz && npm pkg set main=\"./lib/standalone.ts\"",
     "test": "mocha tests --recursive",
     "test:cov": "nyc --reporter=lcov --reporter=text mocha tests --recursive",
     "update:eslint-docs": "eslint-doc-generator"
@@ -47,7 +47,7 @@
     "nyc": "^17.1.0",
     "prettier": "^3.4.2",
     "rimraf": "^5.0.5",
-    "typescript": "~5.3.3"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
@@ -55,5 +55,12 @@
   "peerDependencies": {
     "eslint": ">= 7 < 10"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.1",
+  "dependencies": {
+    "@angular-eslint/utils": "^19.4.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.15.21",
+    "@typescript-eslint/rule-tester": "^8.32.1",
+    "@typescript-eslint/utils": "^8.32.1"
+  }
 }

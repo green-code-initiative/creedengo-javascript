@@ -16,31 +16,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
+import * as assert from "assert";
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.ts"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
-};
+describe("standalone.ts", () => {
+  it("should export list of rule modules", () => {
+    const { rules } = require("../../lib/standalone");
+    assert.notEqual(Object.keys(rules).length, 0);
+    const firstRuleName = Object.keys(rules)[0];
+    assert.notEqual(rules[firstRuleName].meta, null);
+  });
+
+  it("should export all rules in recommended configuration", () => {
+    const { configs, rules } = require("../../lib/standalone");
+    const recommended = configs.recommended;
+    assert.notEqual(recommended, null);
+    assert.equal(recommended.plugins.length, 1);
+    assert.equal(recommended.plugins[0], "@creedengo");
+    assert.equal(recommended.rules.length, rules.length);
+  });
+});
