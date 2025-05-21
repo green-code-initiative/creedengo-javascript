@@ -36,11 +36,17 @@ const expectedError = {
 
 ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
   valid: [
-    // size/length assigned before loop, not used in loop
+    // size/length assigned before loop, not used in loop body or test
     `
       const n = arr.length;
       for (let i = 0; i < n; i++) {
         doSomething(arr[i]);
+      }
+    `,
+    `
+      const n = arr.length;
+      for (let i = n; i < n + 5; i++) {
+        doSomething(arr[i - 5]);
       }
     `,
     // unrelated property in loop condition
@@ -254,21 +260,24 @@ ruleTester.run("avoid-getting-size-collection-in-loop", rule, {
         });
       `,
       errors: [expectedError],
-    },{
+    },
+    {
       code: `
         arr.map(item => {
           doSomething(arr.length);
         });
       `,
       errors: [expectedError],
-    },{
+    },
+    {
       code: `
         arr.reduce(item => {
           doSomething(arr.length);
         });
       `,
       errors: [expectedError],
-    },{
+    },
+    {
       code: `
         arr.reduceRight(item => {
           doSomething(arr.length);

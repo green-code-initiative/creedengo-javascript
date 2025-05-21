@@ -23,25 +23,44 @@ module.exports = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "Avoid getting the size/length of the collection in loops and callbacks. Assign it to a variable before the loop/callback.",
+      description:
+        "Avoid getting the size/length of the collection in loops and callbacks. Assign it to a variable before the loop/callback.",
       category: "eco-design",
       recommended: "warn",
     },
     messages: {
-      avoidSizeInLoop: "Avoid getting the size/length of the collection in the loop or callback. Assign it to a variable before the loop/callback.",
+      avoidSizeInLoop:
+        "Avoid getting the size/length of the collection in the loop or callback. Assign it to a variable before the loop/callback.",
     },
     schema: [],
   },
   create: function (context) {
     const SIZE_PROPERTIES = ["length", "size"]; // We only include static analysis on size and length properties at the moment
-    const CALLBACK_METHODS = ["filter", "find", "findIndex", "findLast", "findLastIndex", "some", "every", "flatMap", "forEach", "map", "reduce", "reduceRight", "some"];
+    const CALLBACK_METHODS = [
+      "filter",
+      "find",
+      "findIndex",
+      "findLast",
+      "findLastIndex",
+      "some",
+      "every",
+      "flatMap",
+      "forEach",
+      "map",
+      "reduce",
+      "reduceRight",
+      "some",
+    ];
 
     /**
      * Checks if a node is a .length or .size property access (dot or bracket notation).
      * If you want to only match dot notation, keep !node.computed.
      */
     function isSizeOrLengthMember(node) {
-      return node.type === "MemberExpression" && SIZE_PROPERTIES.includes(node.property.name);
+      return (
+        node.type === "MemberExpression" &&
+        SIZE_PROPERTIES.includes(node.property.name)
+      );
     }
 
     /**
@@ -77,7 +96,8 @@ module.exports = {
       if (
         node.arguments &&
         node.arguments.length > 0 &&
-        (node.arguments[0].type === "FunctionExpression" || node.arguments[0].type === "ArrowFunctionExpression")
+        (node.arguments[0].type === "FunctionExpression" ||
+          node.arguments[0].type === "ArrowFunctionExpression")
       ) {
         checkNodeRecursively(node.arguments[0].body);
       }
