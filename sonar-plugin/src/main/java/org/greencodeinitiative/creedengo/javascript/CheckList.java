@@ -37,6 +37,7 @@ public class CheckList {
                 AvoidAutoPlay.class,
                 AvoidBrightnessOverride.class,
                 AvoidCSSAnimations.class,
+                AvoidGettingSizeCollectionInLoop.class,
                 AvoidHighAccuracyGeolocation.class,
                 AvoidKeepAwake.class,
                 LimitDbQueryResult.class,
