@@ -64,6 +64,15 @@ module.exports = {
           context.report(errorReport(node.parent.property));
         }
       },
+      ImportDeclaration(node) {
+        const importedLibraryName = node.source.value;
+        if (importedLibraryName === 'numerable') {
+          const formatSpecifier = node.specifiers.find(specifier => specifier.type === 'ImportSpecifier' && specifier.imported.name === 'format');
+          if (formatSpecifier) {
+            context.report(errorReport(formatSpecifier));
+          }
+        }
+      }
     };
   },
 };

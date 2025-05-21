@@ -35,11 +35,14 @@ const ruleTester = new RuleTester({
     sourceType: "module",
   },
 });
-const expectedError = {
+const expectedIdentifierError = {
   messageId: "ShouldNotUseImportedNumberFormatLibrary",
   type: "Identifier",
 };
-
+const expectedImportError = {
+  messageId: "ShouldNotUseImportedNumberFormatLibrary",
+  type: "ImportSpecifier",
+};
 ruleTester.run("no-imported-number-format-library", rule, {
   valid: [
     "new Intl.NumberFormat().format(1000);",
@@ -49,18 +52,21 @@ ruleTester.run("no-imported-number-format-library", rule, {
     const number2 = numbro(2000);
     number2.add(1000);
     `,
+    "import { parse } from 'numerable';",
+    "import { format } from 'date-fns';",
+    "import mysql from 'mysql2';"
   ],
   invalid: [
     {
       code: "numbro(1000).format({thousandSeparated: true});",
-      errors: [expectedError],
+      errors: [expectedIdentifierError],
     },
     {
       code: `
       const number = numbro(1000);
       number.format({thousandSeparated: true});
       `,
-      errors: [expectedError],
+      errors: [expectedIdentifierError],
     },
     {
       code: `
@@ -68,7 +74,15 @@ ruleTester.run("no-imported-number-format-library", rule, {
       const number2 = numbro(2000);
       number.format({thousandSeparated: true});
       `,
-      errors: [expectedError],
+      errors: [expectedIdentifierError],
+    },
+    {
+      code: "import { format } from 'numerable';",
+      errors: [expectedImportError],
+    },
+    {
+      code: "import { format as myFormat} from 'numerable';",
+      errors: [expectedImportError],
     },
   ],
 });
