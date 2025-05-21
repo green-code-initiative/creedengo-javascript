@@ -17,7 +17,6 @@
  */
 package org.greencodeinitiative.creedengo.javascript.checks;
 
-import org.greencodeinitiative.creedengo.javascript.DeprecatedEcoCodeRule;
 import org.sonar.check.Rule;
 import org.sonar.plugins.javascript.api.EslintBasedCheck;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
@@ -25,15 +24,14 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 
 @JavaScriptRule
 @TypeScriptRule
-@Rule(key = NoImportAllFromLibrary.RULE_KEY)
-@DeprecatedEcoCodeRule.Key("EC9")
-public class NoImportAllFromLibrary implements EslintBasedCheck {
+@Rule(key = PreferOnPushComponentChangeDetection.RULE_KEY)
+public class PreferOnPushComponentChangeDetection implements EslintBasedCheck {
 
-    public static final String RULE_KEY = "GCI9";
+    public static final String RULE_KEY = "GCI36";
 
     @Override
     public String eslintKey() {
-        return "@creedengo/no-import-all-from-library";
+        return "@creedengo/prefer-component-on-push-change-detection";
     }
 
 }

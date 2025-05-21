@@ -1,4 +1,4 @@
-# Avoid autoplay for videos and audio content (`@creedengo/avoid-autoplay`)
+# Prefer on push component change detection (`@creedengo/prefer-on-push-component-change-detection`)
 
 ⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
 

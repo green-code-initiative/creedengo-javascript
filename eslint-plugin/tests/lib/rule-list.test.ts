@@ -1,5 +1,5 @@
 /*
- * Creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
+ * creedengo JavaScript plugin - Provides rules to reduce the environmental footprint of your JavaScript programs
  * Copyright © 2023 Green Code Initiative (https://green-code-initiative.org)
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,23 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.greencodeinitiative.creedengo.javascript.checks;
 
-import org.sonar.check.Rule;
-import org.sonar.plugins.javascript.api.EslintBasedCheck;
-import org.sonar.plugins.javascript.api.JavaScriptRule;
-import org.sonar.plugins.javascript.api.TypeScriptRule;
+import * as assert from 'assert';
 
-@JavaScriptRule
-@TypeScriptRule
-@Rule(key = PreferLighterFormatsForImageFiles.RULE_KEY)
-public class PreferLighterFormatsForImageFiles implements EslintBasedCheck {
-
-    public static final String RULE_KEY = "GCI31";
-
-    @Override
-    public String eslintKey() {
-        return "@creedengo/prefer-lighter-formats-for-image-files";
-    }
-
-}
+describe("rule-list.ts", () => {
+  it("should export list of valid rule modules", () => {
+    const rules = require("../../lib/rule-list");
+    assert.notEqual(rules.length, 0);
+    const firstRule = rules[0];
+    assert.notEqual(firstRule.ruleName, null);
+    assert.notEqual(firstRule.ruleModule, null);
+  });
+});

@@ -20,12 +20,15 @@
  * @fileoverview JavaScript linter of Creedengo project (standalone mode)
  * @author Green Code Initiative
  */
-"use strict";
 
-const rules = require("./rule-list");
+import { RuleModule, rules } from "./rule-list";
 
-const allRules = {};
-const recommendedRules = {};
+type RecommendedRules = {
+  [recommendedRule: `@creedengo/${string}`]: string
+}
+
+const allRules: {[ruleName: string]: RuleModule}= {};
+const recommendedRules: RecommendedRules = {};
 
 for (let { ruleName, ruleModule } of rules) {
   allRules[ruleName] = ruleModule;
@@ -34,12 +37,13 @@ for (let { ruleName, ruleModule } of rules) {
   recommendedRules[`@creedengo/${ruleName}`] = ruleConfiguration;
 }
 
-const plugin = {
+export const plugin = {
   meta: {
     name: "@creedengo/eslint-plugin",
     version: "2.1.0", // dynamically updated by the release workflow
   },
   rules: allRules,
+  configs: {}
 };
 
 plugin.configs = {
@@ -52,5 +56,3 @@ plugin.configs = {
     rules: recommendedRules,
   },
 };
-
-module.exports = plugin;

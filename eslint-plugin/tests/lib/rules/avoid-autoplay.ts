@@ -22,7 +22,7 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-import-all-from-library");
+import preferOnPushComponentChangeDetection from "../../../lib/rules/prefer-on-push-component-change-detection";
 const RuleTester = require("eslint").RuleTester;
 
 //------------------------------------------------------------------------------
@@ -31,53 +31,57 @@ const RuleTester = require("eslint").RuleTester;
 
 const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2021,
     sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 });
-const expectedError = {
-  messageId: "ShouldNotImportAllFromLibrary",
-  type: "ImportDeclaration",
+
+const noAutoplayError = {
+  messageId: "NoAutoplay",
+  type: "JSXAttribute",
+};
+const enforcePreloadNoneError = {
+  messageId: "EnforcePreloadNone",
+  type: "JSXAttribute",
+};
+const BothError = {
+  messageId: "NoAutoplayAndEnforcePreloadNone",
+  type: "JSXAttribute",
 };
 
-ruleTester.run("no-import-all-from-library", rule, {
+ruleTester.run("autoplay-audio-video-attribute-not-present", preferOnPushComponentChangeDetection, {
   valid: [
-    `
-    import isEmpty from 'lodash/isEmpty';
-    `,
-    `
-    import orderBy from 'lodash/orderBy';
-    `,
-    `
-    import { orderBy } from 'lodash-es';
-    `,
-    `
-    import map from 'underscore/modules/map.js';
-    `,
+    '<audio preload="none"></audio>',
+    '<video preload="none"></video>',
+    '<video preload="none" {...props}></video>',
   ],
-
   invalid: [
     {
-      code: "import lodash from 'lodash';",
-      errors: [expectedError],
+      code: "<audio autoplay></audio>",
+      errors: [BothError],
     },
     {
-      code: "import * as lodash from 'lodash';",
-      errors: [expectedError],
+      code: "<audio autoPlay></audio>",
+      errors: [BothError],
     },
     {
-      code: "import * as lodash from 'lodash-es';",
-      errors: [expectedError],
+      code: "<audio autoPlay={true}></audio>",
+      errors: [BothError],
     },
     {
-      code: "import someLib from 'some-lib';",
-      options: [{ notAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
+      code: '<video autoplay preload="auto"></video>',
+      errors: [BothError],
     },
     {
-      code: "import * as someLib from 'some-lib';",
-      options: [{ importByNamespaceNotAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
+      code: '<video autoplay preload="none"></video>',
+      errors: [noAutoplayError],
+    },
+    {
+      code: '<audio preload="auto"></audio>',
+      errors: [enforcePreloadNoneError],
     },
   ],
 });

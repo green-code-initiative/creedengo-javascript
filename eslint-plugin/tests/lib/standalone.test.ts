@@ -16,36 +16,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
+import * as assert from "assert";
 
-/** @type {import("eslint").Rule.RuleModule} */
-module.exports = {
-  meta: {
-    type: "suggestion",
-    docs: {
-      description: "Should not programmatically enable torch mode",
-      category: "eco-design",
-      recommended: "warn",
-    },
-    messages: {
-      ShouldNotProgrammaticallyEnablingTorchMode:
-        "You should not programmatically enable torch mode",
-    },
-    schema: [],
-  },
-  create: function (context) {
-    const reactNativeTorchLibrary = "react-native-torch";
+describe("standalone.ts", () => {
+  it("should export list of rule modules", () => {
+    const { rules } = require("../../lib/standalone");
+    assert.notEqual(Object.keys(rules).length, 0);
+    const firstRuleName = Object.keys(rules)[0];
+    assert.notEqual(rules[firstRuleName].meta, null);
+  });
 
-    return {
-      ImportDeclaration(node) {
-        const currentLibrary = node.source.value;
-        if (currentLibrary === reactNativeTorchLibrary) {
-          context.report({
-            node,
-            messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
-          });
-        }
-      },
-    };
-  },
-};
+  it("should export all rules in recommended configuration", () => {
+    const { configs, rules } = require("../../lib/standalone");
+    const recommended = configs.recommended;
+    assert.notEqual(recommended, null);
+    assert.equal(recommended.plugins.length, 1);
+    assert.equal(recommended.plugins[0], "@creedengo");
+    assert.equal(recommended.rules.length, rules.length);
+  });
+});

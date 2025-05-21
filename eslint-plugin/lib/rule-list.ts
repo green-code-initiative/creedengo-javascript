@@ -16,18 +16,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @fileoverview JavaScript linter of Creedengo project (Sonar mode)
- * @author Green Code Initiative
- */
-"use strict";
+export type Rule = {
+  ruleName: string,
+  ruleModule: RuleModule
+}
 
-const rules = require("../lib/rule-list");
+export type RuleModule = any;
 
-module.exports = {
-  rules: rules.map((rule) => ({
-    ruleId: `@creedengo/${rule.ruleName}`,
-    ruleModule: rule.ruleModule,
-    ruleConfig: [],
-  })),
-};
+import * as fs from 'fs';
+import * as path from 'path';
+
+export const rules: Rule[] = [];
+const rulesDirectory = path.resolve(__dirname, "rules");
+
+fs.readdirSync(rulesDirectory).forEach((file) => {
+  const ruleName = path.parse(file).name;
+  const ruleModule = require(path.join(rulesDirectory, ruleName));
+  if (ruleModule != null) {
+    rules.push({ ruleName, ruleModule });
+  }
+});
+
