@@ -37,10 +37,7 @@ public class CheckList {
                 AvoidAutoPlay.class,
                 AvoidBrightnessOverride.class,
                 AvoidCSSAnimations.class,
-<<<<<<< Updated upstream
-=======
                 AvoidGettersAndSetters.class,
->>>>>>> Stashed changes
                 AvoidHighAccuracyGeolocation.class,
                 AvoidKeepAwake.class,
                 LimitDbQueryResult.class,
