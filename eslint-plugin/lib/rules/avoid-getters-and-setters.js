@@ -28,7 +28,8 @@ module.exports = {
       recommended: "warn",
     },
     messages: {
-      avoidGettersAndSetters: "Avoid rewriting native getter and setters for direct property access.",
+      avoidGettersAndSetters:
+        "Avoid rewriting native getter and setters for direct property access.",
     },
     schema: [],
   },
@@ -37,21 +38,16 @@ module.exports = {
      * Checks if a getter simply returns an object property.
      */
     function isSimpleGetter(node) {
-      if (
-        node.value &&
-        node.value.body &&
-        node.value.body.body.length === 1
-      ) {
+      if (node.value && node.value.body && node.value.body.body.length === 1) {
         const stmt = node.value.body.body[0];
         if (
           stmt.type === "ReturnStatement" &&
           stmt.argument &&
-          (
-            // return this.foo;
-            (stmt.argument.type === "MemberExpression" && stmt.argument.object.type === "ThisExpression") ||
+          // return this.foo;
+          ((stmt.argument.type === "MemberExpression" &&
+            stmt.argument.object.type === "ThisExpression") ||
             // return _foo;
-            (stmt.argument.type === "Identifier")
-          )
+            stmt.argument.type === "Identifier")
         ) {
           return true;
         }
@@ -63,21 +59,16 @@ module.exports = {
      * Checks if a setter simply assigns its parameter to a property (this.foo = value or foo = value).
      */
     function isSimpleSetter(node) {
-      if (
-        node.value &&
-        node.value.body &&
-        node.value.body.body.length === 1
-      ) {
+      if (node.value && node.value.body && node.value.body.body.length === 1) {
         const stmt = node.value.body.body[0];
         if (
           stmt.type === "ExpressionStatement" &&
           stmt.expression.type === "AssignmentExpression" &&
-          (
-            // this.foo = value;
-            (stmt.expression.left.type === "MemberExpression" && stmt.expression.left.object.type === "ThisExpression") ||
+          // this.foo = value;
+          ((stmt.expression.left.type === "MemberExpression" &&
+            stmt.expression.left.object.type === "ThisExpression") ||
             // foo = value;
-            (stmt.expression.left.type === "Identifier")
-          ) &&
+            stmt.expression.left.type === "Identifier") &&
           stmt.expression.right.type === "Identifier" &&
           node.value.params.length === 1 &&
           stmt.expression.right.name === node.value.params[0].name
@@ -91,18 +82,22 @@ module.exports = {
     return {
       // For object literals: { get foo() {...} } or { set foo(v) {...} }
       Property(node) {
-        if ((node.kind === "get" && isSimpleGetter(node)) ||
-            (node.kind === "set" && isSimpleSetter(node))) {
+        if (
+          (node.kind === "get" && isSimpleGetter(node)) ||
+          (node.kind === "set" && isSimpleSetter(node))
+        ) {
           context.report({ node, messageId: "avoidGettersAndSetters" });
         }
       },
       // For classes: class { get foo() {...} } or class { set foo(v) {...} }
       MethodDefinition(node) {
-        if ((node.kind === "get" && isSimpleGetter(node)) ||
-            (node.kind === "set" && isSimpleSetter(node))) {
+        if (
+          (node.kind === "get" && isSimpleGetter(node)) ||
+          (node.kind === "set" && isSimpleSetter(node))
+        ) {
           context.report({ node, messageId: "avoidGettersAndSetters" });
         }
-      }
+      },
     };
   },
 };
