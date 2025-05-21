@@ -48,7 +48,8 @@ public class CheckList {
                 PreferCollectionsWithPagination.class,
                 PreferLighterFormatsForImageFiles.class,
                 PreferShorthandCSSNotations.class,
-                ProvidePrintCSS.class
+                ProvidePrintCSS.class,
+                AvoidUsingResourceHungryLibs.class
         );
     }
 
