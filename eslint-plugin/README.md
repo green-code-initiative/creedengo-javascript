@@ -109,24 +109,24 @@ If your project uses a legacy ESLint version, it may use as well the now depreca
 ✅ Set in the `flat/recommended` configuration.\
 ✅ Set in the `recommended` configuration.
 
-| Name                                                                                           | Description                                               | ⚠️  |
-| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :-- |
-| [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content               | ✅ |
-| [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                       | ✅ |
-| [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                             | ✅ |
-| [avoid-getting-size-collection-in-loop](docs/rules/avoid-getting-size-collection-in-loop.md)   | Avoid getting size collection in loop                             | ✅ |
-| [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)               | Avoid using high accuracy geolocation in web applications | ✅ |
-| [avoid-keep-awake](docs/rules/avoid-keep-awake.md)                                             | Avoid screen keep awake                                   | ✅ |
-| [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query        | ✅ |
-| [no-empty-image-src-attribute](docs/rules/no-empty-image-src-attribute.md)                     | Disallow usage of image with empty source attribute       | ✅ |
-| [no-import-all-from-library](docs/rules/no-import-all-from-library.md)                         | Should not import all from library                        | ✅ |
-| [no-multiple-access-dom-element](docs/rules/no-multiple-access-dom-element.md)                 | Disallow multiple access of same DOM element              | ✅ |
-| [no-multiple-style-changes](docs/rules/no-multiple-style-changes.md)                           | Disallow multiple style changes at once                   | ✅ |
-| [no-torch](docs/rules/no-torch.md)                                                             | Should not programmatically enable torch mode             | ✅ |
-| [prefer-collections-with-pagination](docs/rules/prefer-collections-with-pagination.md)         | Prefer API collections with pagination                    | ✅ |
-| [prefer-lighter-formats-for-image-files](docs/rules/prefer-lighter-formats-for-image-files.md) | Prefer lighter formats for image files                    | ✅ |
-| [prefer-shorthand-css-notations](docs/rules/prefer-shorthand-css-notations.md)                 | Encourage usage of shorthand CSS notations                | ✅ |
-| [provide-print-css](docs/rules/provide-print-css.md)                                           | Enforce providing a print stylesheet                      | ✅ |
+| Name                                                                                           | Description                                                                                                               | ⚠️  |
+| :--------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ | :-- |
+| [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content                                                                               | ✅ |
+| [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                                                                                       | ✅ |
+| [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                                                                                             | ✅ |
+| [avoid-getting-size-collection-in-loop](docs/rules/avoid-getting-size-collection-in-loop.md)   | Avoid getting the size/length of the collection in loops and callbacks. Assign it to a variable before the loop/callback. | ✅ |
+| [avoid-high-accuracy-geolocation](docs/rules/avoid-high-accuracy-geolocation.md)               | Avoid using high accuracy geolocation in web applications                                                                 | ✅ |
+| [avoid-keep-awake](docs/rules/avoid-keep-awake.md)                                             | Avoid screen keep awake                                                                                                   | ✅ |
+| [limit-db-query-results](docs/rules/limit-db-query-results.md)                                 | Should limit the number of returns for a SQL query                                                                        | ✅ |
+| [no-empty-image-src-attribute](docs/rules/no-empty-image-src-attribute.md)                     | Disallow usage of image with empty source attribute                                                                       | ✅ |
+| [no-import-all-from-library](docs/rules/no-import-all-from-library.md)                         | Should not import all from library                                                                                        | ✅ |
+| [no-multiple-access-dom-element](docs/rules/no-multiple-access-dom-element.md)                 | Disallow multiple access of same DOM element                                                                              | ✅ |
+| [no-multiple-style-changes](docs/rules/no-multiple-style-changes.md)                           | Disallow multiple style changes at once                                                                                   | ✅ |
+| [no-torch](docs/rules/no-torch.md)                                                             | Should not programmatically enable torch mode                                                                             | ✅ |
+| [prefer-collections-with-pagination](docs/rules/prefer-collections-with-pagination.md)         | Prefer API collections with pagination                                                                                    | ✅ |
+| [prefer-lighter-formats-for-image-files](docs/rules/prefer-lighter-formats-for-image-files.md) | Prefer lighter formats for image files                                                                                    | ✅ |
+| [prefer-shorthand-css-notations](docs/rules/prefer-shorthand-css-notations.md)                 | Encourage usage of shorthand CSS notations                                                                                | ✅ |
+| [provide-print-css](docs/rules/provide-print-css.md)                                           | Enforce providing a print stylesheet                                                                                      | ✅ |
 
 <!-- end auto-generated rules list -->
 

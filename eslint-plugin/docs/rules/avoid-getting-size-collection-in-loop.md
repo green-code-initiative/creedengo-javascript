@@ -1,4 +1,8 @@
-# Should avoid getting the collection size in loop
+# Avoid getting the size/length of the collection in loops and callbacks. Assign it to a variable before the loop/callback (`@creedengo/avoid-getting-size-collection-in-loop`)
+
+⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+
+<!-- end auto-generated rule header -->
  
 ## Why is this an issue ?
  
