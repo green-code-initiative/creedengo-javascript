@@ -48,8 +48,8 @@ The standalone version of the ESLint plugin is available from [npmjs](https://np
 
 | Plugins Version | SonarQube version | ESLint version |
 | --------------- | ----------------- | -------------- |
-| 2.2+            | 9.9.+ LTA to 25.3 | 7.x, 8.x, 9.x  |
-| 2.0, 2.1        | 9.9.+ LTA to 25.3 | 7.x, 8.x       |
+| 2.2+            | 9.9.+ LTA to 25.8 | 7.x, 8.x, 9.x  |
+| 2.0, 2.1        | 9.9.+ LTA to 25.8 | 7.x, 8.x       |
 | 1.4, 1.5        | 9.9.+ LTA to 10.7 | 7.x, 8.x       |
 
 ## 🤝 Contribution
