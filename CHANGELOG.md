@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   [#51](https://github.com/green-code-initiative/creedengo-javascript/pull/51) Add ESLint v9 and flat config support
+-   [#95](https://github.com/green-code-initiative/creedengo-javascript/pull/95) Add support for SonarQube up to 25.8
 
 ### Changed
 
