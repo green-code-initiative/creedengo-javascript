@@ -40,20 +40,19 @@
     </licenses>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <encoding>UTF-8</encoding>
 
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-        <version.creedengo-rules-specifications>2.6.6</version.creedengo-rules-specifications>
-        <version.sonarqube>9.14.0.375</version.sonarqube>
-        <version.sonar-javascript>9.13.0.20537</version.sonar-javascript>
-        <version.sonar-packaging>1.23.0.740</version.sonar-packaging>
-        <version.sonar-analyzer-commons>2.18.0.3393</version.sonar-analyzer-commons>
+        <version.creedengo-rules-specifications>2.7.0</version.creedengo-rules-specifications>
+        <version.sonarqube>13.0.0.3026</version.sonarqube>
+        <version.sonar-javascript>11.8.0.37897</version.sonar-javascript>
+        <version.sonar-packaging>1.25.1.3002</version.sonar-packaging>
+        <version.sonar-analyzer-commons>2.21.0.4626</version.sonar-analyzer-commons>
         <version.buildnumber>3.2.1</version.buildnumber>
         <version.maven-exec>3.6.1</version.maven-exec>
         <version.maven-shade>3.6.1</version.maven-shade>
@@ -61,7 +60,7 @@
 
         <version.junit>5.13.4</version.junit>
         <version.mockito>5.20.0</version.mockito>
-        <version.assertj>3.27.6</version.assertj>
+        <version.assertj>3.27.7</version.assertj>
         <version.jacoco>0.8.13</version.jacoco>
     </properties>
 
@@ -83,9 +82,8 @@
 
         <dependency>
             <groupId>org.sonarsource.javascript</groupId>
-            <artifactId>sonar-javascript-plugin</artifactId>
+            <artifactId>api</artifactId>
             <version>${version.sonar-javascript}</version>
-            <type>sonar-plugin</type>
             <scope>provided</scope>
         </dependency>
 

@@ -17,14 +17,14 @@
  */
 package org.greencodeinitiative.creedengo.javascript;
 
+import org.sonar.plugins.javascript.api.CustomRuleRepository;
+import org.sonar.plugins.javascript.api.EslintHook;
+import org.sonar.plugins.javascript.api.Language;
+
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-import org.sonar.plugins.javascript.api.CustomRuleRepository;
-import org.sonar.plugins.javascript.api.JavaScriptCheck;
-
-@SuppressWarnings("deprecation")
 public class TypeScriptRuleRepository implements CustomRuleRepository {
 
     public static final String KEY = "creedengo-typescript";
@@ -34,7 +34,7 @@ public class TypeScriptRuleRepository implements CustomRuleRepository {
     public static final String LANGUAGE = "ts";
 
     @Override
-    public Set<Language> languages() {
+    public Set<Language> compatibleLanguages() {
         return EnumSet.of(Language.TYPESCRIPT);
     }
 
@@ -44,8 +44,8 @@ public class TypeScriptRuleRepository implements CustomRuleRepository {
     }
 
     @Override
-    public List<Class<? extends JavaScriptCheck>> checkClasses() {
-        return CheckList.getTypeScriptChecks();
+    public List<Class<? extends EslintHook>> checkClasses() {
+        return CheckList.getTypeScriptHooks();
     }
 
 }

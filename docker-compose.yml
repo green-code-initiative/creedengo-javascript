@@ -3,7 +3,7 @@ name: sonarqube_creedengo_javascript
 
 services:
   sonar:
-    image: sonarqube:25.8.0.112029-community
+    image: sonarqube:26.1.0.118079-community
     container_name: sonar_creedengo_javascript
     ports:
       - "9000:9000"
