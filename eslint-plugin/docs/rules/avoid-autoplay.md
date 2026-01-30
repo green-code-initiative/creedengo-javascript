@@ -1,6 +1,8 @@
-# Avoid autoplay for videos and audio content (`@creedengo/avoid-autoplay`)
+# @creedengo/avoid-autoplay
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Avoid autoplay for videos and audio content.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -17,13 +19,13 @@ browsers not to preload anything by setting the `preload` attribute to `none`.
 
 ```jsx
 return (
-    <>
-        <video src="video.mp4" autoplay/> // Non-compliant
-        <video src="video.mp4" preload="auto"/> // Non-compliant
-        <video src="video.mp4" autoplay preload="auto"/> // Non-compliant
-        <video src="video.mp4" preload="none"/> // Compliant
-    </>
-)
+  <>
+    <video src="video.mp4" autoplay /> // Non-compliant
+    <video src="video.mp4" preload="auto" /> // Non-compliant
+    <video src="video.mp4" autoplay preload="auto" /> // Non-compliant
+    <video src="video.mp4" preload="none" /> // Compliant
+  </>
+);
 ```
 
 This rule is build for [React](https://react.dev/) and JSX.
@@ -40,5 +42,3 @@ This rule is build for [React](https://react.dev/) and JSX.
   Preload in HTML
 - [W3C](https://w3c.github.io/sustyweb/star.html#UX16-1) - Autoplay attribute
 - [RGESN](https://www.arcep.fr/mes-demarches-et-services/entreprises/fiches-pratiques/referentiel-general-ecoconception-services-numeriques.html) - Reference Rule 4.1
-
-

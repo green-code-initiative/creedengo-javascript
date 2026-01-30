@@ -1,6 +1,8 @@
-# Should not import all from library (`@creedengo/no-import-all-from-library`)
+# @creedengo/no-import-all-from-library
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Should not import all from library.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -19,10 +21,10 @@ leading to faster execution and improved overall performance.
 
 <!-- begin auto-generated rule options list -->
 
-| Name                                   | Type     |
-| :------------------------------------- | :------- |
-| `importByNamespaceNotAllowedLibraries` | String[] |
-| `notAllowedLibraries`                  | String[] |
+| Name                                   | Description                                                        | Type     |
+| :------------------------------------- | :----------------------------------------------------------------- | :------- |
+| `importByNamespaceNotAllowedLibraries` | List of libraries from which importing by namespace is not allowed | String[] |
+| `notAllowedLibraries`                  | List of libraries from which importing all is not allowed          | String[] |
 
 <!-- end auto-generated rule options list -->
 

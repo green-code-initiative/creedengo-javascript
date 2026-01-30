@@ -36,6 +36,7 @@ module.exports = {
         type: "object",
         properties: {
           disableProperties: {
+            description: "List of shorthand properties to disable the rule for",
             type: "array",
             items: {
               type: "string",
@@ -43,6 +44,11 @@ module.exports = {
           },
         },
         additionalProperties: false,
+      },
+    ],
+    defaultOptions: [
+      {
+        disableProperties: [],
       },
     ],
   },

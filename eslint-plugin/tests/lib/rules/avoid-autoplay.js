@@ -23,18 +23,20 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-autoplay");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });

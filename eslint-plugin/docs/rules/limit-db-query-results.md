@@ -1,6 +1,8 @@
-# Should limit the number of returns for a SQL query (`@creedengo/limit-db-query-results`)
+# @creedengo/limit-db-query-results
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Should limit the number of returns for a SQL query.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 

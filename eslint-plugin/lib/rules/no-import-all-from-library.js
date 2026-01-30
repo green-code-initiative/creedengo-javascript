@@ -36,12 +36,16 @@ module.exports = {
         type: "object",
         properties: {
           notAllowedLibraries: {
+            description:
+              "List of libraries from which importing all is not allowed",
             type: "array",
             items: {
               type: "string",
             },
           },
           importByNamespaceNotAllowedLibraries: {
+            description:
+              "List of libraries from which importing by namespace is not allowed",
             type: "array",
             items: {
               type: "string",
@@ -49,6 +53,12 @@ module.exports = {
           },
         },
         additionalProperties: false,
+      },
+    ],
+    defaultOptions: [
+      {
+        notAllowedLibraries: [],
+        importByNamespaceNotAllowedLibraries: [],
       },
     ],
   },

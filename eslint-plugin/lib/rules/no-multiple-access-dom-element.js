@@ -31,7 +31,6 @@ module.exports = {
       ShouldBeAssignToVariable:
         "'{{selector}}' selector is already used. Assign the result in a variable.",
     },
-    schema: [],
   },
   create: function (context) {
     const map = {};
@@ -44,6 +43,21 @@ module.exports = {
       "querySelectorAll",
     ];
 
+    // Helper function to get the closest function scope
+    function getFunctionScope(scope) {
+      let currentScope = scope;
+      while (currentScope) {
+        if (
+          currentScope.type === "function" ||
+          currentScope.type === "global"
+        ) {
+          return currentScope;
+        }
+        currentScope = currentScope.upper;
+      }
+      return null;
+    }
+
     return {
       CallExpression(node) {
         if (
@@ -54,19 +68,24 @@ module.exports = {
         ) {
           const selectorValue = node.arguments[0].value;
           const uniqueCallStr = node.callee.property.name + selectorValue;
-          // todo: legacy support of context#getScope for eslint v7
-          const scope =
-            context.sourceCode?.getScope(node) ?? context.getScope();
+          const scope = context.sourceCode.getScope(node);
+          const functionScope = getFunctionScope(scope);
 
-          if (map[uniqueCallStr] === scope) {
-            context.report({
-              node,
-              messageId: "ShouldBeAssignToVariable",
-              data: { selector: selectorValue },
-            });
-          } else {
-            map[uniqueCallStr] = scope;
+          if (map[uniqueCallStr]) {
+            const previousFunctionScope = map[uniqueCallStr];
+
+            // Report error if both calls are in the same function scope
+            if (previousFunctionScope === functionScope) {
+              context.report({
+                node,
+                messageId: "ShouldBeAssignToVariable",
+                data: { selector: selectorValue },
+              });
+              return;
+            }
           }
+
+          map[uniqueCallStr] = functionScope;
         }
       },
     };
