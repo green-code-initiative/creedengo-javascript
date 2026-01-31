@@ -18,7 +18,6 @@
 package org.greencodeinitiative.creedengo.javascript.checks;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.javascript.api.EslintBasedCheck;
 import org.sonar.plugins.javascript.api.EslintHook;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
@@ -26,7 +25,7 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = PreferLighterFormatsForImageFiles.RULE_KEY)
-public class PreferLighterFormatsForImageFiles implements EslintHook, EslintBasedCheck {
+public class PreferLighterFormatsForImageFiles implements EslintHook {
 
     public static final String RULE_KEY = "GCI31";
 

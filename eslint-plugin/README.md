@@ -67,8 +67,8 @@ export default [
 
 <!-- begin auto-generated configs list -->
 
-|     | Name          |
-| :-- | :------------ |
+|    | Name          |
+| :- | :------------ |
 | ✅  | `recommended` |
 
 <!-- end auto-generated configs list -->
@@ -80,8 +80,8 @@ export default [
 ⚠️ Configurations set to warn in.\
 ✅ Set in the `recommended` configuration.
 
-| Name                                                                                           | Description                                               | ⚠️  |
-| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :-- |
+| Name                                                                                           | Description                                               | ⚠️ |
+| :--------------------------------------------------------------------------------------------- | :-------------------------------------------------------- | :- |
 | [avoid-autoplay](docs/rules/avoid-autoplay.md)                                                 | Avoid autoplay for videos and audio content               | ✅  |
 | [avoid-brightness-override](docs/rules/avoid-brightness-override.md)                           | Should avoid to override brightness                       | ✅  |
 | [avoid-css-animations](docs/rules/avoid-css-animations.md)                                     | Avoid usage of CSS animations                             | ✅  |
