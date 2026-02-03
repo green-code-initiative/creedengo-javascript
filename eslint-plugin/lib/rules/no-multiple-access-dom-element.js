@@ -18,6 +18,23 @@
 
 "use strict";
 
+/**
+ * Helper function to get the closest function scope.
+ *
+ * @param {import("eslint").Scope.Scope} scope
+ * @returns {import("eslint").Scope.Scope|null} the closest function scope
+ */
+function getFunctionScope(scope) {
+  let currentScope = scope;
+  while (currentScope) {
+    if (currentScope.type === "function" || currentScope.type === "global") {
+      return currentScope;
+    }
+    currentScope = currentScope.upper;
+  }
+  return null;
+}
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -42,21 +59,6 @@ module.exports = {
       "querySelector",
       "querySelectorAll",
     ];
-
-    // Helper function to get the closest function scope
-    function getFunctionScope(scope) {
-      let currentScope = scope;
-      while (currentScope) {
-        if (
-          currentScope.type === "function" ||
-          currentScope.type === "global"
-        ) {
-          return currentScope;
-        }
-        currentScope = currentScope.upper;
-      }
-      return null;
-    }
 
     return {
       CallExpression(node) {
