@@ -1,6 +1,8 @@
-# Prefer API collections with pagination (`@creedengo/prefer-collections-with-pagination`)
+# @creedengo/prefer-collections-with-pagination
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Prefer API collections with pagination.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -22,8 +24,7 @@ decorated method `@Get()`.
 @Controller()
 class Test {
   @Get()
-  public find(): Promise<string[]> {
-  } // Non-compliant
+  public find(): Promise<string[]> {} // Non-compliant
 }
 ```
 
@@ -37,8 +38,7 @@ interface Pagination {
 @Controller()
 class Test {
   @Get()
-  public find(): Promise<Pagination> {
-  } // Compliant
+  public find(): Promise<Pagination> {} // Compliant
 }
 ```
 

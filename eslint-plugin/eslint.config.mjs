@@ -16,31 +16,39 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
+import globals from "globals";
+import js from "@eslint/js";
+import prettierConfig from "eslint-config-prettier";
+import eslintPlugin from "eslint-plugin-eslint-plugin";
+import licenseHeaderPlugin from "eslint-plugin-license-header";
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
+export default [
+  {
+    ignores: ["dist/**", "coverage/**"],
   },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.js"],
-      env: { mocha: true },
+  js.configs.recommended,
+  eslintPlugin.configs.recommended,
+  {
+    files: ["**/*.js"],
+    plugins: {
+      "license-header": licenseHeaderPlugin,
     },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      "license-header/header": ["error", "./docs/license-header.txt"],
+    },
   },
-};
+  {
+    files: ["tests/**/*.js"],
+    languageOptions: {
+      globals: {
+        ...globals.mocha,
+      },
+    },
+  },
+  prettierConfig,
+];

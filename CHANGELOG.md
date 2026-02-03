@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [#99](https://github.com/green-code-initiative/creedengo-javascript/pull/99) Add SonarQube Community 25.12+ and SonarQube 2025.6+ support
+
+### Removed
+
+- [#99](https://github.com/green-code-initiative/creedengo-javascript/pull/99) Remove ESLint v7/v8 support
+- [#99](https://github.com/green-code-initiative/creedengo-javascript/pull/99) Remove ESLint flat-specific configuration
+- [#99](https://github.com/green-code-initiative/creedengo-javascript/pull/99) Remove SonarQube Community < 25.12, SonarQube < 2025.6 support
+- [#99](https://github.com/green-code-initiative/creedengo-javascript/pull/99) Remove Node.js < 22 support
+
 ## [2.2.0] - 2026-01-15
 
 ### Added

@@ -19,7 +19,7 @@ package org.greencodeinitiative.creedengo.javascript.checks;
 
 import org.greencodeinitiative.creedengo.javascript.DeprecatedEcoCodeRule;
 import org.sonar.check.Rule;
-import org.sonar.plugins.javascript.api.EslintBasedCheck;
+import org.sonar.plugins.javascript.api.EslintHook;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
 
@@ -27,7 +27,7 @@ import org.sonar.plugins.javascript.api.TypeScriptRule;
 @TypeScriptRule
 @Rule(key = NoTorch.RULE_KEY)
 @DeprecatedEcoCodeRule.Key("EC530")
-public class NoTorch implements EslintBasedCheck {
+public class NoTorch implements EslintHook {
 
     public static final String RULE_KEY = "GCI530";
 

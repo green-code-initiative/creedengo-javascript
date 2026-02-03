@@ -1,6 +1,8 @@
-# Disallow multiple access of same DOM element (`@creedengo/no-multiple-access-dom-element`)
+# @creedengo/no-multiple-access-dom-element
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Disallow multiple access of same DOM element.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -19,12 +21,12 @@ subsequent use is likely for multiple operations.
 Here's an example in JavaScript to illustrate this rule:
 
 ```js
-const width = document.getElementById('block').clientWidth;
-const height = document.getElementById('block').clientHeight; // Non-compliant
+const width = document.getElementById("block").clientWidth;
+const height = document.getElementById("block").clientHeight; // Non-compliant
 ```
 
 ```js
-const blockElement = document.getElementById('block'); // Compliant
+const blockElement = document.getElementById("block"); // Compliant
 const width = blockElement.clientWidth;
 const height = blockElement.clientHeight;
 ```

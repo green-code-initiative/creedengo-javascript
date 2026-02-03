@@ -1,6 +1,8 @@
-# Disallow usage of image with empty source attribute (`@creedengo/no-empty-image-src-attribute`)
+# @creedengo/no-empty-image-src-attribute
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Disallow usage of image with empty source attribute.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -21,21 +23,21 @@ return (
     <img src="" /> // Non-compliant
     <img /> // Non-compliant
   </>
-)
+);
 ```
 
 The HTML specification requires the src attribute for the <img> element, and not including it may lead to non-compliance
 with standards.
 
 ```jsx
-import myLogo from "./logo.svg"
+import myLogo from "./logo.svg";
 
 return (
   <>
     <img src="./logo.svg" /> // Compliant
     <img src={myLogo} /> // Compliant
   </>
-)
+);
 ```
 
 This rule is build for [React](https://react.dev/) and JSX.
@@ -50,4 +52,3 @@ This rule is build for [React](https://react.dev/) and JSX.
 ### Articles & blog posts
 
 - [Empty image src can destroy your site](https://humanwhocodes.com/blog/2009/11/30/empty-image-src-can-destroy-your-site/)
-

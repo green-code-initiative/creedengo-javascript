@@ -1,6 +1,8 @@
-# Enforce providing a print stylesheet (`@creedengo/provide-print-css`)
+# @creedengo/provide-print-css
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Enforce providing a print stylesheet.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -17,7 +19,8 @@ to environmental sustainability.
 ```html
 <head>
   <title>Web Page</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" /> <!-- Non-compliant -->
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <!-- Non-compliant -->
 </head>
 ```
 
@@ -27,7 +30,8 @@ Use the media attribute with a value of "print" to indicate that this stylesheet
 ```html
 <head>
   <title>Web Page</title>
-  <link rel="stylesheet" media="print" type="text/css" href="print.css" /> <!-- Compliant -->
+  <link rel="stylesheet" media="print" type="text/css" href="print.css" />
+  <!-- Compliant -->
 </head>
 ```
 
@@ -38,9 +42,9 @@ Adjust font sizes, hide unnecessary elements, or make any other modifications su
 <head>
   <title>Web Page</title>
   <style>
-  @media print {
-    /* Compliant: print-specific styles */
-  }
+    @media print {
+      /* Compliant: print-specific styles */
+    }
   </style>
 </head>
 ```

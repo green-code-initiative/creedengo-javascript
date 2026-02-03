@@ -29,7 +29,7 @@ const rule = require("../../../lib/rules/limit-db-query-results"),
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 6,
     sourceType: "module",
   },

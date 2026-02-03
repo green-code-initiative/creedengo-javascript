@@ -44,10 +44,6 @@ const plugin = {
 
 plugin.configs = {
   recommended: {
-    plugins: ["@creedengo"],
-    rules: recommendedRules,
-  },
-  ["flat/recommended"]: {
     plugins: { "@creedengo": plugin },
     rules: recommendedRules,
   },

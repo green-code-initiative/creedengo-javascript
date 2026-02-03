@@ -17,7 +17,7 @@ permissions:
 
 env:
   NODE_VERSION: 24.x
-  JDK_VERSION: 11
+  JDK_VERSION: 17
 
 jobs:
   release:

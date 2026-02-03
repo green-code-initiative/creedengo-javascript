@@ -60,9 +60,7 @@ module.exports = {
            * Store parent AST to check if there is more
            * than one assignation on the style of the same domElement
            */
-          // todo: legacy support of context#getScope for eslint v7
-          const scope =
-            context.sourceCode?.getScope(node) ?? context.getScope();
+          const scope = context.sourceCode.getScope(node);
           const currentScopeASTBody =
             scope.block.body.length != null
               ? scope.block.body

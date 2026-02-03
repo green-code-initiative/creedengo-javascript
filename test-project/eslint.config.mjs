@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommended,
-  creedengo.configs["flat/recommended"],
+  creedengo.configs.recommended,
   {
     languageOptions: {
       globals: {
@@ -14,5 +14,5 @@ export default tseslint.config(
         ...globals.node,
       },
     },
-  }
+  },
 );
