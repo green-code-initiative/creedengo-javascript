@@ -37,7 +37,7 @@ for (let { ruleName, ruleModule } of rules) {
 const plugin = {
   meta: {
     name: "@creedengo/eslint-plugin",
-    version: "2.2.0", // dynamically updated by the release workflow
+    version: "3.0.0", // dynamically updated by the release workflow
   },
   rules: allRules,
 };
