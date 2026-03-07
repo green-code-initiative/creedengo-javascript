@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [#101](https://github.com/green-code-initiative/creedengo-javascript/pull/101) Fix spread style attributes in GCI26 and GCI29 rules
+
 ## [3.0.0] - 2026-02-03
 
 ### Added
