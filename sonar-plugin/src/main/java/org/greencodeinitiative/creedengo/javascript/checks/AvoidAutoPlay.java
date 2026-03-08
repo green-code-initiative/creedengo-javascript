@@ -18,14 +18,14 @@
 package org.greencodeinitiative.creedengo.javascript.checks;
 
 import org.sonar.check.Rule;
-import org.sonar.plugins.javascript.api.EslintBasedCheck;
+import org.sonar.plugins.javascript.api.EslintHook;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
 
 @JavaScriptRule
 @TypeScriptRule
 @Rule(key = AvoidAutoPlay.RULE_KEY)
-public class AvoidAutoPlay implements EslintBasedCheck {
+public class AvoidAutoPlay implements EslintHook {
 
     public static final String RULE_KEY = "GCI36";
 

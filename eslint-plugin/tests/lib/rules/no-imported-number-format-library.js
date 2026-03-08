@@ -30,7 +30,7 @@ const RuleTester = require("eslint").RuleTester;
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 6,
     sourceType: "module",
   },
@@ -54,7 +54,7 @@ ruleTester.run("no-imported-number-format-library", rule, {
     `,
     "import { parse } from 'numerable';",
     "import { format } from 'date-fns';",
-    "import mysql from 'mysql2';"
+    "import mysql from 'mysql2';",
   ],
   invalid: [
     {

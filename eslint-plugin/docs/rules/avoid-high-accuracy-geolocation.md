@@ -1,6 +1,8 @@
-# Avoid using high accuracy geolocation in web applications (`@creedengo/avoid-high-accuracy-geolocation`)
+# @creedengo/avoid-high-accuracy-geolocation
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Avoid using high accuracy geolocation in web applications.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -15,13 +17,14 @@ usage.
 If the application or service does not critically require pinpoint accuracy, opting for a less accurate geolocation can
 help minimize the strain on the device's CPU.
 
-## Web 
+## Web
+
 ```js
 var options = { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }; // Non-compliant
 navigator.geolocation.getCurrentPosition(
   (pos) => console.log(pos),
   (err) => console.warn(err),
-  options
+  options,
 );
 ```
 
@@ -37,21 +40,24 @@ var options = { enableHighAccuracy: false, timeout: 5000, maximumAge: 0 }; // Co
 navigator.geolocation.getCurrentPosition(
   (pos) => console.log(pos),
   (err) => console.warn(err),
-  options
+  options,
 );
 ```
 
 ## React Native
+
 In this example, we ask the user to turn on high accuracy location mode which enables network provider that uses Google Play services to improve location accuracy and location-based services:
+
 ```js
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 
 Location.enableNetworkProviderAsync(); // Non-compliant
 ```
 
 Prefer to ask the user to turn on lower-accuracy geolocation to conserve resources:
+
 ```js
-import * as Location from 'expo-location';
+import * as Location from "expo-location";
 
 Location.requestPermissionsAsync(); // Compliant
 ```

@@ -1,6 +1,8 @@
-# Disallow multiple style changes at once (`@creedengo/no-multiple-style-changes`)
+# @creedengo/no-multiple-style-changes
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Disallow multiple style changes at once.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -18,23 +20,23 @@ Here's an example in JavaScript and CSS to illustrate this rule:
 
 ```html
 <script>
-element.style.height = "800px";
-element.style.width = "600px"; // Non-compliant
-element.style.color = "red"; // Non-compliant
+  element.style.height = "800px";
+  element.style.width = "600px"; // Non-compliant
+  element.style.color = "red"; // Non-compliant
 </script>
 ```
 
 ```html
 <style>
-.in-error {
-  color: red;
-  height: 800px;
-  width: 800px;
-}
+  .in-error {
+    color: red;
+    height: 800px;
+    width: 800px;
+  }
 </style>
 
 <script>
-element.addClass("in-error"); // Compliant
+  element.addClass("in-error"); // Compliant
 </script>
 ```
 

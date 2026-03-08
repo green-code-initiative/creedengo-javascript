@@ -19,8 +19,7 @@ package org.greencodeinitiative.creedengo.javascript;
 
 import org.junit.jupiter.api.Test;
 import org.sonar.check.Rule;
-import org.sonar.plugins.javascript.api.EslintBasedCheck;
-import org.sonar.plugins.javascript.api.JavaScriptCheck;
+import org.sonar.plugins.javascript.api.EslintHook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,10 +27,10 @@ public class CheckListTest {
 
     @Test
     public void check() throws ReflectiveOperationException {
-        for (Class<? extends JavaScriptCheck> checkClass : CheckList.getAllChecks()) {
-            assertThat(checkClass).isAssignableTo(EslintBasedCheck.class);
-            assertThat(checkClass).hasAnnotation(Rule.class);
-            EslintBasedCheck check = (EslintBasedCheck) checkClass.getDeclaredConstructor().newInstance();
+        for (Class<? extends EslintHook> hookClass : CheckList.getAllHooks()) {
+            assertThat(hookClass).isAssignableTo(EslintHook.class);
+            assertThat(hookClass).hasAnnotation(Rule.class);
+            EslintHook check = hookClass.getDeclaredConstructor().newInstance();
             assertThat(check.eslintKey()).startsWith("@creedengo/");
         }
     }

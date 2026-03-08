@@ -1,6 +1,10 @@
-# You should not format number with an external library (`@creedengo/no-imported-number-format-library`)
+# @creedengo/no-imported-number-format-library
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 You should not format number with an external library.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
+
+<!-- end auto-generated rule header -->
 
 ## Why is this an issue?
 
@@ -24,30 +28,33 @@ Depending on less external dependencies also increases the maintainability and s
 // Example with numbro (not compliant)
 import numbro from "numbro";
 
-numbro.setLanguage('en-GB');
+numbro.setLanguage("en-GB");
 var string = numbro(1000).format({
   thousandSeparated: true,
 }); // '1,000'
 
 // Example with numerable (not compliant)
 import { format } from "numerable";
-format(1000, '0,0');
+format(1000, "0,0");
 
 // Example with Intl (compliant)
 new Intl.NumberFormat("en-GB").format(1000); // '1,000'
 ```
 
 ## Limitations
+
 As for now, only two libraries are handled by this rule :
+
 - [numbro](https://numbrojs.com/)
 - [numerable](https://numerablejs.com/lander)
 
 Some candidates for the future developments are :
+
 - [javascript-number-formatter](https://github.com/Mottie/javascript-number-formatter)
 - [numeraljs](https://www.npmjs.com/package/numerable)
 - [formatjs](https://formatjs.github.io/)
 
-It’s more likely this rule won’t ever be exhaustive. 
+It’s more likely this rule won’t ever be exhaustive.
 
 ## Resources
 
