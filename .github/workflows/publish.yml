@@ -9,7 +9,7 @@ permissions:
   packages: write
 
 env:
-  NODE_VERSION: 20.x
+  NODE_VERSION: 24.x
 
 jobs:
   publish-npm:
@@ -18,12 +18,12 @@ jobs:
       id-token: write
     steps:
       - name: Checkout tag "${{ github.ref_name }}"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: "https://registry.npmjs.org"
@@ -45,12 +45,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout tag "${{ github.ref_name }}"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
@@ -66,7 +66,7 @@ jobs:
         working-directory: eslint-plugin
 
       - name: Configure GitHub Packages registry
-        uses: bduff9/use-npmrc@v2.0.0
+        uses: bduff9/use-npmrc@dbe8c5121963fc22c8825da5cfb3b58aa18e3d1b # v2.0.0
         with:
           working-directory: eslint-plugin
           dot-npmrc: |

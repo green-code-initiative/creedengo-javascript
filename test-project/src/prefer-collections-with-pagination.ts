@@ -18,8 +18,8 @@ export class CatsController {
   }
 
   @Get(":id") // Compliant: find a specific item of a collection
-  public getSpecificItem(): Promise<string> {
-    return null;
+  public getSpecificItem(): Promise<string | null> {
+    return Promise.resolve(null);
   }
 
   @Get("page") // Compliant: collection is paginated

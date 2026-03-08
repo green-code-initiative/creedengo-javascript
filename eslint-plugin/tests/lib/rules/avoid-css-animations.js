@@ -30,11 +30,13 @@ const RuleTester = require("eslint").RuleTester;
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });
@@ -55,6 +57,8 @@ ruleTester.run("avoid-css-animations", rule, {
     `<div style="border: 2px solid red">My red element</div>`,
     // spread attributes should not throw an error (#49)
     "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
+    // spread style attributes should not throw an error (#100)
+    "<input style={{ ...inputProps.style, color: 'red' }} onChange={handleChange}/>",
   ],
 
   invalid: [

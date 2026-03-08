@@ -20,7 +20,7 @@ The ESLint plugin **can be standalone** and is packed inside SonarQube plugin du
 
 ### For the SonarQube plugin
 
-- Java JDK 11+
+- Java JDK 17+
 - Maven 3.8 or later
 
 SonarQube provides a documentation to
@@ -28,7 +28,7 @@ learn [plugin basics](https://docs.sonarqube.org/latest/extension-guide/developi
 
 ### For the ESLint plugin
 
-- Node.js 18.x or newer
+- Node.js 22.x or newer
 - Yarn ([installation guide](https://yarnpkg.com/getting-started/install))
 - ESLint plugin maintenance skills
 - ESLint custom rule creation skills
@@ -42,10 +42,10 @@ But it can be useful to prepare a test project to check the correct execution of
 ## Installation
 
 1. Clone the Git repository
-1. Inside **eslint-plugin** directory, run `yarn install` 
-1. Inside **sonar-plugin** directory, synchronize dependencies using Maven with `mvn clean install -DskipTests`
-1. Inside root directory, initialize docker with `docker compose up --build -d`
-1. You are good to go! 🚀
+2. Run `yarn install` inside **eslint-plugin** directory
+3. Synchronize Maven dependencies with `mvn clean install` inside **sonar-plugin** directory
+4. Inside root directory, initialize docker with `make docker-init`
+5. You are good to go! 🚀
 
 ## Create a rule
 
@@ -79,9 +79,9 @@ The project itself uses ESLint to helps linting rule algorithms.
 Now that the rule has been implemented in the Creedengo referential and its implementation written in the ESLint plugin,
 all that remains is to reference it in the SonarQube plugin. Here are the simple steps:
 
-1. Create a Java class in `src/main/java/fr/greencodeinitiative/creedengo/javascript/checks/` with
+1. Create a Java class in `src/main/java/org/greencodeinitiative/creedengo/javascript/checks/` with
    the declaration of the SonarQube key and the ESLint key (check other classes to have an example)
-2. Reference created in method `getAllChecks()` of Java class `CheckList` (please use alphabetical order)
+2. Reference created in method `getAllHooks()` of Java class `CheckList` (please use alphabetical order)
 3. Add the SonarQube key of the rule in the appropriate profile Json file.
 
 ### Test the rule

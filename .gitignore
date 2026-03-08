@@ -1,7 +1,9 @@
 # Editors & OS
 .DS_Store
 .idea
-.vscode
+.project
+.settings/
+bin/
 *.iml
 
 # Maven

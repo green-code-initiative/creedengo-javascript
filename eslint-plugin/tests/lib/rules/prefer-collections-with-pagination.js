@@ -30,8 +30,9 @@ const RuleTester = require("eslint").RuleTester;
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  // eslint-disable-next-line node/no-missing-require
-  parser: require.resolve("@typescript-eslint/parser"),
+  languageOptions: {
+    parser: require("@typescript-eslint/parser"),
+  },
 });
 
 const expectedArrayError = {
