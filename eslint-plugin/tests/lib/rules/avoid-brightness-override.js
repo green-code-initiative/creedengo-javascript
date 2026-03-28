@@ -79,6 +79,22 @@ ruleTester.run("avoid-brightness-override", rule, {
         console.log('brightness', brightness);
         });
     `,
+    // False positive guard: a brightness library is imported but the flagged method is called
+    // on an unrelated object – it must NOT be reported.
+    `
+        import * as Brightness from 'expo-brightness';
+
+        const someOtherObj = {};
+        someOtherObj.setBrightnessAsync(0.5);
+    `,
+    // False positive guard: two brightness libraries are imported; calling a method belonging
+    // to library B on an object that was imported from library A must NOT be reported.
+    `
+        import * as Brightness from 'expo-brightness';
+        import DeviceBrightness from 'react-native-device-brightness';
+
+        Brightness.setBrightnessLevel(0.5);
+    `,
   ],
 
   invalid: [

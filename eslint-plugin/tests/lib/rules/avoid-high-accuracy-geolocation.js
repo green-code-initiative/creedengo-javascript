@@ -78,6 +78,14 @@ ruleTester.run("avoid-high-accuracy-geolocation", rule, {
     
     Location.requestPermissionsAsync();
     `,
+    // False positive guard: expo-location is imported but the flagged method is called on an
+    // unrelated object – it must NOT be reported.
+    `
+    import * as Location from 'expo-location';
+
+    const someOtherObj = {};
+    someOtherObj.enableNetworkProviderAsync();
+    `,
   ],
 
   invalid: [
