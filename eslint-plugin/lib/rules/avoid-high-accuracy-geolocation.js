@@ -18,6 +18,8 @@
 
 "use strict";
 
+const { createDefaultImportsTracker } = require("../utils/import-tracker");
+
 const geolocationLibrariesMethods = {
   "expo-location": ["enableNetworkProviderAsync"],
 };
@@ -37,26 +39,17 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
-    const librariesFoundInImports = [];
+    const { importedObjects, ImportDeclaration } = createDefaultImportsTracker(
+      geolocationLibrariesMethods,
+    );
 
     return {
-      ImportDeclaration(node) {
-        const currentLibrary = node.source.value;
-
-        if (geolocationLibrariesMethods[currentLibrary]) {
-          librariesFoundInImports.push(currentLibrary);
-        }
-      },
+      ImportDeclaration,
       MemberExpression(node) {
-        if (librariesFoundInImports.length === 0) {
-          return;
-        }
+        if (importedObjects.size === 0) return;
 
-        if (
-          librariesFoundInImports.some((library) =>
-            geolocationLibrariesMethods[library].includes(node.property.name),
-          )
-        ) {
+        const methods = importedObjects.get(node.object?.name);
+        if (methods?.includes(node.property.name)) {
           reportAvoidUsingAccurateGeolocation(context, node);
         }
       },

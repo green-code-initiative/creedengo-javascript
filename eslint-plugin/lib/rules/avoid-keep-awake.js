@@ -37,26 +37,31 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
-    const librariesFoundInImports = [];
+    // Maps the local identifier name to true when it was imported from a keep-awake library.
+    // Using local names handles aliased imports: import { activateKeepAwake as ka } from '…'
+    const importedMethods = new Set();
 
     return {
       ImportDeclaration(node) {
         const currentLibrary = node.source.value;
+        const methods = keepAwakeLibrariesMethods[currentLibrary];
 
-        if (keepAwakeLibrariesMethods[currentLibrary]) {
-          librariesFoundInImports.push(currentLibrary);
+        if (!methods) return;
+
+        for (const specifier of node.specifiers) {
+          if (specifier.type === "ImportSpecifier") {
+            const importedName = specifier.imported.name;
+            if (methods.includes(importedName)) {
+              // Track the local alias so renamed imports are also caught
+              importedMethods.add(specifier.local.name);
+            }
+          }
         }
       },
       CallExpression(node) {
-        if (librariesFoundInImports.length === 0) {
-          return;
-        }
+        if (importedMethods.size === 0) return;
 
-        if (
-          librariesFoundInImports.some((library) =>
-            keepAwakeLibrariesMethods[library].includes(node.callee.name),
-          )
-        ) {
+        if (importedMethods.has(node.callee.name)) {
           context.report({ node, messageId: "AvoidKeepAwake" });
         }
       },
