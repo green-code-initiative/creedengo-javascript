@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
+
 ### Fixed
 
 - [#101](https://github.com/green-code-initiative/creedengo-javascript/pull/101) Fix spread style attributes in GCI26 and GCI29 rules

@@ -42,6 +42,7 @@ public class CheckList {
                 LimitDbQueryResult.class,
                 NoEmptyImageSrcAttribute.class,
                 NoImportAllFromLibrary.class,
+                NoImportedNumberFormatLibrary.class,
                 NoMultipleAccessDomElement.class,
                 NoMultipleStyleChanges.class,
                 NoTorch.class,
