@@ -32,7 +32,6 @@ const RuleTester = require("eslint").RuleTester;
 const ruleTester = new RuleTester();
 const expectedError = {
   messageId: "ShouldBeAssignToVariable",
-  type: "CallExpression",
 };
 
 ruleTester.run("no-multiple-access-dom-element", rule, {

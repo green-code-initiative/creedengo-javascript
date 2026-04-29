@@ -43,12 +43,10 @@ const ruleTester = new RuleTester({
 
 const expectedErrorHook = {
   messageId: "AvoidKeepAwake",
-  type: "CallExpression",
 };
 
 const expectedErrorFunction = {
   messageId: "AvoidKeepAwake",
-  type: "CallExpression",
 };
 
 ruleTester.run("avoid-keep-awake", rule, {
