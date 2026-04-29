@@ -37,7 +37,6 @@ const ruleTester = new RuleTester({
 
 const expectedError = {
   messageId: "LimitTheNumberOfReturns",
-  type: "Literal",
 };
 
 ruleTester.run("limit-db-query-results", rule, {

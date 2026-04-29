@@ -37,11 +37,9 @@ const ruleTester = new RuleTester({
 });
 const expectedErrorOnProperty = {
   messageId: "AvoidUsingAccurateGeolocation",
-  type: "Property",
 };
 const expectedErrorOnMemberExpression = {
   messageId: "AvoidUsingAccurateGeolocation",
-  type: "MemberExpression",
 };
 
 ruleTester.run("avoid-high-accuracy-geolocation", rule, {

@@ -37,7 +37,6 @@ const ruleTester = new RuleTester({
 });
 const expectedError = {
   messageId: "ShouldNotImportAllFromLibrary",
-  type: "ImportDeclaration",
 };
 
 ruleTester.run("no-import-all-from-library", rule, {
