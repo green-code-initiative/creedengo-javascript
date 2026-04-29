@@ -21,10 +21,10 @@ leading to faster execution and improved overall performance.
 
 <!-- begin auto-generated rule options list -->
 
-| Name                                   | Description                                                        | Type     |
-| :------------------------------------- | :----------------------------------------------------------------- | :------- |
-| `importByNamespaceNotAllowedLibraries` | List of libraries from which importing by namespace is not allowed | String[] |
-| `notAllowedLibraries`                  | List of libraries from which importing all is not allowed          | String[] |
+| Name                                   | Description                                                        | Type     | Default |
+| :------------------------------------- | :----------------------------------------------------------------- | :------- | :------ |
+| `importByNamespaceNotAllowedLibraries` | List of libraries from which importing by namespace is not allowed | String[] | `[]`    |
+| `notAllowedLibraries`                  | List of libraries from which importing all is not allowed          | String[] | `[]`    |
 
 <!-- end auto-generated rule options list -->
 

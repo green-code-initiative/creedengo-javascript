@@ -42,7 +42,6 @@ const ruleTester = new RuleTester({
 });
 const expectedError = {
   messageId: "ShouldAvoidOverrideBrightness",
-  type: "MemberExpression",
 };
 
 ruleTester.run("avoid-brightness-override", rule, {

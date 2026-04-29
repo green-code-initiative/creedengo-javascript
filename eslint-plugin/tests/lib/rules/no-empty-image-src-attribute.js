@@ -42,11 +42,9 @@ const ruleTester = new RuleTester({
 });
 const expectedError1 = {
   messageId: "SpecifySrcAttribute",
-  type: "JSXAttribute",
 };
 const expectedError2 = {
   messageId: "SpecifySrcAttribute",
-  type: "JSXOpeningElement",
 };
 
 ruleTester.run("image-src-attribute-not-empty", rule, {

@@ -44,7 +44,6 @@ const ruleTester = new RuleTester({
 const createError = (property) => ({
   messageId: "PreferShorthandCSSNotation",
   data: { property },
-  type: "JSXAttribute",
 });
 
 ruleTester.run("prefer-shorthand-css-notations", rule, {

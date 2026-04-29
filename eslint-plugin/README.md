@@ -8,7 +8,7 @@ An ESLint plugin which provides JavaScript and TypeScript rules of the Creedengo
 
 ### Installation
 
-You'll need to install [ESLint](https://eslint.org/) v9 and this plugin:
+You'll need to install [ESLint](https://eslint.org/) v10 or v9 and this plugin:
 
 ```sh
 # yarn
