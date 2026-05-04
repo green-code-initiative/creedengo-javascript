@@ -37,11 +37,9 @@ const ruleTester = new RuleTester({
 
 const expectedArrayError = {
   messageId: "PreferReturnCollectionsWithPagination",
-  type: "TSArrayType",
 };
 const expectedReferenceError = {
   messageId: "PreferReturnCollectionsWithPagination",
-  type: "TSTypeReference",
 };
 
 ruleTester.run("prefer-collections-with-pagination", rule, {

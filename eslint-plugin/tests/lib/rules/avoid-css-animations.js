@@ -70,7 +70,6 @@ ruleTester.run("avoid-css-animations", rule, {
           data: {
             attribute: "transition",
           },
-          type: "Property",
         },
       ],
     },
@@ -82,7 +81,6 @@ ruleTester.run("avoid-css-animations", rule, {
           data: {
             attribute: "animationName",
           },
-          type: "Property",
         },
       ],
     },

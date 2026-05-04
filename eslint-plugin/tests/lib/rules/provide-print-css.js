@@ -43,7 +43,6 @@ const ruleTester = new RuleTester({
 
 const expectedError = {
   messageId: "noPrintCSSProvided",
-  type: "JSXElement",
 };
 
 ruleTester.run("provide-print-css", rule, {

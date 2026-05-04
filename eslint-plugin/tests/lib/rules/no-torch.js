@@ -37,7 +37,6 @@ const ruleTester = new RuleTester({
 });
 const expectedError = {
   messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
-  type: "ImportDeclaration",
 };
 
 ruleTester.run("no-torch", rule, {

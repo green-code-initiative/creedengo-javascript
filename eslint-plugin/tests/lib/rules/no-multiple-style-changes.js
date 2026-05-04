@@ -37,7 +37,6 @@ const ruleTester = new RuleTester({
 });
 const expectedError = {
   messageId: "UseClassInstead",
-  type: "AssignmentExpression",
 };
 
 ruleTester.run("no-multiple-style-changes", rule, {

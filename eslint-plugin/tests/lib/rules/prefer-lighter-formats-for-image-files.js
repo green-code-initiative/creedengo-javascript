@@ -43,7 +43,6 @@ const ruleTester = new RuleTester({
 
 const preferLighterFormatsForImageFilesError = {
   messageId: "PreferLighterFormatsForImageFiles",
-  type: "JSXOpeningElement",
 };
 
 ruleTester.run("prefer-lighter-formats-for-image-files", rule, {

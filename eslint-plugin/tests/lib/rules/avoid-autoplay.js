@@ -43,15 +43,12 @@ const ruleTester = new RuleTester({
 
 const noAutoplayError = {
   messageId: "NoAutoplay",
-  type: "JSXAttribute",
 };
 const enforcePreloadNoneError = {
   messageId: "EnforcePreloadNone",
-  type: "JSXAttribute",
 };
 const BothError = {
   messageId: "NoAutoplayAndEnforcePreloadNone",
-  type: "JSXAttribute",
 };
 
 ruleTester.run("autoplay-audio-video-attribute-not-present", rule, {
