@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [#106](https://github.com/green-code-initiative/creedengo-javascript/pull/106) Add ESLint v10 compatibility
+- [#107](https://github.com/green-code-initiative/creedengo-javascript/pull/107) Show support of SonarQube 26.4
+
+### Changed
+
+- [#107](https://github.com/green-code-initiative/creedengo-javascript/pull/107) Move to creedengo-rules-specifications v3
+
 ### Fixed
 
 - [#101](https://github.com/green-code-initiative/creedengo-javascript/pull/101) Fix spread style attributes in GCI26 and GCI29 rules
