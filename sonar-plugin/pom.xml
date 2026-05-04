@@ -48,20 +48,20 @@
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-        <version.creedengo-rules-specifications>2.7.0</version.creedengo-rules-specifications>
+        <version.creedengo-rules-specifications>3.0.0</version.creedengo-rules-specifications>
         <version.sonarqube>13.0.0.3026</version.sonarqube>
         <version.sonar-javascript>11.8.0.37897</version.sonar-javascript>
         <version.sonar-packaging>1.25.1.3002</version.sonar-packaging>
         <version.sonar-analyzer-commons>2.21.0.4626</version.sonar-analyzer-commons>
-        <version.buildnumber>3.2.1</version.buildnumber>
-        <version.maven-exec>3.6.1</version.maven-exec>
-        <version.maven-shade>3.6.1</version.maven-shade>
-        <version.license-maven-plugin>4.6</version.license-maven-plugin>
+        <version.buildnumber>3.3.0</version.buildnumber>
+        <version.maven-exec>3.6.3</version.maven-exec>
+        <version.maven-shade>3.6.2</version.maven-shade>
+        <version.license-maven-plugin>5.0.0</version.license-maven-plugin>
 
-        <version.junit>5.13.4</version.junit>
-        <version.mockito>5.20.0</version.mockito>
+        <version.junit>6.0.3</version.junit>
+        <version.mockito>5.23.0</version.mockito>
         <version.assertj>3.27.7</version.assertj>
-        <version.jacoco>0.8.13</version.jacoco>
+        <version.jacoco>0.8.14</version.jacoco>
     </properties>
 
     <dependencies>

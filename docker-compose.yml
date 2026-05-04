@@ -3,7 +3,7 @@ name: sonarqube_creedengo_javascript
 
 services:
   sonar:
-    image: sonarqube:26.1.0.118079-community
+    image: sonarqube:26.4.0.121862-community
     container_name: sonar_creedengo_javascript
     ports:
       - "9000:9000"
@@ -25,7 +25,7 @@ services:
       - "logs:/opt/sonarqube/logs"
       - "data:/opt/sonarqube/data"
     healthcheck:
-      test: wget -qO- http://sonar:9000/api/system/status | grep -q -e '"status":"UP"' -e '"status":"DB_MIGRATION_NEEDED"' -e '"status":"DB_MIGRATION_RUNNING"' || exit 1
+      test: 'host="$(hostname -i || echo ''127.0.0.1'')" && curl -sf http://$$host:9000/api/system/status | grep -qE ''"status":"(UP|DB_MIGRATION_REQUIRED|DB_MIGRATION_RUNNING|MIGRATION_SUCCEEDED)"'''
       interval: 10s
       timeout: 10s
       retries: 5
