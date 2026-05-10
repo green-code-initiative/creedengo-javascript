@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/prefer-collections-with-pagination");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -42,7 +43,7 @@ const expectedReferenceError = {
   messageId: "PreferReturnCollectionsWithPagination",
 };
 
-ruleTester.run("prefer-collections-with-pagination", rule, {
+const tests = {
   valid: [
     `
     @Controller()
@@ -122,4 +123,10 @@ ruleTester.run("prefer-collections-with-pagination", rule, {
       errors: [expectedReferenceError],
     },
   ],
+};
+
+describe("prefer-collections-with-pagination", () => {
+  it("prefer-collections-with-pagination", () => {
+    ruleTester.run("prefer-collections-with-pagination", rule, tests);
+  });
 });

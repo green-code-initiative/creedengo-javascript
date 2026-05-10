@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/prefer-shorthand-css-notations");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -46,7 +47,7 @@ const createError = (property) => ({
   data: { property },
 });
 
-ruleTester.run("prefer-shorthand-css-notations", rule, {
+const tests = {
   valid: [
     "<div class='my-class'/>",
     "<div style={{ animation: 'example 5s linear 2s infinite alternate' }}/>",
@@ -161,4 +162,10 @@ ruleTester.run("prefer-shorthand-css-notations", rule, {
       errors: [createError("transition")],
     },
   ],
+};
+
+describe("prefer-shorthand-css-notations", () => {
+  it("prefer-shorthand-css-notations", () => {
+    ruleTester.run("prefer-shorthand-css-notations", rule, tests);
+  });
 });

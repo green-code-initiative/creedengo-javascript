@@ -48,7 +48,7 @@ jobs:
         working-directory: eslint-plugin
 
       - name: Test eslint-plugin
-        run: yarn test:cov
+        run: yarn test:cov --test-reporter=lcov --test-reporter-destination=lcov.info
         working-directory: eslint-plugin
 
       - name: Verify SonarQube plugin

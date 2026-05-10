@@ -22,61 +22,59 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-import-all-from-library");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/no-multiple-access-dom-element");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({
-  languageOptions: {
-    ecmaVersion: 6,
-    sourceType: "module",
-  },
-});
+const ruleTester = new RuleTester();
 const expectedError = {
-  messageId: "ShouldNotImportAllFromLibrary",
+  messageId: "ShouldBeAssignToVariable",
 };
 
-ruleTester.run("no-import-all-from-library", rule, {
+const tests = {
   valid: [
     `
-    import isEmpty from 'lodash/isEmpty';
+    var el1 = document.getElementById('block1').test;
+    var el2 = document.getElementById('block2').test
     `,
     `
-    import orderBy from 'lodash/orderBy';
+    var el1 = document.getElementsByClassName('block1').test;
+    var el2 = document.getElementsByClassName('block2').test
     `,
     `
-    import { orderBy } from 'lodash-es';
+    function test() { var link = document.getElementsByTagName('a'); }
+    var link = document.getElementsByTagName('a');
     `,
     `
-    import map from 'underscore/modules/map.js';
+    for (var i = 0; i < 10; i++) {
+      var test = document.getElementsByName("test" + i)[0].value;
+      var test2 = document.getElementsByName("test2" + i)[0].value;
+    }
     `,
   ],
 
   invalid: [
     {
-      code: "import lodash from 'lodash';",
+      code: "var el1 = document.getElementById('block1').test1; var el2 = document.getElementById('block1').test2",
       errors: [expectedError],
     },
     {
-      code: "import * as lodash from 'lodash';",
+      code: "function test() {var el1 = document.getElementById('block1').test1; if(toto) { var el2 = document.getElementById('block1').test2 }}",
       errors: [expectedError],
     },
     {
-      code: "import * as lodash from 'lodash-es';",
-      errors: [expectedError],
-    },
-    {
-      code: "import someLib from 'some-lib';",
-      options: [{ notAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
-    },
-    {
-      code: "import * as someLib from 'some-lib';",
-      options: [{ importByNamespaceNotAllowedLibraries: ["some-lib"] }],
+      code: "if (true) { var card = document.querySelector('.card'); } else { var card = document.querySelector('.card'); }",
       errors: [expectedError],
     },
   ],
+};
+
+describe("no-multiple-access-dom-element", () => {
+  it("no-multiple-access-dom-element", () => {
+    ruleTester.run("no-multiple-access-dom-element", rule, tests);
+  });
 });

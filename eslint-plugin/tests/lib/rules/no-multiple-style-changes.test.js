@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/no-multiple-style-changes");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -39,7 +40,7 @@ const expectedError = {
   messageId: "UseClassInstead",
 };
 
-ruleTester.run("no-multiple-style-changes", rule, {
+const tests = {
   valid: [
     {
       code: 'element.style.height = "800px";',
@@ -114,4 +115,10 @@ ruleTester.run("no-multiple-style-changes", rule, {
       errors: [expectedError],
     },
   ],
+};
+
+describe("no-multiple-style-changes", () => {
+  it("no-multiple-style-changes", () => {
+    ruleTester.run("no-multiple-style-changes", rule, tests);
+  });
 });

@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-empty-image-src-attribute");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/provide-print-css");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -31,7 +32,7 @@ const RuleTester = require("eslint").RuleTester;
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 6,
     sourceType: "module",
     parserOptions: {
       ecmaFeatures: {
@@ -40,36 +41,65 @@ const ruleTester = new RuleTester({
     },
   },
 });
-const expectedError1 = {
-  messageId: "SpecifySrcAttribute",
-};
-const expectedError2 = {
-  messageId: "SpecifySrcAttribute",
+
+const expectedError = {
+  messageId: "noPrintCSSProvided",
 };
 
-ruleTester.run("image-src-attribute-not-empty", rule, {
+const tests = {
   valid: [
     `
-      <img src='logo.svg' alt='This is a SVG image'/>
+    <head>
+      <title>Web Page</title>
+      <link rel="stylesheet" href="styles.css" media="print" />
+    </head>
     `,
     `
-      import logoSvg from "../files/logo.svg";
-      <img src={logoSvg} alt='This is a SVG image'/>
+    <head>
+      <title>Web Page</title>
+      <style>@media print {}</style>
+    </head>
     `,
+    `
+    <head>
+      <title>Web Page</title>
+      <style>{'@media print {}'}</style>
+    </head>
+    `,
+    `
+    <head>
+      <title>Web Page</title>
+      <link rel="stylesheet" href="styles.css" media="print" />,
+      <style>{'@media print {}'}</style>
+    </head>   
+    `,
+    "<head><style>{`@media print {}`}</style></head>",
+    `<link rel="stylesheet" href="styles.css" />`,
   ],
-
   invalid: [
     {
       code: `
-        <img src=''/>
+        <head>
+          <title>Web Page</title>
+          <link rel="stylesheet" href="styles.css" />
+        </head>
       `,
-      errors: [expectedError1],
+      errors: [expectedError],
     },
     {
       code: `
-        <img alt='This is an empty image'/>
+        <head>
+          <title>Web Page</title>
+          <style>{'@media desktop {}'}</style>
+        </head>
       `,
-      errors: [expectedError2],
+      errors: [expectedError],
     },
   ],
+};
+
+describe("provide-print-css", () => {
+  it("provide-print-css", () => {
+    ruleTester.run("provide-print-css", rule, tests);
+  });
 });

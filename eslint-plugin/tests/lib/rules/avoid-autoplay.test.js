@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-torch");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/avoid-autoplay");
+const { RuleTester } = require("eslint");
+const { describe, it } = require('node:test');
 
 //------------------------------------------------------------------------------
 // Tests
@@ -31,25 +32,63 @@ const RuleTester = require("eslint").RuleTester;
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2021,
     sourceType: "module",
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
   },
 });
-const expectedError = {
-  messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
+
+const noAutoplayError = {
+  messageId: "NoAutoplay",
+};
+const enforcePreloadNoneError = {
+  messageId: "EnforcePreloadNone",
+};
+const BothError = {
+  messageId: "NoAutoplayAndEnforcePreloadNone",
 };
 
-ruleTester.run("no-torch", rule, {
+const tests = {
   valid: [
-    `
-    import axios from 'axios';
-    `,
+    '<audio preload="none"></audio>',
+    '<video preload="none"></video>',
+    '<video preload="none" {...props}></video>',
   ],
-
   invalid: [
     {
-      code: "import Torch from 'react-native-torch';",
-      errors: [expectedError],
+      code: "<audio autoplay></audio>",
+      errors: [BothError],
+    },
+    {
+      code: "<audio autoPlay></audio>",
+      errors: [BothError],
+    },
+    {
+      code: "<audio autoPlay={true}></audio>",
+      errors: [BothError],
+    },
+    {
+      code: '<video autoplay preload="auto"></video>',
+      errors: [BothError],
+    },
+    {
+      code: '<video autoplay preload="none"></video>',
+      errors: [noAutoplayError],
+    },
+    {
+      code: '<audio preload="auto"></audio>',
+      errors: [enforcePreloadNoneError],
     },
   ],
+};
+
+describe('avoid-autoplay', () => {
+  it('autoplay-audio-video-attribute-not-present', () => {
+    ruleTester.run("autoplay-audio-video-attribute-not-present", rule, tests);
+  });
 });
+

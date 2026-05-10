@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-brightness-override");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -44,7 +45,7 @@ const expectedError = {
   messageId: "ShouldAvoidOverrideBrightness",
 };
 
-ruleTester.run("avoid-brightness-override", rule, {
+const tests = {
   valid: [
     `
         import * as lodash from 'lodash';
@@ -149,4 +150,10 @@ ruleTester.run("avoid-brightness-override", rule, {
       errors: [expectedError],
     },
   ],
+};
+
+describe("avoid-brightness-override", () => {
+  it("avoid-brightness-override", () => {
+    ruleTester.run("avoid-brightness-override", rule, tests);
+  });
 });

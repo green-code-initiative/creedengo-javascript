@@ -17,13 +17,13 @@
  */
 
 "use strict";
-
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/provide-print-css");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/limit-db-query-results");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -33,66 +33,53 @@ const ruleTester = new RuleTester({
   languageOptions: {
     ecmaVersion: 6,
     sourceType: "module",
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
   },
 });
 
 const expectedError = {
-  messageId: "noPrintCSSProvided",
+  messageId: "LimitTheNumberOfReturns",
 };
 
-ruleTester.run("provide-print-css", rule, {
+const tests = {
   valid: [
     `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />
-    </head>
+      sqlClient.query("SELECT id, name, email FROM customers LIMIT 10;");
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <style>@media print {}</style>
-    </head>
+      sqlClient.query("SELECT TOP 5 * FROM products;");
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <style>{'@media print {}'}</style>
-    </head>
+      sqlClient.query("SELECT id, name, email FROM customers WHERE id = 1");
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />,
-      <style>{'@media print {}'}</style>
-    </head>   
+      sqlClient.query("SELECT * FROM orders FETCH FIRST 20 ROWS ONLY");
     `,
-    "<head><style>{`@media print {}`}</style></head>",
-    `<link rel="stylesheet" href="styles.css" />`,
+    `
+      sqlClient.query("WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50");
+    `,
+    `
+      console.log("SELECT id, name, email FROM customers WHERE id = 1");
+    `,
   ],
+
   invalid: [
     {
-      code: `
-        <head>
-          <title>Web Page</title>
-          <link rel="stylesheet" href="styles.css" />
-        </head>
-      `,
+      code: `sqlClient.query("SELECT * FROM bikes");`,
       errors: [expectedError],
     },
     {
-      code: `
-        <head>
-          <title>Web Page</title>
-          <style>{'@media desktop {}'}</style>
-        </head>
-      `,
+      code: `sqlClient.run("SELECT id, departure, arrival FROM flights");`,
+      errors: [expectedError],
+    },
+    {
+      code: `sqlClient.execute("SELECT * FROM cars");`,
       errors: [expectedError],
     },
   ],
+};
+
+describe("limit-db-query-results", () => {
+  it("limit-db-query-results", () => {
+    ruleTester.run("limit-db-query-results", rule, tests);
+  });
 });

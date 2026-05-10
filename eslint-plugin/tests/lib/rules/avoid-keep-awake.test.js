@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-keep-awake");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -49,7 +50,7 @@ const expectedErrorFunction = {
   messageId: "AvoidKeepAwake",
 };
 
-ruleTester.run("avoid-keep-awake", rule, {
+const tests = {
   valid: [
     `
     import React from 'react';
@@ -137,4 +138,10 @@ ruleTester.run("avoid-keep-awake", rule, {
       errors: [expectedErrorFunction],
     },
   ],
+};
+
+describe("avoid-keep-awake", () => {
+  it("avoid-keep-awake", () => {
+    ruleTester.run("avoid-keep-awake", rule, tests);
+  });
 });

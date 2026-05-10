@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-high-accuracy-geolocation");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -42,7 +43,7 @@ const expectedErrorOnMemberExpression = {
   messageId: "AvoidUsingAccurateGeolocation",
 };
 
-ruleTester.run("avoid-high-accuracy-geolocation", rule, {
+const tests = {
   valid: [
     `
     var opts = {enableHighAccuracy: false, timeout: 5000, maximumAge: 0};
@@ -118,4 +119,10 @@ ruleTester.run("avoid-high-accuracy-geolocation", rule, {
       errors: [expectedErrorOnMemberExpression],
     },
   ],
+};
+
+describe("avoid-high-accuracy-geolocation", () => {
+  it("avoid-high-accuracy-geolocation", () => {
+    ruleTester.run("avoid-high-accuracy-geolocation", rule, tests);
+  });
 });

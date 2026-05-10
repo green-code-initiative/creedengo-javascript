@@ -42,13 +42,5 @@ export default [
       "license-header/header": ["error", "./docs/license-header.txt"],
     },
   },
-  {
-    files: ["tests/**/*.js"],
-    languageOptions: {
-      globals: {
-        ...globals.mocha,
-      },
-    },
-  },
   prettierConfig,
 ];

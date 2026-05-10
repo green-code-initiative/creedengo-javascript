@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/avoid-autoplay");
+const rule = require("../../../lib/rules/no-import-all-from-library");
 const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -31,56 +32,58 @@ const { RuleTester } = require("eslint");
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 6,
     sourceType: "module",
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
   },
 });
-
-const noAutoplayError = {
-  messageId: "NoAutoplay",
-};
-const enforcePreloadNoneError = {
-  messageId: "EnforcePreloadNone",
-};
-const BothError = {
-  messageId: "NoAutoplayAndEnforcePreloadNone",
+const expectedError = {
+  messageId: "ShouldNotImportAllFromLibrary",
 };
 
-ruleTester.run("autoplay-audio-video-attribute-not-present", rule, {
+const tests = {
   valid: [
-    '<audio preload="none"></audio>',
-    '<video preload="none"></video>',
-    '<video preload="none" {...props}></video>',
+    `
+    import isEmpty from 'lodash/isEmpty';
+    `,
+    `
+    import orderBy from 'lodash/orderBy';
+    `,
+    `
+    import { orderBy } from 'lodash-es';
+    `,
+    `
+    import map from 'underscore/modules/map.js';
+    `,
   ],
+
   invalid: [
     {
-      code: "<audio autoplay></audio>",
-      errors: [BothError],
+      code: "import lodash from 'lodash';",
+      errors: [expectedError],
     },
     {
-      code: "<audio autoPlay></audio>",
-      errors: [BothError],
+      code: "import * as lodash from 'lodash';",
+      errors: [expectedError],
     },
     {
-      code: "<audio autoPlay={true}></audio>",
-      errors: [BothError],
+      code: "import * as lodash from 'lodash-es';",
+      errors: [expectedError],
     },
     {
-      code: '<video autoplay preload="auto"></video>',
-      errors: [BothError],
+      code: "import someLib from 'some-lib';",
+      options: [{ notAllowedLibraries: ["some-lib"] }],
+      errors: [expectedError],
     },
     {
-      code: '<video autoplay preload="none"></video>',
-      errors: [noAutoplayError],
-    },
-    {
-      code: '<audio preload="auto"></audio>',
-      errors: [enforcePreloadNoneError],
+      code: "import * as someLib from 'some-lib';",
+      options: [{ importByNamespaceNotAllowedLibraries: ["some-lib"] }],
+      errors: [expectedError],
     },
   ],
+};
+
+describe("no-import-all-from-library", () => {
+  it("no-import-all-from-library", () => {
+    ruleTester.run("no-import-all-from-library", rule, tests);
+  });
 });

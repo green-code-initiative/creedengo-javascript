@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/prefer-lighter-formats-for-image-files");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/no-empty-image-src-attribute");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -40,48 +41,42 @@ const ruleTester = new RuleTester({
     },
   },
 });
-
-const preferLighterFormatsForImageFilesError = {
-  messageId: "PreferLighterFormatsForImageFiles",
+const expectedError1 = {
+  messageId: "SpecifySrcAttribute",
+};
+const expectedError2 = {
+  messageId: "SpecifySrcAttribute",
 };
 
-ruleTester.run("prefer-lighter-formats-for-image-files", rule, {
+const tests = {
   valid: [
     `
-      <img src="./assets/images/cat.webp" alt="A cat"/>
+      <img src='logo.svg' alt='This is a SVG image'/>
     `,
     `
-      <img src="./assets/images/cat.avif" alt="A cat"/>
-    `,
-    `
-      <img src="./assets/images/cat.jxl" alt="A cat"/>
-    `,
-    `
-      <picture>
-        <source srcSet="image.webp" type="image/webp" />
-        <img src="image.jpg" alt="..." />
-      </picture>
-    `,
-    `
-      <img src="./assets/images/cat" alt="A cat" />
-    `,
-    `
-      <img src="" alt="" />
+      import logoSvg from "../files/logo.svg";
+      <img src={logoSvg} alt='This is a SVG image'/>
     `,
   ],
 
   invalid: [
     {
       code: `
-        <img src="./assets/images/cat.jpg" alt="A cat"/>
+        <img src=''/>
       `,
-      errors: [preferLighterFormatsForImageFilesError],
+      errors: [expectedError1],
     },
     {
       code: `
-        <img src="./assets/images/cat.png" alt="A cat"/>
+        <img alt='This is an empty image'/>
       `,
-      errors: [preferLighterFormatsForImageFilesError],
+      errors: [expectedError2],
     },
   ],
+};
+
+describe("no-empty-image-src-attribute", () => {
+  it("image-src-attribute-not-empty", () => {
+    ruleTester.run("image-src-attribute-not-empty", rule, tests);
+  });
 });

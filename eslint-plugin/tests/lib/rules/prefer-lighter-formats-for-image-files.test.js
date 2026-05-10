@@ -17,12 +17,14 @@
  */
 
 "use strict";
+
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/limit-db-query-results"),
-  RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/prefer-lighter-formats-for-image-files");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -30,49 +32,63 @@ const rule = require("../../../lib/rules/limit-db-query-results"),
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2021,
     sourceType: "module",
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
   },
 });
 
-const expectedError = {
-  messageId: "LimitTheNumberOfReturns",
+const preferLighterFormatsForImageFilesError = {
+  messageId: "PreferLighterFormatsForImageFiles",
 };
 
-ruleTester.run("limit-db-query-results", rule, {
+const tests = {
   valid: [
     `
-      sqlClient.query("SELECT id, name, email FROM customers LIMIT 10;");
+      <img src="./assets/images/cat.webp" alt="A cat"/>
     `,
     `
-      sqlClient.query("SELECT TOP 5 * FROM products;");
+      <img src="./assets/images/cat.avif" alt="A cat"/>
     `,
     `
-      sqlClient.query("SELECT id, name, email FROM customers WHERE id = 1");
+      <img src="./assets/images/cat.jxl" alt="A cat"/>
     `,
     `
-      sqlClient.query("SELECT * FROM orders FETCH FIRST 20 ROWS ONLY");
+      <picture>
+        <source srcSet="image.webp" type="image/webp" />
+        <img src="image.jpg" alt="..." />
+      </picture>
     `,
     `
-      sqlClient.query("WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50");
+      <img src="./assets/images/cat" alt="A cat" />
     `,
     `
-      console.log("SELECT id, name, email FROM customers WHERE id = 1");
+      <img src="" alt="" />
     `,
   ],
 
   invalid: [
     {
-      code: `sqlClient.query("SELECT * FROM bikes");`,
-      errors: [expectedError],
+      code: `
+        <img src="./assets/images/cat.jpg" alt="A cat"/>
+      `,
+      errors: [preferLighterFormatsForImageFilesError],
     },
     {
-      code: `sqlClient.run("SELECT id, departure, arrival FROM flights");`,
-      errors: [expectedError],
-    },
-    {
-      code: `sqlClient.execute("SELECT * FROM cars");`,
-      errors: [expectedError],
+      code: `
+        <img src="./assets/images/cat.png" alt="A cat"/>
+      `,
+      errors: [preferLighterFormatsForImageFilesError],
     },
   ],
+};
+
+describe("prefer-lighter-formats-for-image-files", () => {
+  it("prefer-lighter-formats-for-image-files", () => {
+    ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
+  });
 });

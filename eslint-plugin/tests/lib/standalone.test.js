@@ -16,7 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const assert = require("assert");
+const assert = require('node:assert');
+const { describe, it } = require('node:test');
 
 describe("standalone.js", () => {
   it("should export list of rule modules", () => {

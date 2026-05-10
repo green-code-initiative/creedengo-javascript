@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-css-animations");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -41,7 +42,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("avoid-css-animations", rule, {
+const tests = {
   valid: [
     `
     import React from 'react';
@@ -85,4 +86,10 @@ ruleTester.run("avoid-css-animations", rule, {
       ],
     },
   ],
+};
+
+describe("avoid-css-animations", () => {
+  it("avoid-css-animations", () => {
+    ruleTester.run("avoid-css-animations", rule, tests);
+  });
 });
