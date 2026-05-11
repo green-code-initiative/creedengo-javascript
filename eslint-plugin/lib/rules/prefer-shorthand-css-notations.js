@@ -36,6 +36,7 @@ module.exports = {
         type: "object",
         properties: {
           disableProperties: {
+            description: "List of shorthand properties to disable the rule for",
             type: "array",
             items: {
               type: "string",
@@ -43,6 +44,11 @@ module.exports = {
           },
         },
         additionalProperties: false,
+      },
+    ],
+    defaultOptions: [
+      {
+        disableProperties: [],
       },
     ],
   },
@@ -87,10 +93,9 @@ module.exports = {
           (attr) => attr.name?.name === "style",
         );
         if (styleAttribute?.value.expression?.properties) {
-          const nodePropertyNames =
-            styleAttribute.value.expression.properties.map(
-              (property) => property.key.name,
-            );
+          const nodePropertyNames = styleAttribute.value.expression.properties
+            .filter((property) => property.key != null)
+            .map((property) => property.key.name);
 
           for (const [shorthandProp, matchProperties] of Object.entries(
             shorthandProperties,

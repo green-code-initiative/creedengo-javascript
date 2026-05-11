@@ -10,5 +10,5 @@ node_modules
 
 # Auto-generated files
 *-report.json
-.nyc_output
+lcov.info
 dist/pack

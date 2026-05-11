@@ -18,7 +18,7 @@
 package org.greencodeinitiative.creedengo.javascript;
 
 import org.junit.jupiter.api.Test;
-import org.sonar.plugins.javascript.api.CustomRuleRepository;
+import org.sonar.plugins.javascript.api.Language;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,7 +27,7 @@ public class TypeScriptRuleRepositoryTest {
     @Test
     public void create() {
         TypeScriptRuleRepository repository = new TypeScriptRuleRepository();
-        assertThat(repository.languages()).containsExactlyInAnyOrder(CustomRuleRepository.Language.TYPESCRIPT);
+        assertThat(repository.compatibleLanguages()).containsExactlyInAnyOrder(Language.TYPESCRIPT);
         assertThat(repository.repositoryKey()).isEqualTo("creedengo-typescript");
         assertThat(repository.checkClasses()).isNotEmpty();
     }

@@ -18,7 +18,7 @@
 package org.greencodeinitiative.creedengo.javascript;
 
 import org.greencodeinitiative.creedengo.javascript.checks.*;
-import org.sonar.plugins.javascript.api.JavaScriptCheck;
+import org.sonar.plugins.javascript.api.EslintHook;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
 
@@ -32,7 +32,7 @@ public class CheckList {
     private CheckList() {
     }
 
-    public static List<Class<? extends JavaScriptCheck>> getAllChecks() {
+    public static List<Class<? extends EslintHook>> getAllHooks() {
         return Arrays.asList(
                 AvoidAutoPlay.class,
                 AvoidBrightnessOverride.class,
@@ -52,16 +52,18 @@ public class CheckList {
         );
     }
 
-    public static List<Class<? extends JavaScriptCheck>> getTypeScriptChecks() {
-        return filterChecksByAnnotation(TypeScriptRule.class);
+    public static List<Class<? extends EslintHook>> getTypeScriptHooks() {
+        return filterHooksByAnnotation(TypeScriptRule.class);
     }
 
-    public static List<Class<? extends JavaScriptCheck>> getJavaScriptChecks() {
-        return filterChecksByAnnotation(JavaScriptRule.class);
+    public static List<Class<? extends EslintHook>> getJavaScriptHooks() {
+        return filterHooksByAnnotation(JavaScriptRule.class);
     }
 
-    private static List<Class<? extends JavaScriptCheck>> filterChecksByAnnotation(Class<? extends Annotation> annotation) {
-        return getAllChecks().stream().filter(check -> check.isAnnotationPresent(annotation)).collect(Collectors.toList());
+    private static List<Class<? extends EslintHook>> filterHooksByAnnotation(Class<? extends Annotation> annotation) {
+        return getAllHooks().stream()
+                .filter(hook -> hook.isAnnotationPresent(annotation))
+                .collect(Collectors.toList());
     }
 
 }

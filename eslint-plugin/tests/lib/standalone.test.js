@@ -16,7 +16,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-const assert = require("assert");
+const assert = require('node:assert');
+const { describe, it } = require('node:test');
 
 describe("standalone.js", () => {
   it("should export list of rule modules", () => {
@@ -30,8 +31,9 @@ describe("standalone.js", () => {
     const { configs, rules } = require("../../lib/standalone");
     const recommended = configs.recommended;
     assert.notEqual(recommended, null);
-    assert.equal(recommended.plugins.length, 1);
-    assert.equal(recommended.plugins[0], "@creedengo");
+    const pluginNames = Object.keys(recommended.plugins);
+    assert.equal(pluginNames.length, 1);
+    assert.equal(pluginNames[0], "@creedengo");
     assert.equal(recommended.rules.length, rules.length);
   });
 });

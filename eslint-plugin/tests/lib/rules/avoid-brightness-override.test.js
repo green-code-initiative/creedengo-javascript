@@ -23,27 +23,29 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-brightness-override");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });
 const expectedError = {
   messageId: "ShouldAvoidOverrideBrightness",
-  type: "MemberExpression",
 };
 
-ruleTester.run("avoid-brightness-override", rule, {
+const tests = {
   valid: [
     `
         import * as lodash from 'lodash';
@@ -76,6 +78,22 @@ ruleTester.run("avoid-brightness-override", rule, {
         ScreenBrightness.getBrightness().then(brightness => {
         console.log('brightness', brightness);
         });
+    `,
+    // False positive guard: a brightness library is imported but the flagged method is called
+    // on an unrelated object – it must NOT be reported.
+    `
+        import * as Brightness from 'expo-brightness';
+
+        const someOtherObj = {};
+        someOtherObj.setBrightnessAsync(0.5);
+    `,
+    // False positive guard: two brightness libraries are imported; calling a method belonging
+    // to library B on an object that was imported from library A must NOT be reported.
+    `
+        import * as Brightness from 'expo-brightness';
+        import DeviceBrightness from 'react-native-device-brightness';
+
+        Brightness.setBrightnessLevel(0.5);
     `,
   ],
 
@@ -132,4 +150,10 @@ ruleTester.run("avoid-brightness-override", rule, {
       errors: [expectedError],
     },
   ],
+};
+
+describe("avoid-brightness-override", () => {
+  it("avoid-brightness-override", () => {
+    ruleTester.run("avoid-brightness-override", rule, tests);
+  });
 });

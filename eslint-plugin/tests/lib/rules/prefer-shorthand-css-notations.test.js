@@ -23,18 +23,21 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/prefer-shorthand-css-notations");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });
@@ -42,10 +45,9 @@ const ruleTester = new RuleTester({
 const createError = (property) => ({
   messageId: "PreferShorthandCSSNotation",
   data: { property },
-  type: "JSXAttribute",
 });
 
-ruleTester.run("prefer-shorthand-css-notations", rule, {
+const tests = {
   valid: [
     "<div class='my-class'/>",
     "<div style={{ animation: 'example 5s linear 2s infinite alternate' }}/>",
@@ -75,6 +77,8 @@ ruleTester.run("prefer-shorthand-css-notations", rule, {
     },
     // spread attributes should not throw an error (#49)
     "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
+    // spread style attributes should not throw an error (#100)
+    "<input style={{ ...inputProps.style, color: 'red' }} onChange={handleChange}/>",
   ],
   invalid: [
     {
@@ -158,4 +162,10 @@ ruleTester.run("prefer-shorthand-css-notations", rule, {
       errors: [createError("transition")],
     },
   ],
+};
+
+describe("prefer-shorthand-css-notations", () => {
+  it("prefer-shorthand-css-notations", () => {
+    ruleTester.run("prefer-shorthand-css-notations", rule, tests);
+  });
 });

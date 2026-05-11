@@ -44,7 +44,7 @@ public class JavaScriptRulesDefinition implements RulesDefinition {
 
         RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(METADATA_LOCATION, PROFILE_PATH, sonarRuntime);
 
-        List<Class<?>> checks = Collections.unmodifiableList(CheckList.getJavaScriptChecks());
+        List<Class<?>> checks = Collections.unmodifiableList(CheckList.getJavaScriptHooks());
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
         DeprecatedEcoCodeRule.addOnRepository(repository, JavaScriptRuleRepository.OLD_KEY, checks);

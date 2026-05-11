@@ -17,67 +17,69 @@
  */
 
 "use strict";
-
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-import-all-from-library");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/limit-db-query-results");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 6,
     sourceType: "module",
   },
 });
+
 const expectedError = {
-  messageId: "ShouldNotImportAllFromLibrary",
-  type: "ImportDeclaration",
+  messageId: "LimitTheNumberOfReturns",
 };
 
-ruleTester.run("no-import-all-from-library", rule, {
+const tests = {
   valid: [
     `
-    import isEmpty from 'lodash/isEmpty';
+      sqlClient.query("SELECT id, name, email FROM customers LIMIT 10;");
     `,
     `
-    import orderBy from 'lodash/orderBy';
+      sqlClient.query("SELECT TOP 5 * FROM products;");
     `,
     `
-    import { orderBy } from 'lodash-es';
+      sqlClient.query("SELECT id, name, email FROM customers WHERE id = 1");
     `,
     `
-    import map from 'underscore/modules/map.js';
+      sqlClient.query("SELECT * FROM orders FETCH FIRST 20 ROWS ONLY");
+    `,
+    `
+      sqlClient.query("WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50");
+    `,
+    `
+      console.log("SELECT id, name, email FROM customers WHERE id = 1");
     `,
   ],
 
   invalid: [
     {
-      code: "import lodash from 'lodash';",
+      code: `sqlClient.query("SELECT * FROM bikes");`,
       errors: [expectedError],
     },
     {
-      code: "import * as lodash from 'lodash';",
+      code: `sqlClient.run("SELECT id, departure, arrival FROM flights");`,
       errors: [expectedError],
     },
     {
-      code: "import * as lodash from 'lodash-es';",
-      errors: [expectedError],
-    },
-    {
-      code: "import someLib from 'some-lib';",
-      options: [{ notAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
-    },
-    {
-      code: "import * as someLib from 'some-lib';",
-      options: [{ importByNamespaceNotAllowedLibraries: ["some-lib"] }],
+      code: `sqlClient.execute("SELECT * FROM cars");`,
       errors: [expectedError],
     },
   ],
+};
+
+describe("limit-db-query-results", () => {
+  it("limit-db-query-results", () => {
+    ruleTester.run("limit-db-query-results", rule, tests);
+  });
 });

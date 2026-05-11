@@ -6,7 +6,7 @@ clean:
 	cd sonar-plugin && mvn clean
 
 build: clean
-	cd sonar-plugin && mvn package -DskipTests
+	cd sonar-plugin && mvn package
 
 compile: clean
 	cd sonar-plugin && mvn compile

@@ -44,6 +44,7 @@ module.exports = {
           // To prevent (for example) <div style={{ animate: 'width 2s' }}>
           const property = styleAttribute.value.expression.properties.find(
             (prop) =>
+              prop.key != null &&
               forbiddenProperties.some((forbidProp) =>
                 prop.key.name.includes(forbidProp),
               ),

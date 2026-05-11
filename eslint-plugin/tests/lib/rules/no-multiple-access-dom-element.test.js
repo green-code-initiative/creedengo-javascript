@@ -22,76 +22,59 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/provide-print-css");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/no-multiple-access-dom-element");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester({
-  parserOptions: {
-    ecmaVersion: 6,
-    sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-});
-
+const ruleTester = new RuleTester();
 const expectedError = {
-  messageId: "noPrintCSSProvided",
-  type: "JSXElement",
+  messageId: "ShouldBeAssignToVariable",
 };
 
-ruleTester.run("provide-print-css", rule, {
+const tests = {
   valid: [
     `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />
-    </head>
+    var el1 = document.getElementById('block1').test;
+    var el2 = document.getElementById('block2').test
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <style>@media print {}</style>
-    </head>
+    var el1 = document.getElementsByClassName('block1').test;
+    var el2 = document.getElementsByClassName('block2').test
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <style>{'@media print {}'}</style>
-    </head>
+    function test() { var link = document.getElementsByTagName('a'); }
+    var link = document.getElementsByTagName('a');
     `,
     `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />,
-      <style>{'@media print {}'}</style>
-    </head>   
+    for (var i = 0; i < 10; i++) {
+      var test = document.getElementsByName("test" + i)[0].value;
+      var test2 = document.getElementsByName("test2" + i)[0].value;
+    }
     `,
-    "<head><style>{`@media print {}`}</style></head>",
-    `<link rel="stylesheet" href="styles.css" />`,
   ],
+
   invalid: [
     {
-      code: `
-        <head>
-          <title>Web Page</title>
-          <link rel="stylesheet" href="styles.css" />
-        </head>
-      `,
+      code: "var el1 = document.getElementById('block1').test1; var el2 = document.getElementById('block1').test2",
       errors: [expectedError],
     },
     {
-      code: `
-        <head>
-          <title>Web Page</title>
-          <style>{'@media desktop {}'}</style>
-        </head>
-      `,
+      code: "function test() {var el1 = document.getElementById('block1').test1; if(toto) { var el2 = document.getElementById('block1').test2 }}",
+      errors: [expectedError],
+    },
+    {
+      code: "if (true) { var card = document.querySelector('.card'); } else { var card = document.querySelector('.card'); }",
       errors: [expectedError],
     },
   ],
+};
+
+describe("no-multiple-access-dom-element", () => {
+  it("no-multiple-access-dom-element", () => {
+    ruleTester.run("no-multiple-access-dom-element", rule, tests);
+  });
 });

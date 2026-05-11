@@ -1,6 +1,8 @@
-# Encourage usage of shorthand CSS notations (`@creedengo/prefer-shorthand-css-notations`)
+# @creedengo/prefer-shorthand-css-notations
 
-⚠️ This rule _warns_ in the following configs: ✅ `flat/recommended`, ✅ `recommended`.
+📝 Encourage usage of shorthand CSS notations.
+
+⚠️ This rule _warns_ in the ✅ `recommended` config.
 
 <!-- end auto-generated rule header -->
 
@@ -35,9 +37,16 @@ For example, the `font` shorthand consolidates various font-related properties, 
 the definition of margins around a box.
 
 ```jsx
-<div style={{ marginTop: "1em", marginRight: 0, marginBottom: "2em", marginLeft: "0.5em" }}>
+<div
+  style={{
+    marginTop: "1em",
+    marginRight: 0,
+    marginBottom: "2em",
+    marginLeft: "0.5em",
+  }}
+>
   {/* Noncompliant: these properties can be grouped together in the "margin" property */}
-</div>;
+</div>
 ```
 
 ```jsx

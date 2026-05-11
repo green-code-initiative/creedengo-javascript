@@ -11,17 +11,17 @@
   "scripts": {
     "lint": "eslint src/.",
     "lint:report": "eslint src/. -f json -o eslint-report.json",
-    "sonar": "sonar-scanner"
+    "sonar": "sonar"
   },
   "devDependencies": {
     "@creedengo/eslint-plugin": "../eslint-plugin",
-    "@eslint/js": "^9.25.0",
-    "@nestjs/common": "^11.0.20",
-    "eslint": "^9.25.0",
-    "globals": "^16.0.0",
-    "sonarqube-scanner": "^4.3.0",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.30.1"
+    "@eslint/js": "^10.0.1",
+    "@nestjs/common": "^11.1.19",
+    "@sonar/scan": "^4.3.6",
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.59.1"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.14.1"
 }

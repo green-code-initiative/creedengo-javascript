@@ -18,6 +18,8 @@
 
 "use strict";
 
+const { createDefaultImportsTracker } = require("../utils/import-tracker");
+
 const brightnessLibrariesMethods = {
   "expo-brightness": [
     "setBrightnessAsync",
@@ -45,30 +47,18 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
-    const librariesFoundInImports = [];
+    const { importedObjects, ImportDeclaration } = createDefaultImportsTracker(
+      brightnessLibrariesMethods,
+    );
 
     return {
-      ImportDeclaration(node) {
-        const currentLibrary = node.source.value;
-
-        if (brightnessLibrariesMethods[currentLibrary]) {
-          librariesFoundInImports.push(currentLibrary);
-        }
-      },
+      ImportDeclaration,
       MemberExpression(node) {
-        if (librariesFoundInImports.length === 0) {
-          return;
-        }
+        if (importedObjects.size === 0) return;
 
-        if (
-          librariesFoundInImports.some((library) =>
-            brightnessLibrariesMethods[library].includes(node.property.name),
-          )
-        ) {
-          context.report({
-            node,
-            messageId: "ShouldAvoidOverrideBrightness",
-          });
+        const methods = importedObjects.get(node.object?.name);
+        if (methods?.includes(node.property.name)) {
+          context.report({ node, messageId: "ShouldAvoidOverrideBrightness" });
         }
       },
     };

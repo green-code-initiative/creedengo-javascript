@@ -23,23 +23,26 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-css-animations");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });
 
-ruleTester.run("avoid-css-animations", rule, {
+const tests = {
   valid: [
     `
     import React from 'react';
@@ -55,6 +58,8 @@ ruleTester.run("avoid-css-animations", rule, {
     `<div style="border: 2px solid red">My red element</div>`,
     // spread attributes should not throw an error (#49)
     "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
+    // spread style attributes should not throw an error (#100)
+    "<input style={{ ...inputProps.style, color: 'red' }} onChange={handleChange}/>",
   ],
 
   invalid: [
@@ -66,7 +71,6 @@ ruleTester.run("avoid-css-animations", rule, {
           data: {
             attribute: "transition",
           },
-          type: "Property",
         },
       ],
     },
@@ -78,9 +82,14 @@ ruleTester.run("avoid-css-animations", rule, {
           data: {
             attribute: "animationName",
           },
-          type: "Property",
         },
       ],
     },
   ],
+};
+
+describe("avoid-css-animations", () => {
+  it("avoid-css-animations", () => {
+    ruleTester.run("avoid-css-animations", rule, tests);
+  });
 });

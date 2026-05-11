@@ -22,54 +22,73 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-empty-image-src-attribute");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/prefer-lighter-formats-for-image-files");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 2021,
     sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
   },
 });
-const expectedError1 = {
-  messageId: "SpecifySrcAttribute",
-  type: "JSXAttribute",
-};
-const expectedError2 = {
-  messageId: "SpecifySrcAttribute",
-  type: "JSXOpeningElement",
+
+const preferLighterFormatsForImageFilesError = {
+  messageId: "PreferLighterFormatsForImageFiles",
 };
 
-ruleTester.run("image-src-attribute-not-empty", rule, {
+const tests = {
   valid: [
     `
-      <img src='logo.svg' alt='This is a SVG image'/>
+      <img src="./assets/images/cat.webp" alt="A cat"/>
     `,
     `
-      import logoSvg from "../files/logo.svg";
-      <img src={logoSvg} alt='This is a SVG image'/>
+      <img src="./assets/images/cat.avif" alt="A cat"/>
+    `,
+    `
+      <img src="./assets/images/cat.jxl" alt="A cat"/>
+    `,
+    `
+      <picture>
+        <source srcSet="image.webp" type="image/webp" />
+        <img src="image.jpg" alt="..." />
+      </picture>
+    `,
+    `
+      <img src="./assets/images/cat" alt="A cat" />
+    `,
+    `
+      <img src="" alt="" />
     `,
   ],
 
   invalid: [
     {
       code: `
-        <img src=''/>
+        <img src="./assets/images/cat.jpg" alt="A cat"/>
       `,
-      errors: [expectedError1],
+      errors: [preferLighterFormatsForImageFilesError],
     },
     {
       code: `
-        <img alt='This is an empty image'/>
+        <img src="./assets/images/cat.png" alt="A cat"/>
       `,
-      errors: [expectedError2],
+      errors: [preferLighterFormatsForImageFilesError],
     },
   ],
+};
+
+describe("prefer-lighter-formats-for-image-files", () => {
+  it("prefer-lighter-formats-for-image-files", () => {
+    ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
+  });
 });

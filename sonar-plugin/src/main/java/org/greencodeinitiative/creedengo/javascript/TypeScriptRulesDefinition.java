@@ -44,7 +44,7 @@ public class TypeScriptRulesDefinition implements RulesDefinition {
 
         RuleMetadataLoader ruleMetadataLoader = new RuleMetadataLoader(METADATA_LOCATION, PROFILE_PATH, sonarRuntime);
 
-        List<Class<?>> checks = Collections.unmodifiableList(CheckList.getTypeScriptChecks());
+        List<Class<?>> checks = Collections.unmodifiableList(CheckList.getTypeScriptHooks());
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
         DeprecatedEcoCodeRule.addOnRepository(repository, TypeScriptRuleRepository.OLD_KEY, checks);
