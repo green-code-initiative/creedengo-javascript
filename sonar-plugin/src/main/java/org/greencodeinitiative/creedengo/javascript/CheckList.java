@@ -34,7 +34,21 @@ public class CheckList {
 
     public static List<Class<? extends JavaScriptCheck>> getAllChecks() {
         return Arrays.asList(
-                PreferOnPushComponentChangeDetection.class
+                AvoidAutoPlay.class,
+                AvoidBrightnessOverride.class,
+                AvoidCSSAnimations.class,
+                AvoidHighAccuracyGeolocation.class,
+                AvoidKeepAwake.class,
+                LimitDbQueryResult.class,
+                NoEmptyImageSrcAttribute.class,
+                NoImportAllFromLibrary.class,
+                NoMultipleAccessDomElement.class,
+                NoMultipleStyleChanges.class,
+                NoTorch.class,
+                PreferCollectionsWithPagination.class,
+                PreferLighterFormatsForImageFiles.class,
+                PreferShorthandCSSNotations.class,
+                ProvidePrintCSS.class
         );
     }
 

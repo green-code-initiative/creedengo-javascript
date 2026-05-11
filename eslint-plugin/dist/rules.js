@@ -16,31 +16,18 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @fileoverview JavaScript linter of Creedengo project (Sonar mode)
+ * @author Green Code Initiative
+ */
 "use strict";
 
+const rules = require("../lib/rule-list");
+
 module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  env: {
-    node: true,
-  },
-  overrides: [
-    {
-      files: ["tests/**/*.js"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
+  rules: rules.map((rule) => ({
+    ruleId: `@creedengo/${rule.ruleName}`,
+    ruleModule: rule.ruleModule,
+    ruleConfig: [],
+  })),
 };

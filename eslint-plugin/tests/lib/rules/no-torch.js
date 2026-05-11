@@ -18,29 +18,39 @@
 
 "use strict";
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
+
+const rule = require("../../../lib/rules/no-torch");
+const RuleTester = require("eslint").RuleTester;
+
+//------------------------------------------------------------------------------
+// Tests
+//------------------------------------------------------------------------------
+
+const ruleTester = new RuleTester({
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 6,
+    sourceType: "module",
   },
-  env: {
-    node: true,
-  },
-  overrides: [
+});
+const expectedError = {
+  messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
+  type: "ImportDeclaration",
+};
+
+ruleTester.run("no-torch", rule, {
+  valid: [
+    `
+    import axios from 'axios';
+    `,
+  ],
+
+  invalid: [
     {
-      files: ["tests/**/*.js"],
-      env: { mocha: true },
+      code: "import Torch from 'react-native-torch';",
+      errors: [expectedError],
     },
   ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
-  },
-};
+});

@@ -16,31 +16,41 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @fileoverview JavaScript linter of Creedengo project (standalone mode)
+ * @author Green Code Initiative
+ */
 "use strict";
 
-module.exports = {
-  root: true,
-  extends: [
-    "eslint:recommended",
-    "plugin:eslint-plugin/recommended",
-    "plugin:node/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["license-header"],
-  parserOptions: {
-    ecmaVersion: 2020,
+const rules = require("./rule-list");
+
+const allRules = {};
+const recommendedRules = {};
+
+for (let { ruleName, ruleModule } of rules) {
+  allRules[ruleName] = ruleModule;
+  const { recommended } = ruleModule.meta.docs;
+  const ruleConfiguration = recommended === false ? "off" : recommended;
+  recommendedRules[`@creedengo/${ruleName}`] = ruleConfiguration;
+}
+
+const plugin = {
+  meta: {
+    name: "@creedengo/eslint-plugin",
+    version: "2.1.0", // dynamically updated by the release workflow
   },
-  env: {
-    node: true,
+  rules: allRules,
+};
+
+plugin.configs = {
+  recommended: {
+    plugins: ["@creedengo"],
+    rules: recommendedRules,
   },
-  overrides: [
-    {
-      files: ["tests/**/*.js"],
-      env: { mocha: true },
-    },
-  ],
-  rules: {
-    "node/no-unpublished-require": "off",
-    "license-header/header": ["error", "./docs/license-header.txt"],
+  ["flat/recommended"]: {
+    plugins: { "@creedengo": plugin },
+    rules: recommendedRules,
   },
 };
+
+module.exports = plugin;
