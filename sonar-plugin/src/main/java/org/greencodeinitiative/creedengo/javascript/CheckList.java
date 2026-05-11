@@ -47,6 +47,7 @@ public class CheckList {
                 NoTorch.class,
                 PreferCollectionsWithPagination.class,
                 PreferLighterFormatsForImageFiles.class,
+                PreferOnPushComponentChangeDetection.class,
                 PreferShorthandCSSNotations.class,
                 ProvidePrintCSS.class
         );
