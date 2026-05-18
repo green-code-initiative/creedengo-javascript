@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/prefer-lighter-formats-for-image-files");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/no-torch");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -31,58 +32,31 @@ const RuleTester = require("eslint").RuleTester;
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 6,
     sourceType: "module",
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
   },
 });
-
-const preferLighterFormatsForImageFilesError = {
-  messageId: "PreferLighterFormatsForImageFiles",
-  type: "JSXOpeningElement",
+const expectedError = {
+  messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
 };
 
-ruleTester.run("prefer-lighter-formats-for-image-files", rule, {
+const tests = {
   valid: [
     `
-      <img src="./assets/images/cat.webp" alt="A cat"/>
-    `,
-    `
-      <img src="./assets/images/cat.avif" alt="A cat"/>
-    `,
-    `
-      <img src="./assets/images/cat.jxl" alt="A cat"/>
-    `,
-    `
-      <picture>
-        <source srcSet="image.webp" type="image/webp" />
-        <img src="image.jpg" alt="..." />
-      </picture>
-    `,
-    `
-      <img src="./assets/images/cat" alt="A cat" />
-    `,
-    `
-      <img src="" alt="" />
+    import axios from 'axios';
     `,
   ],
 
   invalid: [
     {
-      code: `
-        <img src="./assets/images/cat.jpg" alt="A cat"/>
-      `,
-      errors: [preferLighterFormatsForImageFilesError],
-    },
-    {
-      code: `
-        <img src="./assets/images/cat.png" alt="A cat"/>
-      `,
-      errors: [preferLighterFormatsForImageFilesError],
+      code: "import Torch from 'react-native-torch';",
+      errors: [expectedError],
     },
   ],
+};
+
+describe("no-torch", () => {
+  it("no-torch", () => {
+    ruleTester.run("no-torch", rule, tests);
+  });
 });

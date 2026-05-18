@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-keep-awake");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -43,47 +44,58 @@ const ruleTester = new RuleTester({
 
 const expectedErrorHook = {
   messageId: "AvoidKeepAwake",
-  type: "CallExpression",
 };
 
 const expectedErrorFunction = {
   messageId: "AvoidKeepAwake",
-  type: "CallExpression",
 };
 
-ruleTester.run("avoid-keep-awake", rule, {
+const tests = {
   valid: [
-    {
-      code: `
-      import React from 'react';
-      import { Text, View } from 'react-native';
-      
-      export default function ValidExample() {
+    `
+    import React from 'react';
+    import { Text, View } from 'react-native';
+    
+    export default function ValidExample() {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>This screen will sleep!</Text>
+        </View>
+      );
+    }
+    `,
+    `
+    import React from 'react';
+    import { useKeepAwake } from 'other-library';
+    import { Button, View } from 'react-native';
+    
+    export default class ValidExample extends React.Component {
+      render() {
+        useKeepAwake();
         return (
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>This screen will sleep!</Text>
-          </View>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}></View>
         );
       }
-     `,
-    },
-    {
-      code: `
-      import React from 'react';
-      import { useKeepAwake } from 'other-library';
-      import { Button, View } from 'react-native';
-      
-      export default class ValidExample extends React.Component {
-        render() {
-          useKeepAwake();
-          return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            </View>
-          );
-        }
-      }      
-     `,
-    },
+    }      
+    `,
+    // False positive guard: expo-keep-awake is imported for a side-effect but the
+    // function with the same name is defined locally – it must NOT be flagged.
+    `
+    import 'expo-keep-awake';
+
+    function activateKeepAwake() {
+      // local helper, unrelated to the library
+    }
+    activateKeepAwake();
+    `,
+    // False positive guard: a different export from expo-keep-awake is imported, while
+    // activateKeepAwake comes from another library – it must NOT be flagged.
+    `
+    import { deactivateKeepAwake } from 'expo-keep-awake';
+    import { activateKeepAwake } from 'some-other-library';
+
+    activateKeepAwake();
+    `,
   ],
   invalid: [
     {
@@ -126,4 +138,10 @@ ruleTester.run("avoid-keep-awake", rule, {
       errors: [expectedErrorFunction],
     },
   ],
+};
+
+describe("avoid-keep-awake", () => {
+  it("avoid-keep-awake", () => {
+    ruleTester.run("avoid-keep-awake", rule, tests);
+  });
 });

@@ -11,9 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
 
+## [3.1.0] - 2026-05-10
+
+### Added
+
+- [#106](https://github.com/green-code-initiative/creedengo-javascript/pull/106) Add ESLint v10 compatibility
+- [#107](https://github.com/green-code-initiative/creedengo-javascript/pull/107) Show support of SonarQube 26.4
+
+### Changed
+
+- [#107](https://github.com/green-code-initiative/creedengo-javascript/pull/107) Move to creedengo-rules-specifications v3
+
 ### Fixed
 
 - [#101](https://github.com/green-code-initiative/creedengo-javascript/pull/101) Fix spread style attributes in GCI26 and GCI29 rules
+- [#103](https://github.com/green-code-initiative/creedengo-javascript/pull/103) Fix false positives caused by import checks in GCI505, GCI522 and GCI523 rules
 
 ## [3.0.0] - 2026-02-03
 
@@ -133,7 +145,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setup basic coding style tools
 - Write complete contributing guide
 
-[unreleased]: https://github.com/green-code-initiative/creedengo-javascript/compare/3.0.0...HEAD
+[unreleased]: https://github.com/green-code-initiative/creedengo-javascript/compare/3.1.0...HEAD
+[3.1.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/2.2.0...3.0.0
 [2.2.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/green-code-initiative/creedengo-javascript/compare/2.0.0...2.1.0

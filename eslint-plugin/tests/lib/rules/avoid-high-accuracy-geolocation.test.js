@@ -23,7 +23,8 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/avoid-high-accuracy-geolocation");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -37,14 +38,12 @@ const ruleTester = new RuleTester({
 });
 const expectedErrorOnProperty = {
   messageId: "AvoidUsingAccurateGeolocation",
-  type: "Property",
 };
 const expectedErrorOnMemberExpression = {
   messageId: "AvoidUsingAccurateGeolocation",
-  type: "MemberExpression",
 };
 
-ruleTester.run("avoid-high-accuracy-geolocation", rule, {
+const tests = {
   valid: [
     `
     var opts = {enableHighAccuracy: false, timeout: 5000, maximumAge: 0};
@@ -77,6 +76,14 @@ ruleTester.run("avoid-high-accuracy-geolocation", rule, {
     import * as Location from 'expo-location';
     
     Location.requestPermissionsAsync();
+    `,
+    // False positive guard: expo-location is imported but the flagged method is called on an
+    // unrelated object – it must NOT be reported.
+    `
+    import * as Location from 'expo-location';
+
+    const someOtherObj = {};
+    someOtherObj.enableNetworkProviderAsync();
     `,
   ],
 
@@ -112,4 +119,10 @@ ruleTester.run("avoid-high-accuracy-geolocation", rule, {
       errors: [expectedErrorOnMemberExpression],
     },
   ],
+};
+
+describe("avoid-high-accuracy-geolocation", () => {
+  it("avoid-high-accuracy-geolocation", () => {
+    ruleTester.run("avoid-high-accuracy-geolocation", rule, tests);
+  });
 });

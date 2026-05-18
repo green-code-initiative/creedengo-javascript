@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/provide-print-css");
+const rule = require("../../../lib/rules/no-imported-number-format-library");
 const RuleTester = require("eslint").RuleTester;
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -33,67 +34,62 @@ const ruleTester = new RuleTester({
   languageOptions: {
     ecmaVersion: 6,
     sourceType: "module",
-    parserOptions: {
-      ecmaFeatures: {
-        jsx: true,
-      },
-    },
   },
 });
 
-const expectedError = {
-  messageId: "noPrintCSSProvided",
-  type: "JSXElement",
+const expectedIdentifierError = {
+  messageId: "ShouldNotUseImportedNumberFormatLibrary",
+};
+const expectedImportError = {
+  messageId: "ShouldNotUseImportedNumberFormatLibrary",
 };
 
-ruleTester.run("provide-print-css", rule, {
+const tests = {
   valid: [
+    "new Intl.NumberFormat().format(1000);",
+    "numbro(1000).add(5);",
     `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />
-    </head>
+    const number = numbro(1000);
+    const number2 = numbro(2000);
+    number2.add(1000);
     `,
-    `
-    <head>
-      <title>Web Page</title>
-      <style>@media print {}</style>
-    </head>
-    `,
-    `
-    <head>
-      <title>Web Page</title>
-      <style>{'@media print {}'}</style>
-    </head>
-    `,
-    `
-    <head>
-      <title>Web Page</title>
-      <link rel="stylesheet" href="styles.css" media="print" />,
-      <style>{'@media print {}'}</style>
-    </head>   
-    `,
-    "<head><style>{`@media print {}`}</style></head>",
-    `<link rel="stylesheet" href="styles.css" />`,
+    "import { parse } from 'numerable';",
+    "import { format } from 'date-fns';",
+    "import mysql from 'mysql2';",
   ],
   invalid: [
     {
-      code: `
-        <head>
-          <title>Web Page</title>
-          <link rel="stylesheet" href="styles.css" />
-        </head>
-      `,
-      errors: [expectedError],
+      code: "numbro(1000).format({thousandSeparated: true});",
+      errors: [expectedIdentifierError],
     },
     {
       code: `
-        <head>
-          <title>Web Page</title>
-          <style>{'@media desktop {}'}</style>
-        </head>
+      const number = numbro(1000);
+      number.format({thousandSeparated: true});
       `,
-      errors: [expectedError],
+      errors: [expectedIdentifierError],
+    },
+    {
+      code: `
+      const number = numbro(1000);
+      const number2 = numbro(2000);
+      number.format({thousandSeparated: true});
+      `,
+      errors: [expectedIdentifierError],
+    },
+    {
+      code: "import { format } from 'numerable';",
+      errors: [expectedImportError],
+    },
+    {
+      code: "import { format as myFormat} from 'numerable';",
+      errors: [expectedImportError],
     },
   ],
+};
+
+describe("no-imported-number-format-library", () => {
+  it("no-imported-number-format-library", () => {
+    ruleTester.run("no-imported-number-format-library", rule, tests);
+  });
 });

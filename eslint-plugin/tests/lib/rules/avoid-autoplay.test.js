@@ -24,6 +24,7 @@
 
 const rule = require("../../../lib/rules/avoid-autoplay");
 const { RuleTester } = require("eslint");
+const { describe, it } = require('node:test');
 
 //------------------------------------------------------------------------------
 // Tests
@@ -43,18 +44,15 @@ const ruleTester = new RuleTester({
 
 const noAutoplayError = {
   messageId: "NoAutoplay",
-  type: "JSXAttribute",
 };
 const enforcePreloadNoneError = {
   messageId: "EnforcePreloadNone",
-  type: "JSXAttribute",
 };
 const BothError = {
   messageId: "NoAutoplayAndEnforcePreloadNone",
-  type: "JSXAttribute",
 };
 
-ruleTester.run("autoplay-audio-video-attribute-not-present", rule, {
+const tests = {
   valid: [
     '<audio preload="none"></audio>',
     '<video preload="none"></video>',
@@ -86,4 +84,11 @@ ruleTester.run("autoplay-audio-video-attribute-not-present", rule, {
       errors: [enforcePreloadNoneError],
     },
   ],
+};
+
+describe('avoid-autoplay', () => {
+  it('autoplay-audio-video-attribute-not-present', () => {
+    ruleTester.run("autoplay-audio-video-attribute-not-present", rule, tests);
+  });
 });
+

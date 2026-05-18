@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/avoid-css-animations");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/prefer-lighter-formats-for-image-files");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -41,50 +42,53 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run("avoid-css-animations", rule, {
+const preferLighterFormatsForImageFilesError = {
+  messageId: "PreferLighterFormatsForImageFiles",
+};
+
+const tests = {
   valid: [
     `
-    import React from 'react';
-    import './styles.css'; // External CSS file
-
-    const MyComponent = () => {
-      return <div className="my-class">This content is styled using an external CSS file.</div>;
-    };
-
-    export default MyComponent;
+      <img src="./assets/images/cat.webp" alt="A cat"/>
     `,
-    `<div style={{ width: '100px', height: '100px' }}>Hello world</div>`,
-    `<div style="border: 2px solid red">My red element</div>`,
-    // spread attributes should not throw an error (#49)
-    "<input {...inputProps} className={styles.input} onChange={handleChange}/>",
-    // spread style attributes should not throw an error (#100)
-    "<input style={{ ...inputProps.style, color: 'red' }} onChange={handleChange}/>",
+    `
+      <img src="./assets/images/cat.avif" alt="A cat"/>
+    `,
+    `
+      <img src="./assets/images/cat.jxl" alt="A cat"/>
+    `,
+    `
+      <picture>
+        <source srcSet="image.webp" type="image/webp" />
+        <img src="image.jpg" alt="..." />
+      </picture>
+    `,
+    `
+      <img src="./assets/images/cat" alt="A cat" />
+    `,
+    `
+      <img src="" alt="" />
+    `,
   ],
 
   invalid: [
     {
-      code: "<div style={{ transition: 'width 2s' }} />",
-      errors: [
-        {
-          messageId: "AvoidCSSAnimations",
-          data: {
-            attribute: "transition",
-          },
-          type: "Property",
-        },
-      ],
+      code: `
+        <img src="./assets/images/cat.jpg" alt="A cat"/>
+      `,
+      errors: [preferLighterFormatsForImageFilesError],
     },
     {
-      code: "<div style={{ animationName: 'example', animationDuration: '4s' }} />",
-      errors: [
-        {
-          messageId: "AvoidCSSAnimations",
-          data: {
-            attribute: "animationName",
-          },
-          type: "Property",
-        },
-      ],
+      code: `
+        <img src="./assets/images/cat.png" alt="A cat"/>
+      `,
+      errors: [preferLighterFormatsForImageFilesError],
     },
   ],
+};
+
+describe("prefer-lighter-formats-for-image-files", () => {
+  it("prefer-lighter-formats-for-image-files", () => {
+    ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
+  });
 });

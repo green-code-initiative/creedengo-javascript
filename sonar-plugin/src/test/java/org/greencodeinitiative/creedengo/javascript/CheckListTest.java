@@ -35,4 +35,14 @@ public class CheckListTest {
         }
     }
 
+    @Test
+    public void checkAlphabetical() {
+        String previous = "";
+        for (Class<? extends EslintHook> hookClass : CheckList.getAllHooks()) {
+            String current = hookClass.getSimpleName();
+            assertThat(current).isGreaterThan(previous);
+            previous = current;
+        }
+    }
+
 }

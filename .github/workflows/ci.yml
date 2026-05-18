@@ -13,62 +13,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  test:
-    name: Lint and Test
+  build-and-test:
+    name: Build and test
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [22.x, 24.x]
-        java-version: [17]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Use JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: ${{ matrix.java-version }}
-
-      - name: Install dependencies
-        run: yarn install --immutable
-        working-directory: eslint-plugin
-
-      - name: Lint eslint-plugin
-        run: yarn lint
-        working-directory: eslint-plugin
-
-      - name: Test eslint-plugin
-        run: yarn test:cov
-        working-directory: eslint-plugin
-
-      - name: Verify SonarQube plugin
-        run: mvn -e -B verify
-        working-directory: sonar-plugin
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@master
-        if: |
-          (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) &&
-          matrix.node-version == '24.x' &&
-          github.actor != 'dependabot[bot]'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  integration-test:
-    name: Integration test
-    runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -88,9 +35,58 @@ jobs:
         run: yarn install --immutable
         working-directory: eslint-plugin
 
+      - name: Lint eslint-plugin
+        run: yarn lint
+        working-directory: eslint-plugin
+
+      - name: Test eslint-plugin
+        run: yarn test:cov
+        working-directory: eslint-plugin
+
       - name: Build SonarQube plugin
         run: mvn -e -B package
         working-directory: sonar-plugin
 
-      - name: Check SonarQube with the plugin
+      - name: Integration test with SonarQube
         run: docker compose up --wait
+
+  sonarcloud-scan:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) &&
+      github.actor != 'dependabot[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Use JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: yarn install --immutable
+        working-directory: eslint-plugin
+
+      - name: Test eslint-plugin
+        run: yarn test:cov --test-reporter=lcov --test-reporter-destination=lcov.info
+        working-directory: eslint-plugin
+
+      - name: Compile SonarQube plugin
+        run: mvn -e -B compile
+        working-directory: sonar-plugin
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -69,7 +69,7 @@ Example set of files to add a rule called **"my-awesome-rule"**:
 - `lib/rules/my-awesome-rule.js`: main file with the rule metadata and algorithm
 - `docs/rules/my-awesome-rule.md`: documentation file written in [Markdown](https://www.markdownguide.org/cheat-sheet/)
   to explain the rule
-- `tests/lib/rules/my-awesome-rule.js`: testing file written
+- `tests/lib/rules/my-awesome-rule.test.js`: testing file written
   using [ESLint RuleTester](https://eslint.org/docs/latest/integrate/nodejs-api#ruletester)
 
 The project itself uses ESLint to helps linting rule algorithms.
@@ -88,7 +88,7 @@ all that remains is to reference it in the SonarQube plugin. Here are the simple
 
 Rule tests also follow the ESLint standards and
 use [ESLint RuleTester](https://eslint.org/docs/latest/integrate/nodejs-api#ruletester).\
-They are executed with the [mocha](https://mochajs.org/) test framework.
+They are executed with [native Node.js](https://nodejs.org/api/test.html) test runner.
 
 Please add as many valid and invalid uses cases as necessary for a each rule.\
 This will allow a large code coverage and avoid false positives.

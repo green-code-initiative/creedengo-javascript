@@ -22,8 +22,9 @@
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-torch");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/no-empty-image-src-attribute");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -31,26 +32,51 @@ const RuleTester = require("eslint").RuleTester;
 
 const ruleTester = new RuleTester({
   languageOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2021,
     sourceType: "module",
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true,
+      },
+    },
   },
 });
-const expectedError = {
-  messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
-  type: "ImportDeclaration",
+const expectedError1 = {
+  messageId: "SpecifySrcAttribute",
+};
+const expectedError2 = {
+  messageId: "SpecifySrcAttribute",
 };
 
-ruleTester.run("no-torch", rule, {
+const tests = {
   valid: [
     `
-    import axios from 'axios';
+      <img src='logo.svg' alt='This is a SVG image'/>
+    `,
+    `
+      import logoSvg from "../files/logo.svg";
+      <img src={logoSvg} alt='This is a SVG image'/>
     `,
   ],
 
   invalid: [
     {
-      code: "import Torch from 'react-native-torch';",
-      errors: [expectedError],
+      code: `
+        <img src=''/>
+      `,
+      errors: [expectedError1],
+    },
+    {
+      code: `
+        <img alt='This is an empty image'/>
+      `,
+      errors: [expectedError2],
     },
   ],
+};
+
+describe("no-empty-image-src-attribute", () => {
+  it("image-src-attribute-not-empty", () => {
+    ruleTester.run("image-src-attribute-not-empty", rule, tests);
+  });
 });

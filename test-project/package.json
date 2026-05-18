@@ -15,12 +15,13 @@
   },
   "devDependencies": {
     "@creedengo/eslint-plugin": "../eslint-plugin",
-    "@eslint/js": "^9.39.2",
-    "@nestjs/common": "^11.1.12",
-    "@sonar/scan": "^4.3.4",
-    "eslint": "^9.39.2",
+    "@eslint/js": "^10.0.1",
+    "@nestjs/common": "^11.1.19",
+    "@sonar/scan": "^4.3.6",
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "^8.59.1"
   },
-  "packageManager": "yarn@4.12.0"
+  "packageManager": "yarn@4.14.1"
 }

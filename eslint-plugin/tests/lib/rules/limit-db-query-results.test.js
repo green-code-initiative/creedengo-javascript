@@ -17,58 +17,69 @@
  */
 
 "use strict";
-
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
 
-const rule = require("../../../lib/rules/no-multiple-access-dom-element");
-const RuleTester = require("eslint").RuleTester;
+const rule = require("../../../lib/rules/limit-db-query-results");
+const { RuleTester } = require("eslint");
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
 //------------------------------------------------------------------------------
 
-const ruleTester = new RuleTester();
+const ruleTester = new RuleTester({
+  languageOptions: {
+    ecmaVersion: 6,
+    sourceType: "module",
+  },
+});
+
 const expectedError = {
-  messageId: "ShouldBeAssignToVariable",
-  type: "CallExpression",
+  messageId: "LimitTheNumberOfReturns",
 };
 
-ruleTester.run("no-multiple-access-dom-element", rule, {
+const tests = {
   valid: [
     `
-    var el1 = document.getElementById('block1').test;
-    var el2 = document.getElementById('block2').test
+      sqlClient.query("SELECT id, name, email FROM customers LIMIT 10;");
     `,
     `
-    var el1 = document.getElementsByClassName('block1').test;
-    var el2 = document.getElementsByClassName('block2').test
+      sqlClient.query("SELECT TOP 5 * FROM products;");
     `,
     `
-    function test() { var link = document.getElementsByTagName('a'); }
-    var link = document.getElementsByTagName('a');
+      sqlClient.query("SELECT id, name, email FROM customers WHERE id = 1");
     `,
     `
-    for (var i = 0; i < 10; i++) {
-      var test = document.getElementsByName("test" + i)[0].value;
-      var test2 = document.getElementsByName("test2" + i)[0].value;
-    }
+      sqlClient.query("SELECT * FROM orders FETCH FIRST 20 ROWS ONLY");
+    `,
+    `
+      sqlClient.query("WITH numbered_customers AS (SELECT *, ROW_NUMBER() OVER (ORDER BY customer_id) AS row_num FROM customers) SELECT * FROM numbered_customers WHERE row_num <= 50");
+    `,
+    `
+      console.log("SELECT id, name, email FROM customers WHERE id = 1");
     `,
   ],
 
   invalid: [
     {
-      code: "var el1 = document.getElementById('block1').test1; var el2 = document.getElementById('block1').test2",
+      code: `sqlClient.query("SELECT * FROM bikes");`,
       errors: [expectedError],
     },
     {
-      code: "function test() {var el1 = document.getElementById('block1').test1; if(toto) { var el2 = document.getElementById('block1').test2 }}",
+      code: `sqlClient.run("SELECT id, departure, arrival FROM flights");`,
       errors: [expectedError],
     },
     {
-      code: "if (true) { var card = document.querySelector('.card'); } else { var card = document.querySelector('.card'); }",
+      code: `sqlClient.execute("SELECT * FROM cars");`,
       errors: [expectedError],
     },
   ],
+};
+
+describe("limit-db-query-results", () => {
+  it("limit-db-query-results", () => {
+    ruleTester.run("limit-db-query-results", rule, tests);
+  });
 });
