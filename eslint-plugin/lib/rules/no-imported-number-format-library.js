@@ -44,7 +44,10 @@ module.exports = {
 
     return {
       VariableDeclarator(node) {
-        if (node.init.callee?.name === "numbro") {
+        if (
+          node.init?.callee?.name === "numbro" &&
+          node.id.type === "Identifier"
+        ) {
           variablesNumbro.push(node.id.name);
         }
       },
@@ -66,13 +69,17 @@ module.exports = {
       },
       ImportDeclaration(node) {
         const importedLibraryName = node.source.value;
-        if (importedLibraryName === 'numerable') {
-          const formatSpecifier = node.specifiers.find(specifier => specifier.type === 'ImportSpecifier' && specifier.imported.name === 'format');
+        if (importedLibraryName === "numerable") {
+          const formatSpecifier = node.specifiers.find(
+            (specifier) =>
+              specifier.type === "ImportSpecifier" &&
+              specifier.imported.name === "format",
+          );
           if (formatSpecifier) {
             context.report(errorReport(formatSpecifier));
           }
         }
-      }
+      },
     };
   },
 };

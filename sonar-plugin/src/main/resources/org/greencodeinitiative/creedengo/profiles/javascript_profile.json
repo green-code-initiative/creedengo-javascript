@@ -1,7 +1,6 @@
 {
   "name": "Creedengo",
   "ruleKeys": [
-    "GCI535",
     "GCI9",
     "GCI11",
     "GCI12",
@@ -14,6 +13,7 @@
     "GCI36",
     "GCI505",
     "GCI523",
-    "GCI530"
+    "GCI530",
+    "GCI535"
   ]
 }

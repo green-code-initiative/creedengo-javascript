@@ -23,7 +23,7 @@
 //------------------------------------------------------------------------------
 
 const rule = require("../../../lib/rules/no-imported-number-format-library");
-const RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint");
 const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------

@@ -45,14 +45,14 @@ new Intl.NumberFormat("en-GB").format(1000); // '1,000'
 
 As for now, only two libraries are handled by this rule :
 
-- [numbro](https://numbrojs.com/)
-- [numerable](https://numerablejs.com/lander)
+- [numbro](https://www.npmjs.com/package/numbro)
+- [numerable](https://www.npmjs.com/package/numerable)
 
 Some candidates for the future developments are :
 
-- [javascript-number-formatter](https://github.com/Mottie/javascript-number-formatter)
-- [numeraljs](https://www.npmjs.com/package/numerable)
-- [formatjs](https://formatjs.github.io/)
+- [javascript-number-formatter](https://www.npmjs.com/package/number-format.js)
+- [numeraljs](https://www.npmjs.com/package/numeral)
+- [formatjs](https://www.npmjs.com/package/@formatjs/intl)
 
 It’s more likely this rule won’t ever be exhaustive.
 
@@ -60,4 +60,4 @@ It’s more likely this rule won’t ever be exhaustive.
 
 ### Documentation
 
-- [Mozilla Web Technology for Developers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) -
+- [Mozilla Web Technology for Developers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
