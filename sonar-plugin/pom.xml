@@ -136,7 +136,7 @@
                     <pluginKey>creedengojavascript</pluginKey>
                     <pluginName>${project.name}</pluginName>
                     <pluginClass>org.greencodeinitiative.creedengo.javascript.JavaScriptPlugin</pluginClass>
-                    <sonarLintSupported>false</sonarLintSupported>
+                    <sonarLintSupported>true</sonarLintSupported>
                     <pluginApiMinVersion>${version.sonarqube}</pluginApiMinVersion>
                     <skipDependenciesPackaging>true</skipDependenciesPackaging>
                     <jreMinVersion>${java.version}</jreMinVersion>
