@@ -13,6 +13,9 @@
     "lint:report": "eslint src/. -f json -o eslint-report.json",
     "sonar": "sonar"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "devDependencies": {
     "@creedengo/eslint-plugin": "../eslint-plugin",
     "@eslint/js": "^10.0.1",

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
+- Add SonarQube-only rule GCI2536 "Optimize the browserslist tag in package.json"
 
 ## [3.1.0] - 2026-05-10
 

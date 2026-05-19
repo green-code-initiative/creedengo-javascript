@@ -41,6 +41,7 @@ class JavaScriptRulesDefinitionTest {
         assertThat(repository.isExternal()).isFalse();
         assertThat(repository.language()).isEqualTo("js");
         assertThat(repository.key()).isEqualTo("creedengo-javascript");
+        assertThat(repository.rule(OptimizeBrowserslistTagInPackageJsonRule.KEY)).isNotNull();
     }
 
 }

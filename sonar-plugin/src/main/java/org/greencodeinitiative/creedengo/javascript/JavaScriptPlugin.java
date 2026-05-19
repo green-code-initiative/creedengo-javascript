@@ -28,6 +28,7 @@ public class JavaScriptPlugin implements Plugin {
         context.addExtensions(
                 ESLintRulesBundle.class,
                 JavaScriptRulesDefinition.class,
+                OptimizeBrowserslistTagInPackageJsonSensor.class,
                 JavaScriptRuleRepository.class,
                 TypeScriptRulesDefinition.class,
                 TypeScriptRuleRepository.class

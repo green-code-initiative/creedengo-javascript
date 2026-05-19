@@ -24,6 +24,8 @@ import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
+import static java.util.List.of;
+
 public class JavaScriptRulesDefinition implements RulesDefinition {
 
     private static final String METADATA_LOCATION = "org/green-code-initiative/rules/javascript";
@@ -48,6 +50,8 @@ public class JavaScriptRulesDefinition implements RulesDefinition {
 
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
         DeprecatedEcoCodeRule.addOnRepository(repository, JavaScriptRuleRepository.OLD_KEY, checks);
+
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, of(OptimizeBrowserslistTagInPackageJsonRule.class));
 
         repository.done();
     }

@@ -31,7 +31,7 @@ class JavaScriptPluginTest {
         SonarRuntime sonarRuntime = mock(SonarRuntime.class);
         Plugin.Context context = new Plugin.Context(sonarRuntime);
         new JavaScriptPlugin().define(context);
-        assertThat(context.getExtensions()).hasSize(5);
+        assertThat(context.getExtensions()).hasSize(6);
     }
 
 }
