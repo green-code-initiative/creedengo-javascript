@@ -84,7 +84,13 @@ module.exports = {
       ImportDeclaration(node) {
         const currentLibrary = node.source.value;
 
-        const forbiddenByName = notAllowedLibraries.includes(currentLibrary);
+        const forbiddenByName =
+          notAllowedLibraries.includes(currentLibrary) &&
+          node.specifiers.some(
+            (specifier) =>
+              specifier.type === "ImportDefaultSpecifier" ||
+              specifier.type === "ImportNamespaceSpecifier",
+          );
         const forbiddenByNamespace =
           importByNamespaceNotAllowedLibraries.includes(currentLibrary) &&
           node.specifiers.some(

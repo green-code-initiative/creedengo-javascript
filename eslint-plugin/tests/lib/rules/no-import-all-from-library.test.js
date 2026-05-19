@@ -54,6 +54,12 @@ const tests = {
     `
     import map from 'underscore/modules/map.js';
     `,
+    `
+    import { memoize, omitBy, isNil } from 'lodash';
+    `,
+    `
+    import { isEmpty } from 'underscore';
+    `,
   ],
 
   invalid: [
