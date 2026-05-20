@@ -17,6 +17,7 @@
  */
 package org.greencodeinitiative.creedengo.javascript;
 
+import org.greencodeinitiative.creedengo.javascript.checks.PackageJsonSensor;
 import org.sonar.api.Plugin;
 
 public class JavaScriptPlugin implements Plugin {
@@ -30,7 +31,8 @@ public class JavaScriptPlugin implements Plugin {
                 JavaScriptRulesDefinition.class,
                 JavaScriptRuleRepository.class,
                 TypeScriptRulesDefinition.class,
-                TypeScriptRuleRepository.class
+                TypeScriptRuleRepository.class,
+                PackageJsonSensor.class
         );
     }
 

@@ -23,5 +23,9 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.59.1"
   },
-  "packageManager": "yarn@4.14.1"
+  "packageManager": "yarn@4.14.1",
+  "browserslist": [
+    "defaults",
+    "not ie 11"
+  ]
 }

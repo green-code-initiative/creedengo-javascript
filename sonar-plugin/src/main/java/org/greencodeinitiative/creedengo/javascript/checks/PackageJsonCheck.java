@@ -15,23 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.greencodeinitiative.creedengo.javascript;
+package org.greencodeinitiative.creedengo.javascript.checks;
 
-import org.junit.jupiter.api.Test;
-import org.sonar.api.Plugin;
-import org.sonar.api.SonarRuntime;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.sensor.SensorContext;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
+public interface PackageJsonCheck {
 
-class JavaScriptPluginTest {
-
-    @Test
-    void extensions() {
-        SonarRuntime sonarRuntime = mock(SonarRuntime.class);
-        Plugin.Context context = new Plugin.Context(sonarRuntime);
-        new JavaScriptPlugin().define(context);
-        assertThat(context.getExtensions()).hasSize(6);
-    }
+    void analyze(SensorContext context, InputFile inputFile, String contents);
 
 }

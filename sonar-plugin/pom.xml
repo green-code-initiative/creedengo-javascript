@@ -48,7 +48,7 @@
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-        <version.creedengo-rules-specifications>3.0.0</version.creedengo-rules-specifications>
+        <version.creedengo-rules-specifications>2536-JS-SNAPSHOT</version.creedengo-rules-specifications>
         <version.sonarqube>13.0.0.3026</version.sonarqube>
         <version.sonar-javascript>11.8.0.37897</version.sonar-javascript>
         <version.sonar-packaging>1.25.1.3002</version.sonar-packaging>

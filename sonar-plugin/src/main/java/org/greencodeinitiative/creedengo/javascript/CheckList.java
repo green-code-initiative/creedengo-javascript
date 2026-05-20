@@ -18,6 +18,7 @@
 package org.greencodeinitiative.creedengo.javascript;
 
 import org.greencodeinitiative.creedengo.javascript.checks.*;
+import org.greencodeinitiative.creedengo.javascript.checks.PackageJsonCheck;
 import org.sonar.plugins.javascript.api.EslintHook;
 import org.sonar.plugins.javascript.api.JavaScriptRule;
 import org.sonar.plugins.javascript.api.TypeScriptRule;
@@ -26,6 +27,7 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Collections;
 
 public class CheckList {
 
@@ -65,6 +67,14 @@ public class CheckList {
         return getAllHooks().stream()
                 .filter(hook -> hook.isAnnotationPresent(annotation))
                 .collect(Collectors.toList());
+    }
+
+    public static List<PackageJsonCheck> getPackageJsonChecks() {
+        return Collections.singletonList(new OptimizeBrowserslistTagInPackageJsonRule());
+    }
+
+    public static List<Class<?>> getSensorChecks() {
+        return Collections.singletonList(OptimizeBrowserslistTagInPackageJsonRule.class);
     }
 
 }

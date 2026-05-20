@@ -49,6 +49,8 @@ public class JavaScriptRulesDefinition implements RulesDefinition {
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
         DeprecatedEcoCodeRule.addOnRepository(repository, JavaScriptRuleRepository.OLD_KEY, checks);
 
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getSensorChecks());
+
         repository.done();
     }
 

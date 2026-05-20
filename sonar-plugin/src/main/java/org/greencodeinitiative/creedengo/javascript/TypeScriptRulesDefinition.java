@@ -49,6 +49,8 @@ public class TypeScriptRulesDefinition implements RulesDefinition {
         ruleMetadataLoader.addRulesByAnnotatedClass(repository, checks);
         DeprecatedEcoCodeRule.addOnRepository(repository, TypeScriptRuleRepository.OLD_KEY, checks);
 
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, CheckList.getSensorChecks());
+
         repository.done();
     }
 
