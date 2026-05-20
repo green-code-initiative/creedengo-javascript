@@ -68,6 +68,7 @@ module.exports = {
         );
 
         if (styleAttribute?.value.expression?.properties) {
+          // To prevent (for example) <div style={{ animate: 'width 2s' }}>
           const property = styleAttribute.value.expression.properties.find(
             (prop) =>
               prop.key != null &&

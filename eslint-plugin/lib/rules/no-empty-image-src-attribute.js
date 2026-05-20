@@ -69,11 +69,13 @@ module.exports = {
             (attr) => attr.name.name === "src",
           );
           if (srcValue?.value?.value === "") {
+            //to prevent <img src='' alt='Empty image'/>
             context.report({
               node: srcValue,
               messageId: "SpecifySrcAttribute",
             });
           } else if (!srcValue) {
+            //to prevent <img />
             context.report({
               node,
               messageId: "SpecifySrcAttribute",

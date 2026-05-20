@@ -24,10 +24,12 @@ Limiting the usage of CSS animations helps in creating a more energy-efficient a
 <div style={{ border: "1px solid black" }} /> // Compliant
 ```
 
+```jsx
 <template>
   <div style="border: 1px solid black; transition: border 2s ease;"></div> <!-- Non-compliant -->
   <div style="border: 1px solid black;"></div> <!-- Compliant -->
 </template>
+```
 
 Vue support only checks static style attributes; :style bindings are not validated.
 

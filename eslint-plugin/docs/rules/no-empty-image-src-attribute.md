@@ -40,16 +40,15 @@ return (
 );
 ```
 
-This rule supports React (JSX) and Vue SFC templates when using vue-eslint-parser.
+This rule is build for [React](https://react.dev/) and JSX.
 
+```jsx
 <template>
   <img src="" /> <!-- Non-compliant -->
   <img /> <!-- Non-compliant -->
   <img src="./logo.svg" /> <!-- Compliant -->
 </template>
-
-Vue support requires vue-eslint-parser; dynamic bindings like :src are not validated by this rule.
-
+```
 
 ## Resources
 

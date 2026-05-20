@@ -9,8 +9,8 @@
   "license": "GPL-3.0",
   "author": "Green Code Initiative",
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue src",
-    "lint:report": "eslint --ext .js,.ts,.vue src -f json -o eslint-report.json",
+    "lint": "eslint src/.",
+    "lint:report": "eslint src/. -f json -o eslint-report.json",
     "sonar": "sonar"
   },
   "devDependencies": {

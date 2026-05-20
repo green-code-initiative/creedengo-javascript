@@ -28,15 +28,14 @@ return (
 );
 ```
 
-This rule supports [React](https://react.dev/) (JSX) and Vue SFC templates when using `vue-eslint-parser`.
+This rule is build for [React](https://react.dev/) and JSX.
 
+```jsx
 <template>
   <video autoplay></video> <!-- Non-compliant -->
   <video preload="none"></video> <!-- Compliant -->
 </template>
-
-Vue support requires `vue-eslint-parser` so the rule can access the template AST.
-Dynamic bindings like `:preload="x"` are not validated by this rule.
+```
 
 ## Resources
 
