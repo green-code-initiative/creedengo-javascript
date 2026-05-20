@@ -45,6 +45,7 @@ public class CheckList {
                 NoImportedNumberFormatLibrary.class,
                 NoMultipleAccessDomElement.class,
                 NoMultipleStyleChanges.class,
+                NoPollingWithoutVisibilityCheck.class,
                 NoTorch.class,
                 PreferCollectionsWithPagination.class,
                 PreferLighterFormatsForImageFiles.class,
