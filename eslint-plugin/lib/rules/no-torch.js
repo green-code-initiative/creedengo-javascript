@@ -18,45 +18,24 @@
 
 "use strict";
 
-const reactNativeTorchLibrary = "react-native-torch";
+const getPropertyValue = (propName) => (obj) => {
+  if (obj.type !== "ObjectExpression") return null;
+  return obj.properties.find((p) => {
+    if (p.type !== "Property") return false;
+    const name = p.key.type === "Identifier" ? p.key.name : p.key.value;
+    return name === propName;
+  })?.value;
+};
 
-function getPropertyName(prop) {
-  if (prop.key.type === "Identifier") return prop.key.name;
-  if (prop.key.type === "Literal") return String(prop.key.value);
-  return null;
-}
+const hasTorchTrueInAdvanced = (arg) => {
+  const advanced = getPropertyValue("advanced")(arg);
+  if (!advanced || advanced.type !== "ArrayExpression") return false;
 
-function findProperty(objectExpression, name) {
-  return objectExpression.properties.find(
-    (p) => p.type === "Property" && getPropertyName(p) === name
-  );
-}
-
-function objectHasTorchProperty(objectExpression) {
-  return Boolean(findProperty(objectExpression, "torch"));
-}
-
-function advancedArrayHasTorch(arrayExpression) {
-  return arrayExpression.elements.some(
-    (el) => el && el.type === "ObjectExpression" && objectHasTorchProperty(el)
-  );
-}
-
-function constraintsArgUsesTorchInAdvanced(arg) {
-  if (arg.type !== "ObjectExpression") return false;
-  const advancedProp = findProperty(arg, "advanced");
-  if (!advancedProp || advancedProp.value.type !== "ArrayExpression") return false;
-  return advancedArrayHasTorch(advancedProp.value);
-}
-
-function isApplyConstraintsCall(node) {
-  const { callee } = node;
-  if (callee.type !== "MemberExpression") return false;
-  const methodName = callee.computed
-    ? callee.property.type === "Literal" && callee.property.value
-    : callee.property.name;
-  return methodName === "applyConstraints" && node.arguments.length > 0;
-}
+  return advanced.elements.some((el) => {
+    const torch = getPropertyValue("torch")(el);
+    return torch?.type === "Literal" && torch.value === true;
+  });
+};
 
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
@@ -74,6 +53,8 @@ module.exports = {
     schema: [],
   },
   create: function (context) {
+    const reactNativeTorchLibrary = "react-native-torch";
+
     return {
       ImportDeclaration(node) {
         if (node.source.value === reactNativeTorchLibrary) {
@@ -85,10 +66,18 @@ module.exports = {
       },
 
       CallExpression(node) {
-        if (
-          isApplyConstraintsCall(node) &&
-          constraintsArgUsesTorchInAdvanced(node.arguments[0])
-        ) {
+        const { callee } = node;
+
+        const isApplyConstraints =
+          callee.type === "MemberExpression" &&
+          ((callee.computed &&
+            callee.property.type === "Literal" &&
+            callee.property.value === "applyConstraints") ||
+            (!callee.computed &&
+              callee.property.name === "applyConstraints")) &&
+          node.arguments.length > 0;
+
+        if (isApplyConstraints && hasTorchTrueInAdvanced(node.arguments[0])) {
           context.report({
             node,
             messageId: "ShouldNotProgrammaticallyEnablingTorchMode",

@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- [#48](https://github.com/green-code-initiative/creedengo-javascript/issues/48) Extend rule GCI530 "no-torch" to detect HTML5 Web API usage (`MediaTrackConstraints` torch constraint via `applyConstraints`)
+- [#113](https://github.com/green-code-initiative/creedengo-javascript/pull/113) Extend rule GCI530 "no-torch" to detect HTML5 Web API usage
 
 ## [3.1.0] - 2026-05-10
 

@@ -42,27 +42,73 @@ const expectedError = {
 
 const tests = {
   valid: [
+    // Import tests
     `import axios from 'axios';`,
+    `import * as torch from 'other-package';`,
+    `import { torch } from 'other-package';`,
+
+    // applyConstraints with torch: false
+    `track.applyConstraints({ advanced: [{ torch: false }] });`,
+    `track.applyConstraints({ advanced: [{ torch: false }, { facingMode: 'user' }] });`,
+
+    // applyConstraints without torch property
     `track.applyConstraints({ advanced: [{ facingMode: 'environment' }] });`,
+    `track.applyConstraints({ advanced: [{ facingMode: 'environment' }, { width: 640 }] });`,
+
+    // applyConstraints with empty advanced
     `track.applyConstraints({ advanced: [] });`,
+
+    // applyConstraints with standard constraints (no advanced)
     `track.applyConstraints({ width: 1280, height: 720 });`,
+
+    // Non-applyConstraints methods
+    `doSomething({ advanced: [{ torch: true }] });`,
   ],
 
   invalid: [
+    // Import react-native-torch
     {
       code: "import Torch from 'react-native-torch';",
       errors: [expectedError],
     },
     {
+      code: "import { torch } from 'react-native-torch';",
+      errors: [expectedError],
+    },
+    {
+      code: "import * as ReactNativeTorch from 'react-native-torch';",
+      errors: [expectedError],
+    },
+
+    // applyConstraints with torch: true
+    {
       code: "track.applyConstraints({ advanced: [{ torch: true }] });",
       errors: [expectedError],
     },
+
+    // torch: true with other properties in advanced
     {
-      code: "track.applyConstraints({ advanced: [{ torch: false }] });",
+      code: "track.applyConstraints({ advanced: [{ facingMode: 'environment' }, { torch: true }] });",
       errors: [expectedError],
     },
     {
-      code: "track.applyConstraints({ advanced: [{ facingMode: 'environment' }, { torch: true }] });",
+      code: "track.applyConstraints({ advanced: [{ torch: true }, { facingMode: 'user' }] });",
+      errors: [expectedError],
+    },
+    {
+      code: "track.applyConstraints({ advanced: [{ width: 640 }, { torch: true }, { facingMode: 'environment' }] });",
+      errors: [expectedError],
+    },
+
+    // Multiple torch: true entries
+    {
+      code: "track.applyConstraints({ advanced: [{ torch: true }, { torch: true }] });",
+      errors: [expectedError],
+    },
+
+    // torch: true with extra properties in same object
+    {
+      code: "track.applyConstraints({ advanced: [{ torch: true, width: 640 }] });",
       errors: [expectedError],
     },
   ],
