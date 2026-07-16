@@ -29,7 +29,7 @@ const getPropertyValue = (propName) => (obj) => {
 
 const hasTorchTrueInAdvanced = (arg) => {
   const advanced = getPropertyValue("advanced")(arg);
-  if (!advanced || advanced.type !== "ArrayExpression") return false;
+  if (advanced?.type !== "ArrayExpression") return false;
 
   return advanced.elements.some((el) => {
     const torch = getPropertyValue("torch")(el);

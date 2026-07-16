@@ -51,20 +51,20 @@ module.exports = {
   },
   create: function (context) {
     const map = {};
-    const DOMAccessMethods = [
+    const DOMAccessMethods = new Set([
       "getElementById",
       "getElementsByTagName",
       "getElementsByClassName",
       "getElementsByName",
       "querySelector",
       "querySelectorAll",
-    ];
+    ]);
 
     return {
       CallExpression(node) {
         if (
           node.callee.object?.name === "document" &&
-          DOMAccessMethods.includes(node.callee.property.name) &&
+          DOMAccessMethods.has(node.callee.property.name) &&
           // We only accept string literals as arguments for now
           node.arguments[0].type === "Literal"
         ) {

@@ -44,7 +44,7 @@ module.exports = {
     ];
 
     // List of known SQL client methods or functions
-    const sqlClientMethods = ["query", "execute", "run"];
+    const sqlClientMethods = new Set(["query", "execute", "run"]);
 
     return {
       // Detect SQL queries in string literals
@@ -62,7 +62,7 @@ module.exports = {
             if (
               parent?.type === "CallExpression" &&
               parent.callee.type === "MemberExpression" &&
-              sqlClientMethods.includes(parent.callee.property.name)
+              sqlClientMethods.has(parent.callee.property.name)
             ) {
               context.report({ node, messageId: "LimitTheNumberOfReturns" });
             }
