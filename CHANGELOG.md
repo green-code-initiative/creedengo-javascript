@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
 
+### Changed
+
+- [#113](https://github.com/green-code-initiative/creedengo-javascript/pull/113) Extend rule GCI530 "no-torch" to detect HTML5 Web API usage
+
 ## [3.1.0] - 2026-05-10
 
 ### Added

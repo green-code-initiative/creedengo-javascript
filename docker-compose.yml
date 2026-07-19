@@ -41,7 +41,7 @@ services:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonar
       POSTGRES_DB: sonarqube
-      PGDATA: pg_data:/var/lib/postgresql/data/pgdata
+      PGDATA: /var/lib/postgresql/data/pgdata
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U sonar -d sonarqube"]
       interval: 5s

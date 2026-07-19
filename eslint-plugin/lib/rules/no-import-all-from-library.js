@@ -64,7 +64,7 @@ module.exports = {
   },
   create: function (context) {
     const notAllowedLibraries = ["lodash", "underscore"];
-    const importByNamespaceNotAllowedLibraries = ["lodash-es"];
+    const importByNamespaceNotAllowedLibraries = new Set(["lodash-es"]);
 
     if (context.options?.length > 0) {
       const option = context.options[0];
@@ -92,7 +92,7 @@ module.exports = {
               specifier.type === "ImportNamespaceSpecifier",
           );
         const forbiddenByNamespace =
-          importByNamespaceNotAllowedLibraries.includes(currentLibrary) &&
+          importByNamespaceNotAllowedLibraries.has(currentLibrary) &&
           node.specifiers.some(
             (specifier) => specifier.type === "ImportNamespaceSpecifier",
           );

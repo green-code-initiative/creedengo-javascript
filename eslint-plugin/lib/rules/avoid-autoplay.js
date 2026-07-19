@@ -45,12 +45,9 @@ module.exports = {
           const preloadAttr = node.attributes.find(
             (attr) => attr.name?.name.toLowerCase() === "preload",
           );
-          if (
-            autoplayAttr &&
-            (!preloadAttr || preloadAttr.value.value !== "none")
-          ) {
+          if (autoplayAttr && preloadAttr?.value.value !== "none") {
             context.report({
-              node: autoplayAttr || preloadAttr,
+              node: autoplayAttr,
               messageId: "NoAutoplayAndEnforcePreloadNone",
             });
           } else {
@@ -61,7 +58,7 @@ module.exports = {
               });
             }
 
-            if (!preloadAttr || preloadAttr.value.value !== "none") {
+            if (preloadAttr?.value.value !== "none") {
               context.report({
                 node: preloadAttr || node,
                 messageId: "EnforcePreloadNone",
