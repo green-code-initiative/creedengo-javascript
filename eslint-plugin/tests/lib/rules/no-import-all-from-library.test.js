@@ -36,9 +36,9 @@ const ruleTester = new RuleTester({
     sourceType: "module",
   },
 });
-const expectedError = {
-  messageId: "ShouldNotImportAllFromLibrary",
-};
+
+const doNotImportFromLibraryError = { messageId: "doNotImportFromLibrary" };
+const doNotUseNamespaceImportError = { messageId: "doNotUseNamespaceImport" };
 
 const tests = {
   valid: [
@@ -59,25 +59,25 @@ const tests = {
   invalid: [
     {
       code: "import lodash from 'lodash';",
-      errors: [expectedError],
+      errors: [doNotImportFromLibraryError],
     },
     {
       code: "import * as lodash from 'lodash';",
-      errors: [expectedError],
+      errors: [doNotImportFromLibraryError],
     },
     {
       code: "import * as lodash from 'lodash-es';",
-      errors: [expectedError],
+      errors: [doNotUseNamespaceImportError],
     },
     {
       code: "import someLib from 'some-lib';",
       options: [{ notAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
+      errors: [doNotImportFromLibraryError],
     },
     {
       code: "import * as someLib from 'some-lib';",
       options: [{ importByNamespaceNotAllowedLibraries: ["some-lib"] }],
-      errors: [expectedError],
+      errors: [doNotUseNamespaceImportError],
     },
   ],
 };

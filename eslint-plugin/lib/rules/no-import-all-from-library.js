@@ -28,8 +28,10 @@ module.exports = {
       recommended: "warn",
     },
     messages: {
-      ShouldNotImportAllFromLibrary:
-        "You should not import all from library {{library}}",
+      doNotImportFromLibrary:
+        "Avoid importing from the main library path {{library}}, use specific subpaths instead",
+      doNotUseNamespaceImport:
+        "Avoid namespace imports from {{library}}, use named imports instead",
     },
     schema: [
       {
@@ -74,9 +76,9 @@ module.exports = {
       }
 
       if (option.importByNamespaceNotAllowedLibraries) {
-        notAllowedLibraries.push(
-          ...option.importByNamespaceNotAllowedLibraries,
-        );
+        for (const lib of option.importByNamespaceNotAllowedLibraries) {
+          importByNamespaceNotAllowedLibraries.add(lib);
+        }
       }
     }
 
@@ -91,10 +93,18 @@ module.exports = {
             (specifier) => specifier.type === "ImportNamespaceSpecifier",
           );
 
-        if (forbiddenByName || forbiddenByNamespace) {
+        if (forbiddenByName) {
           context.report({
             node,
-            messageId: "ShouldNotImportAllFromLibrary",
+            messageId: "doNotImportFromLibrary",
+            data: { library: currentLibrary },
+          });
+        }
+
+        if (forbiddenByNamespace) {
+          context.report({
+            node,
+            messageId: "doNotUseNamespaceImport",
             data: { library: currentLibrary },
           });
         }
