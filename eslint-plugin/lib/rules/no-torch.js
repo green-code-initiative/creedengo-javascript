@@ -18,6 +18,25 @@
 
 "use strict";
 
+const getPropertyValue = (propName) => (obj) => {
+  if (obj.type !== "ObjectExpression") return null;
+  return obj.properties.find((p) => {
+    if (p.type !== "Property") return false;
+    const name = p.key.type === "Identifier" ? p.key.name : p.key.value;
+    return name === propName;
+  })?.value;
+};
+
+const hasTorchTrueInAdvanced = (arg) => {
+  const advanced = getPropertyValue("advanced")(arg);
+  if (advanced?.type !== "ArrayExpression") return false;
+
+  return advanced.elements.some((el) => {
+    const torch = getPropertyValue("torch")(el);
+    return torch?.type === "Literal" && torch.value === true;
+  });
+};
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -38,8 +57,27 @@ module.exports = {
 
     return {
       ImportDeclaration(node) {
-        const currentLibrary = node.source.value;
-        if (currentLibrary === reactNativeTorchLibrary) {
+        if (node.source.value === reactNativeTorchLibrary) {
+          context.report({
+            node,
+            messageId: "ShouldNotProgrammaticallyEnablingTorchMode",
+          });
+        }
+      },
+
+      CallExpression(node) {
+        const { callee } = node;
+
+        const isApplyConstraints =
+          callee.type === "MemberExpression" &&
+          ((callee.computed &&
+            callee.property.type === "Literal" &&
+            callee.property.value === "applyConstraints") ||
+            (!callee.computed &&
+              callee.property.name === "applyConstraints")) &&
+          node.arguments.length > 0;
+
+        if (isApplyConstraints && hasTorchTrueInAdvanced(node.arguments[0])) {
           context.report({
             node,
             messageId: "ShouldNotProgrammaticallyEnablingTorchMode",

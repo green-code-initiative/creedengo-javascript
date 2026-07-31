@@ -28,8 +28,10 @@ module.exports = {
       recommended: "warn",
     },
     messages: {
-      ShouldNotImportAllFromLibrary:
-        "You should not import all from library {{library}}",
+      doNotImportFromLibrary:
+        "Avoid importing from the main library path {{library}}, use specific subpaths instead",
+      doNotUseNamespaceImport:
+        "Avoid namespace imports from {{library}}, use named imports instead",
     },
     schema: [
       {
@@ -64,7 +66,7 @@ module.exports = {
   },
   create: function (context) {
     const notAllowedLibraries = ["lodash", "underscore"];
-    const importByNamespaceNotAllowedLibraries = ["lodash-es"];
+    const importByNamespaceNotAllowedLibraries = new Set(["lodash-es"]);
 
     if (context.options?.length > 0) {
       const option = context.options[0];
@@ -74,9 +76,9 @@ module.exports = {
       }
 
       if (option.importByNamespaceNotAllowedLibraries) {
-        notAllowedLibraries.push(
-          ...option.importByNamespaceNotAllowedLibraries,
-        );
+        for (const lib of option.importByNamespaceNotAllowedLibraries) {
+          importByNamespaceNotAllowedLibraries.add(lib);
+        }
       }
     }
 
@@ -86,15 +88,23 @@ module.exports = {
 
         const forbiddenByName = notAllowedLibraries.includes(currentLibrary);
         const forbiddenByNamespace =
-          importByNamespaceNotAllowedLibraries.includes(currentLibrary) &&
+          importByNamespaceNotAllowedLibraries.has(currentLibrary) &&
           node.specifiers.some(
             (specifier) => specifier.type === "ImportNamespaceSpecifier",
           );
 
-        if (forbiddenByName || forbiddenByNamespace) {
+        if (forbiddenByName) {
           context.report({
             node,
-            messageId: "ShouldNotImportAllFromLibrary",
+            messageId: "doNotImportFromLibrary",
+            data: { library: currentLibrary },
+          });
+        }
+
+        if (forbiddenByNamespace) {
+          context.report({
+            node,
+            messageId: "doNotUseNamespaceImport",
             data: { library: currentLibrary },
           });
         }

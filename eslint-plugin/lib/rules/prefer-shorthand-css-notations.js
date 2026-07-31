@@ -139,16 +139,18 @@ module.exports = {
           (attr) => attr.name?.name === "style",
         );
         if (styleAttribute?.value.expression?.properties) {
-          const nodePropertyNames = styleAttribute.value.expression.properties
-            .filter((property) => property.key != null)
-            .map((property) => property.key.name);
+          const nodePropertyNames = new Set(
+            styleAttribute.value.expression.properties
+              .filter((property) => property.key != null)
+              .map((property) => property.key.name),
+          );
 
           for (const [shorthandProp, matchProperties] of Object.entries(
             shorthandProperties,
           )) {
             if (
               !disabledProperties.includes(shorthandProp) &&
-              matchProperties.every((prop) => nodePropertyNames.includes(prop))
+              matchProperties.every((prop) => nodePropertyNames.has(prop))
             ) {
               return context.report({
                 node: styleAttribute,
