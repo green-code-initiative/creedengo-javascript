@@ -180,12 +180,6 @@ const tests = {
   ],
 };
 
-describe("prefer-shorthand-css-notations", () => {
-  it("prefer-shorthand-css-notations", () => {
-    ruleTester.run("prefer-shorthand-css-notations", rule, tests);
-  });
-});
-
 const vueTests = {
   valid: [
     "<template><div style='margin: 1em 0 2em 0.5em'></div></template>",
@@ -203,8 +197,12 @@ const vueTests = {
   ],
 };
 
-describe("prefer-shorthand-css-notations (vue)", () => {
-  it("prefer-shorthand-css-notations-vue", () => {
+describe("prefer-shorthand-css-notations", () => {
+  it("React", () => {
+    ruleTester.run("prefer-shorthand-css-notations", rule, tests);
+  });
+
+  it("Vue", () => {
     vueRuleTester.run("prefer-shorthand-css-notations", rule, vueTests);
   });
 });

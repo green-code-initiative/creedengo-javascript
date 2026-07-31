@@ -16,6 +16,10 @@ On mobile devices, constant animations can contribute to increased power consump
 life.
 Limiting the usage of CSS animations helps in creating a more energy-efficient and mobile-friendly user experience.
 
+This rule supports both [React](https://react.dev/) (JSX) and [Vue](https://vuejs.org/) (template) syntax.
+
+### React (JSX)
+
 ```jsx
 <div style={{ border: "1px solid black", transition: "border 2s ease" }} /> // Non-compliant
 ```
@@ -24,7 +28,9 @@ Limiting the usage of CSS animations helps in creating a more energy-efficient a
 <div style={{ border: "1px solid black" }} /> // Compliant
 ```
 
-```jsx
+### Vue
+
+```html
 <template>
   <div style="border: 1px solid black; transition: border 2s ease;"></div> <!-- Non-compliant -->
   <div style="border: 1px solid black;"></div> <!-- Compliant -->

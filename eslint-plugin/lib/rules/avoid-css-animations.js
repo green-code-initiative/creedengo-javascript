@@ -18,6 +18,11 @@
 
 "use strict";
 
+const {
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -32,34 +37,27 @@ module.exports = {
     },
     schema: [],
   },
-    create(context) {
+  create(context) {
     const forbiddenProperties = ["transition", "animation"];
 
-    const parserServices =
-      context.parserServices || context.sourceCode?.parserServices;
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const styleAttr = getVueAttribute(node, "style");
+        const styleValue = styleAttr?.value?.value;
+        if (!styleValue) return;
 
-    const vueTemplateVisitor = parserServices?.defineTemplateBodyVisitor
-      ? parserServices.defineTemplateBodyVisitor({
-          VElement(node) {
-            const styleAttr = node.startTag.attributes.find(
-              (attr) => attr.type === "VAttribute" && attr.key?.name === "style",
-            );
-            const styleValue = styleAttr?.value?.value;
-            if (!styleValue) return;
+        const matched = forbiddenProperties.find((prop) =>
+          new RegExp(`(^|;)\\s*${prop}\\s*:`, "i").test(styleValue),
+        );
+        if (!matched) return;
 
-            const matched = forbiddenProperties.find((prop) =>
-              new RegExp(`(^|;)\\s*${prop}\\s*:`, "i").test(styleValue),
-            );
-            if (!matched) return;
-
-            context.report({
-              node: styleAttr,
-              messageId: "AvoidCSSAnimations",
-              data: { attribute: matched },
-            });
-          },
-        })
-      : {};
+        context.report({
+          node: styleAttr,
+          messageId: "AvoidCSSAnimations",
+          data: { attribute: matched },
+        });
+      },
+    });
 
     return {
       JSXOpeningElement(node) {

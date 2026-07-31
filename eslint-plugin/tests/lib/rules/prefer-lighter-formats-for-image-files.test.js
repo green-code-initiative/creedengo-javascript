@@ -98,12 +98,6 @@ const tests = {
   ],
 };
 
-describe("prefer-lighter-formats-for-image-files", () => {
-  it("prefer-lighter-formats-for-image-files", () => {
-    ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
-  });
-});
-
 const vueTests = {
   valid: [
     "<template><img src='./assets/images/cat.webp' alt='A cat'/></template>",
@@ -124,8 +118,12 @@ const vueTests = {
   ],
 };
 
-describe("prefer-lighter-formats-for-image-files (vue)", () => {
-  it("prefer-lighter-formats-for-image-files-vue", () => {
+describe("prefer-lighter-formats-for-image-files", () => {
+  it("React", () => {
+    ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
+  });
+
+  it("Vue", () => {
     vueRuleTester.run("prefer-lighter-formats-for-image-files", rule, vueTests);
   });
 });

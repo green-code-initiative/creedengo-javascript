@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -36,42 +42,32 @@ module.exports = {
   create(context) {
     const eligibleExtensions = ["webp", "avif", "svg", "jxl"];
 
-    const parserServices = context.parserServices || context.sourceCode?.parserServices;
-    
-    const vueTemplateVisitor = parserServices?.defineTemplateBodyVisitor
-      ? parserServices.defineTemplateBodyVisitor({
-          VElement(node) {
-            const name =
-              typeof node.name === "string" ? node.name : node.name?.name;
-            if (name?.toLowerCase() !== "img") return;
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        if (getVueElementName(node) !== "img") return;
 
-            const parent = node.parent?.type === "VElement" ? node.parent : null;
-            const parentName =
-              typeof parent?.name === "string" ? parent.name : parent?.name?.name;
-            if (parentName?.toLowerCase() === "picture") return;
+        const parent = node.parent?.type === "VElement" ? node.parent : null;
+        if (getVueElementName(parent) === "picture") return;
 
-            const srcAttr = node.startTag.attributes.find(
-              (attr) => attr.type === "VAttribute" && attr.key?.name === "src",
-            );
-            const srcValue = srcAttr?.value?.value;
-            if (!srcValue) return;
+        const srcAttr = getVueAttribute(node, "src");
+        const srcValue = srcAttr?.value?.value;
+        if (!srcValue) return;
 
-            const fileName = srcValue.substring(srcValue.lastIndexOf("/") + 1);
-            const dotIndex = fileName.lastIndexOf(".");
-            if (dotIndex === -1) return;
+        const fileName = srcValue.substring(srcValue.lastIndexOf("/") + 1);
+        const dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex === -1) return;
 
-            const imgExtension = fileName.substring(dotIndex + 1);
-            if (eligibleExtensions.includes(imgExtension.toLowerCase())) return;
+        const imgExtension = fileName.substring(dotIndex + 1);
+        if (eligibleExtensions.includes(imgExtension.toLowerCase())) return;
 
-            context.report({
-              node,
-              messageId: "PreferLighterFormatsForImageFiles",
-              data: { eligibleExtensions: eligibleExtensions.join(", ") },
-            });
-          },
-        })
-      : {};
-    return { 
+        context.report({
+          node,
+          messageId: "PreferLighterFormatsForImageFiles",
+          data: { eligibleExtensions: eligibleExtensions.join(", ") },
+        });
+      },
+    });
+    return {
       JSXOpeningElement(node) {
         const tagName = node.name.name;
         if (tagName?.toLowerCase() !== "img") return;
@@ -101,7 +97,8 @@ module.exports = {
           messageId: "PreferLighterFormatsForImageFiles",
           data: { eligibleExtensions: eligibleExtensions.join(", ") },
         });
-      }
-      , ...vueTemplateVisitor };
+      },
+      ...vueTemplateVisitor,
+    };
   },
 };

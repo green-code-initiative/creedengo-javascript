@@ -19,6 +19,8 @@ We recommend using the following formats:
 - **SVG** (Scalable Vector Graphics) is a vector image format that is based on XML.
   Files are lightweight and can be scaled without loss of quality.
 
+This rule supports plain HTML/JS, [React](https://react.dev/) (JSX), and [Vue](https://vuejs.org/) (template) syntax.
+
 ```html
 <img src="./assets/images/cat.jpg" alt="Unoptimized image of a cat" /> //
 Non-compliant
@@ -72,7 +74,9 @@ is supported, the image.webp image will be downloaded; otherwise, image.jpg imag
 </picture>
 ```
 
-```jsx
+### Vue
+
+```html
 <template>
   <img src="./assets/cat.jpg" alt="Unoptimized image of a cat" /> <!-- Non-compliant -->
   <img src="./assets/cat.webp" alt="Optimized image of a cat" /> <!-- Compliant -->

@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -36,7 +42,12 @@ module.exports = {
     schema: [],
   },
   create(context) {
-    const reportAutoplay = (autoplayAttr, preloadAttr, preloadValue, fallback) => {
+    const reportAutoplay = (
+      autoplayAttr,
+      preloadAttr,
+      preloadValue,
+      fallback,
+    ) => {
       if (autoplayAttr && preloadValue !== "none") {
         context.report({
           node: autoplayAttr || preloadAttr,
@@ -60,34 +71,18 @@ module.exports = {
       }
     };
 
-    const parserServices =
-      context.parserServices || context.sourceCode?.parserServices;
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const name = getVueElementName(node);
+        if (name !== "video" && name !== "audio") return;
 
-    const vueTemplateVisitor = parserServices?.defineTemplateBodyVisitor
-      ? parserServices.defineTemplateBodyVisitor({
-          VElement(node) {
-            const rawName =
-              typeof node.name === "string"
-                ? node.name
-                : node.name?.name || node.rawName;
-            const name = rawName?.toLowerCase();
-            if (name !== "video" && name !== "audio") return;
+        const autoplayAttr = getVueAttribute(node, "autoplay");
+        const preloadAttr = getVueAttribute(node, "preload");
+        const preloadValue = preloadAttr?.value?.value;
 
-            const getAttr = (attrName) =>
-              node.startTag.attributes.find(
-                (attr) =>
-                  attr.type === "VAttribute" &&
-                  attr.key?.name?.toLowerCase() === attrName,
-              );
-
-            const autoplayAttr = getAttr("autoplay");
-            const preloadAttr = getAttr("preload");
-            const preloadValue = preloadAttr?.value?.value;
-
-            reportAutoplay(autoplayAttr, preloadAttr, preloadValue, node);
-          },
-        })
-      : {};
+        reportAutoplay(autoplayAttr, preloadAttr, preloadValue, node);
+      },
+    });
 
     return {
       JSXOpeningElement(node) {

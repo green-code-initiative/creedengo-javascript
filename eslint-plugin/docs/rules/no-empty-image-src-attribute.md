@@ -17,6 +17,10 @@ Screen readers and other assistive technologies rely on valid image sources to p
 with disabilities.
 A missing src attribute can result in confusion and hinder accessibility.
 
+This rule supports both [React](https://react.dev/) (JSX) and [Vue](https://vuejs.org/) (template) syntax.
+
+### React (JSX)
+
 ```jsx
 return (
   <>
@@ -40,9 +44,9 @@ return (
 );
 ```
 
-This rule is build for [React](https://react.dev/) and JSX.
+### Vue
 
-```jsx
+```html
 <template>
   <img src="" /> <!-- Non-compliant -->
   <img /> <!-- Non-compliant -->
