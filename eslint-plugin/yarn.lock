@@ -51,6 +51,10 @@ __metadata:
     vue-eslint-parser: "npm:^10.4.0"
   peerDependencies:
     eslint: ^9.0.0 || ^10.0.0
+    vue-eslint-parser: ^9.0.0 || ^10.0.0
+  peerDependenciesMeta:
+    vue-eslint-parser:
+      optional: true
   languageName: unknown
   linkType: soft
 

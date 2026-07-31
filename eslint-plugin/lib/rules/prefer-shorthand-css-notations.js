@@ -18,6 +18,11 @@
 
 "use strict";
 
+const {
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -52,7 +57,7 @@ module.exports = {
       },
     ],
   },
-    create: function (context) {
+  create: function (context) {
     const shorthandProperties = {
       animation: ["animationName", "animationDuration"],
       background: [
@@ -87,9 +92,6 @@ module.exports = {
 
     const disabledProperties = context.options?.[0]?.disableProperties ?? [];
 
-    const parserServices =
-      context.parserServices || context.sourceCode?.parserServices;
-
     const toCamelCase = (value) =>
       value.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
@@ -102,36 +104,30 @@ module.exports = {
         .filter(Boolean)
         .map(toCamelCase);
 
-    const vueTemplateVisitor = parserServices?.defineTemplateBodyVisitor
-      ? parserServices.defineTemplateBodyVisitor({
-          VElement(node) {
-            const styleAttr = node.startTag.attributes.find(
-              (attr) => attr.type === "VAttribute" && attr.key?.name === "style",
-            );
-            const styleValue = styleAttr?.value?.value;
-            if (!styleValue) return;
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const styleAttr = getVueAttribute(node, "style");
+        const styleValue = styleAttr?.value?.value;
+        if (!styleValue) return;
 
-            const nodePropertyNames = parseCssProperties(styleValue);
+        const nodePropertyNames = parseCssProperties(styleValue);
 
-            for (const [shorthandProp, matchProperties] of Object.entries(
-              shorthandProperties,
-            )) {
-              if (
-                !disabledProperties.includes(shorthandProp) &&
-                matchProperties.every((prop) =>
-                  nodePropertyNames.includes(prop),
-                )
-              ) {
-                return context.report({
-                  node: styleAttr,
-                  messageId: "PreferShorthandCSSNotation",
-                  data: { property: shorthandProp },
-                });
-              }
-            }
-          },
-        })
-      : {};
+        for (const [shorthandProp, matchProperties] of Object.entries(
+          shorthandProperties,
+        )) {
+          if (
+            !disabledProperties.includes(shorthandProp) &&
+            matchProperties.every((prop) => nodePropertyNames.includes(prop))
+          ) {
+            return context.report({
+              node: styleAttr,
+              messageId: "PreferShorthandCSSNotation",
+              data: { property: shorthandProp },
+            });
+          }
+        }
+      },
+    });
 
     return {
       JSXOpeningElement(node) {

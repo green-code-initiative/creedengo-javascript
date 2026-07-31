@@ -24,7 +24,7 @@
 
 const rule = require("../../../lib/rules/avoid-autoplay");
 const { RuleTester } = require("eslint");
-const { describe, it } = require('node:test');
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -97,17 +97,10 @@ const tests = {
   ],
 };
 
-describe('avoid-autoplay', () => {
-  it('autoplay-audio-video-attribute-not-present', () => {
-    ruleTester.run("autoplay-audio-video-attribute-not-present", rule, tests);
-  });
-});
-
-
 const vueTests = {
   valid: [
-    "<template><video preload=\"none\"></video></template>",
-    "<template><audio preload=\"none\"></audio></template>",
+    '<template><video preload="none"></video></template>',
+    '<template><audio preload="none"></audio></template>',
   ],
   invalid: [
     {
@@ -119,14 +112,18 @@ const vueTests = {
       errors: [BothError],
     },
     {
-      code: "<template><video preload=\"auto\"></video></template>",
+      code: '<template><video preload="auto"></video></template>',
       errors: [enforcePreloadNoneError],
     },
   ],
 };
 
-describe("avoid-autoplay (vue)", () => {
-  it("autoplay-audio-video-vue-template", () => {
+describe("avoid-autoplay", () => {
+  it("React", () => {
+    ruleTester.run("autoplay-audio-video-attribute-not-present", rule, tests);
+  });
+
+  it("Vue", () => {
     vueRuleTester.run("avoid-autoplay", rule, vueTests);
   });
 });

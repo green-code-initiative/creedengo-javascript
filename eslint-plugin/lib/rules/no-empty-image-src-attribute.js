@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -34,33 +40,21 @@ module.exports = {
     schema: [],
   },
   create(context) {
-    const parserServices =
-      context.parserServices || context.sourceCode?.parserServices;
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        if (getVueElementName(node) !== "img") return;
 
-    const vueTemplateVisitor = parserServices?.defineTemplateBodyVisitor
-      ? parserServices.defineTemplateBodyVisitor({
-          VElement(node) {
-            const rawName =
-              typeof node.name === "string"
-                ? node.name
-                : node.name?.name || node.rawName;
-            const name = rawName?.toLowerCase();
-            if (name !== "img") return;
+        const srcAttr = getVueAttribute(node, "src");
+        const srcValue = srcAttr?.value?.value;
 
-            const srcAttr = node.startTag.attributes.find(
-              (attr) => attr.type === "VAttribute" && attr.key?.name === "src",
-            );
-            const srcValue = srcAttr?.value?.value;
-
-            if (srcValue === "" || !srcAttr) {
-              context.report({
-                node: srcAttr || node,
-                messageId: "SpecifySrcAttribute",
-              });
-            }
-          },
-        })
-      : {};
+        if (srcValue === "" || !srcAttr) {
+          context.report({
+            node: srcAttr || node,
+            messageId: "SpecifySrcAttribute",
+          });
+        }
+      },
+    });
 
     return {
       JSXOpeningElement(node) {

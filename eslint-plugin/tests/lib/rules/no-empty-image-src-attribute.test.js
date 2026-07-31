@@ -87,16 +87,8 @@ const tests = {
   ],
 };
 
-describe("no-empty-image-src-attribute", () => {
-  it("image-src-attribute-not-empty", () => {
-    ruleTester.run("image-src-attribute-not-empty", rule, tests);
-  });
-});
-
 const vueTests = {
-  valid: [
-    "<template><img src='logo.svg' alt='Logo'/></template>",
-  ],
+  valid: ["<template><img src='logo.svg' alt='Logo'/></template>"],
   invalid: [
     {
       code: "<template><img src=''/></template>",
@@ -109,8 +101,12 @@ const vueTests = {
   ],
 };
 
-describe("no-empty-image-src-attribute (vue)", () => {
-  it("image-src-attribute-not-empty-vue", () => {
+describe("no-empty-image-src-attribute", () => {
+  it("React", () => {
+    ruleTester.run("image-src-attribute-not-empty", rule, tests);
+  });
+
+  it("Vue", () => {
     vueRuleTester.run("no-empty-image-src-attribute", rule, vueTests);
   });
 });

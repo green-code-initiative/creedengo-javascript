@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
+- [#115](https://github.com/green-code-initiative/creedengo-javascript/pull/115) Add Vue SFC template support to JSX‑based rules
 
 ### Changed
 
@@ -26,8 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - [#107](https://github.com/green-code-initiative/creedengo-javascript/pull/107) Move to creedengo-rules-specifications v3
-- [#115](https://github.com/green-code-initiative/creedengo-javascript/pull/115) Add Vue SFC template support to JSX‑based rules (avoid-autoplay, no-empty-image-src-attribute, prefer-lighter-formats-for-image-files, avoid-css-animations, prefer-shorthand-css-notations)
-- [#115](https://github.com/green-code-initiative/creedengo-javascript/pull/115) Add Vue RuleTester cases and test-project Vue examples for the updated rules
 
 ### Fixed
 
