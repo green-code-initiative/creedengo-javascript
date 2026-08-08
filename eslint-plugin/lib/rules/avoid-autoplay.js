@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import("eslint").Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -36,6 +42,48 @@ module.exports = {
     schema: [],
   },
   create(context) {
+    const reportAutoplay = (
+      autoplayAttr,
+      preloadAttr,
+      preloadValue,
+      fallback,
+    ) => {
+      if (autoplayAttr && preloadValue !== "none") {
+        context.report({
+          node: autoplayAttr || preloadAttr,
+          messageId: "NoAutoplayAndEnforcePreloadNone",
+        });
+        return;
+      }
+
+      if (autoplayAttr) {
+        context.report({
+          node: autoplayAttr,
+          messageId: "NoAutoplay",
+        });
+      }
+
+      if (!preloadAttr || preloadValue !== "none") {
+        context.report({
+          node: preloadAttr || fallback,
+          messageId: "EnforcePreloadNone",
+        });
+      }
+    };
+
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const name = getVueElementName(node);
+        if (name !== "video" && name !== "audio") return;
+
+        const autoplayAttr = getVueAttribute(node, "autoplay");
+        const preloadAttr = getVueAttribute(node, "preload");
+        const preloadValue = preloadAttr?.value?.value;
+
+        reportAutoplay(autoplayAttr, preloadAttr, preloadValue, node);
+      },
+    });
+
     return {
       JSXOpeningElement(node) {
         if (node.name.name === "video" || node.name.name === "audio") {
@@ -45,28 +93,12 @@ module.exports = {
           const preloadAttr = node.attributes.find(
             (attr) => attr.name?.name.toLowerCase() === "preload",
           );
-          if (autoplayAttr && preloadAttr?.value.value !== "none") {
-            context.report({
-              node: autoplayAttr,
-              messageId: "NoAutoplayAndEnforcePreloadNone",
-            });
-          } else {
-            if (autoplayAttr) {
-              context.report({
-                node: autoplayAttr,
-                messageId: "NoAutoplay",
-              });
-            }
+          const preloadValue = preloadAttr?.value?.value;
 
-            if (preloadAttr?.value.value !== "none") {
-              context.report({
-                node: preloadAttr || node,
-                messageId: "EnforcePreloadNone",
-              });
-            }
-          }
+          reportAutoplay(autoplayAttr, preloadAttr, preloadValue, node);
         }
       },
+      ...vueTemplateVisitor,
     };
   },
 };

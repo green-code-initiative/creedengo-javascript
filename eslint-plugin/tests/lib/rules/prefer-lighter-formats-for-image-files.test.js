@@ -42,6 +42,17 @@ const ruleTester = new RuleTester({
   },
 });
 
+const vueRuleTester = new RuleTester({
+  languageOptions: {
+    parser: require("vue-eslint-parser"),
+    parserOptions: {
+      ecmaVersion: 2021,
+      sourceType: "module",
+      parser: require("@typescript-eslint/parser"),
+    },
+  },
+});
+
 const preferLighterFormatsForImageFilesError = {
   messageId: "PreferLighterFormatsForImageFiles",
 };
@@ -87,8 +98,32 @@ const tests = {
   ],
 };
 
+const vueTests = {
+  valid: [
+    "<template><img src='./assets/images/cat.webp' alt='A cat'/></template>",
+    "<template><img src='./assets/images/cat.avif' alt='A cat'/></template>",
+    "<template><img src='./assets/images/cat' alt='A cat'/></template>",
+    "<template><img src='' alt=''/></template>",
+    "<template><picture><source srcset='image.webp' type='image/webp'/><img src='image.jpg' alt='...'/></picture></template>",
+  ],
+  invalid: [
+    {
+      code: "<template><img src='./assets/images/cat.jpg' alt='A cat'/></template>",
+      errors: [preferLighterFormatsForImageFilesError],
+    },
+    {
+      code: "<template><img src='./assets/images/cat.png' alt='A cat'/></template>",
+      errors: [preferLighterFormatsForImageFilesError],
+    },
+  ],
+};
+
 describe("prefer-lighter-formats-for-image-files", () => {
-  it("prefer-lighter-formats-for-image-files", () => {
+  it("React", () => {
     ruleTester.run("prefer-lighter-formats-for-image-files", rule, tests);
+  });
+
+  it("Vue", () => {
+    vueRuleTester.run("prefer-lighter-formats-for-image-files", rule, vueTests);
   });
 });

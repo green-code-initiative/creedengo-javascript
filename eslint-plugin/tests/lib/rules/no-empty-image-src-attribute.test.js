@@ -41,6 +41,18 @@ const ruleTester = new RuleTester({
     },
   },
 });
+
+const vueRuleTester = new RuleTester({
+  languageOptions: {
+    parser: require("vue-eslint-parser"),
+    parserOptions: {
+      ecmaVersion: 2021,
+      sourceType: "module",
+      parser: require("@typescript-eslint/parser"),
+    },
+  },
+});
+
 const expectedError1 = {
   messageId: "SpecifySrcAttribute",
 };
@@ -75,8 +87,26 @@ const tests = {
   ],
 };
 
+const vueTests = {
+  valid: ["<template><img src='logo.svg' alt='Logo'/></template>"],
+  invalid: [
+    {
+      code: "<template><img src=''/></template>",
+      errors: [expectedError1],
+    },
+    {
+      code: "<template><img alt='Missing src'/></template>",
+      errors: [expectedError2],
+    },
+  ],
+};
+
 describe("no-empty-image-src-attribute", () => {
-  it("image-src-attribute-not-empty", () => {
+  it("React", () => {
     ruleTester.run("image-src-attribute-not-empty", rule, tests);
+  });
+
+  it("Vue", () => {
+    vueRuleTester.run("no-empty-image-src-attribute", rule, vueTests);
   });
 });

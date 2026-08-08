@@ -18,6 +18,11 @@
 
 "use strict";
 
+const {
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -87,6 +92,43 @@ module.exports = {
 
     const disabledProperties = context.options?.[0]?.disableProperties ?? [];
 
+    const toCamelCase = (value) =>
+      value.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+
+    const parseCssProperties = (styleValue) =>
+      styleValue
+        .split(";")
+        .map((part) => part.trim())
+        .filter(Boolean)
+        .map((part) => part.split(":")[0].trim())
+        .filter(Boolean)
+        .map(toCamelCase);
+
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const styleAttr = getVueAttribute(node, "style");
+        const styleValue = styleAttr?.value?.value;
+        if (!styleValue) return;
+
+        const nodePropertyNames = parseCssProperties(styleValue);
+
+        for (const [shorthandProp, matchProperties] of Object.entries(
+          shorthandProperties,
+        )) {
+          if (
+            !disabledProperties.includes(shorthandProp) &&
+            matchProperties.every((prop) => nodePropertyNames.includes(prop))
+          ) {
+            return context.report({
+              node: styleAttr,
+              messageId: "PreferShorthandCSSNotation",
+              data: { property: shorthandProp },
+            });
+          }
+        }
+      },
+    });
+
     return {
       JSXOpeningElement(node) {
         const styleAttribute = node.attributes.find(
@@ -115,6 +157,7 @@ module.exports = {
           }
         }
       },
+      ...vueTemplateVisitor,
     };
   },
 };
