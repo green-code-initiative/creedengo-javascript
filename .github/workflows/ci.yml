@@ -18,15 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Use Node.js 24.x
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24.x
 
       - name: Use JDK 17
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
@@ -48,17 +48,7 @@ jobs:
         working-directory: sonar-plugin
 
       - name: Integration test with SonarQube
-        run: docker compose up --wait
-
-      - name: Verify plugin is installed
-        run: |
-          curl -sf -u admin:admin http://localhost:9000/api/plugins/installed | tee /tmp/plugins.json
-          jq -e '.plugins[] | select(.key == "creedengojavascript")' /tmp/plugins.json
-
-      - name: Verify rules are loaded
-        run: |
-          curl -sf -u admin:admin "http://localhost:9000/api/rules/search?repositories=creedengo-javascript,creedengo-typescript&ps=1" | tee /tmp/rules.json
-          [ "$(jq '.total' /tmp/rules.json)" -gt 0 ]
+        run: docker compose up --wait && make docker-check-plugin
 
   sonarcloud-scan:
     name: SonarCloud Scan
@@ -68,17 +58,17 @@ jobs:
       github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Use Node.js 24.x
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24.x
 
       - name: Use JDK 17
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 17
