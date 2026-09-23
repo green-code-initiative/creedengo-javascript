@@ -3,7 +3,7 @@ name: sonarqube_creedengo_javascript
 
 services:
   sonar:
-    image: sonarqube:26.4.0.121862-community
+    image: sonarqube:26.9.0.129388-community
     container_name: sonar_creedengo_javascript
     ports:
       - "9000:9000"
@@ -28,7 +28,7 @@ services:
       test: 'host="$(hostname -i || echo ''127.0.0.1'')" && curl -sf http://$$host:9000/api/system/status | grep -qE ''"status":"(UP|DB_MIGRATION_REQUIRED|DB_MIGRATION_RUNNING|MIGRATION_SUCCEEDED)"'''
       interval: 10s
       timeout: 10s
-      retries: 5
+      retries: 10
 
   db:
     image: postgres:17-alpine
