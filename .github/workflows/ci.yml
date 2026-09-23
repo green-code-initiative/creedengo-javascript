@@ -50,6 +50,16 @@ jobs:
       - name: Integration test with SonarQube
         run: docker compose up --wait
 
+      - name: Verify plugin is installed
+        run: |
+          curl -sf -u admin:admin http://localhost:9000/api/plugins/installed | tee /tmp/plugins.json
+          jq -e '.plugins[] | select(.key == "creedengojavascript")' /tmp/plugins.json
+
+      - name: Verify rules are loaded
+        run: |
+          curl -sf -u admin:admin "http://localhost:9000/api/rules/search?repositories=creedengo-javascript,creedengo-typescript&ps=1" | tee /tmp/rules.json
+          [ "$(jq '.total' /tmp/rules.json)" -gt 0 ]
+
   sonarcloud-scan:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
