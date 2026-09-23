@@ -20,6 +20,9 @@ docker-init:
 docker-logs:
 	docker compose logs -f
 
+docker-check-plugin:
+	./docker-check-plugin.sh
+
 start:
 	docker compose start
 
