@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- [120](https://github.com/green-code-initiative/creedengo-javascript/pull/120) Show support of SonarQube 26.9
 - [#112](https://github.com/green-code-initiative/creedengo-javascript/pull/112) Clarify rule GCI9 "no-import-all-from-library"
 - [#113](https://github.com/green-code-initiative/creedengo-javascript/pull/113) Extend rule GCI530 "no-torch" to detect HTML5 Web API usage
 
