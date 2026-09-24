@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - [#84](https://github.com/green-code-initiative/creedengo-javascript/pull/84) Add rule GCI535 "No imported number format library"
+- [#115](https://github.com/green-code-initiative/creedengo-javascript/pull/115) Add Vue SFC template support to JSX‑based rules
 
 ### Changed
 

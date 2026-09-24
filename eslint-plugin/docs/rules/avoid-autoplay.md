@@ -17,6 +17,10 @@ Nevertheless, some parts of the video or audio files may be downloaded even if a
 will be unnecessarily downloaded even if users do not start the video playback. It is therefore necessary to force
 browsers not to preload anything by setting the `preload` attribute to `none`.
 
+This rule supports both [React](https://react.dev/) (JSX) and [Vue](https://vuejs.org/) (template) syntax.
+
+### React (JSX)
+
 ```jsx
 return (
   <>
@@ -28,7 +32,14 @@ return (
 );
 ```
 
-This rule is build for [React](https://react.dev/) and JSX.
+### Vue
+
+```html
+<template>
+  <video autoplay></video> <!-- Non-compliant -->
+  <video preload="none"></video> <!-- Compliant -->
+</template>
+```
 
 ## Resources
 

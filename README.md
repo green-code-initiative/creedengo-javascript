@@ -22,6 +22,7 @@ This project proposes rules for the following technologies:
 - NestJS
 - React (JSX)
 - React Native / Expo
+- Vue
 
 ## 🔧 ESLint plugin
 

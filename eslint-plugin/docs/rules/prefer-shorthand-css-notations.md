@@ -36,6 +36,10 @@ module.exports = {
 For example, the `font` shorthand consolidates various font-related properties, and the `margin` shorthand streamlines
 the definition of margins around a box.
 
+This rule supports both [React](https://react.dev/) (JSX) and [Vue](https://vuejs.org/) (template) syntax.
+
+### React (JSX)
+
 ```jsx
 <div
   style={{
@@ -63,6 +67,17 @@ For example, if you only want to set the left margin, you must continue to use `
   {/* Compliant because we only want a left margin */}
 </div>
 ```
+
+### Vue
+
+```html
+<template>
+  <div style="margin-top: 1em; margin-right: 0; margin-bottom: 2em; margin-left: 0.5em;"></div> <!-- Non-compliant -->
+  <div style="margin: 1em 0 2em 0.5em;"></div> <!-- Compliant -->
+</template>
+```
+
+Vue support only checks static style attributes; :style bindings are not validated.
 
 This optimization works for a number of
 properties [listed here](https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties#see_also).
