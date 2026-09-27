@@ -42,7 +42,23 @@ const ruleTester = new RuleTester({
   },
 });
 
+const vueRuleTester = new RuleTester({
+  languageOptions: {
+    parser: require("vue-eslint-parser"),
+    parserOptions: {
+      ecmaVersion: 2021,
+      sourceType: "module",
+      parser: require("@typescript-eslint/parser"),
+    },
+  },
+});
+
 const createError = (property) => ({
+  messageId: "PreferShorthandCSSNotation",
+  data: { property },
+});
+
+const vueCreateError = (property) => ({
   messageId: "PreferShorthandCSSNotation",
   data: { property },
 });
@@ -164,8 +180,29 @@ const tests = {
   ],
 };
 
+const vueTests = {
+  valid: [
+    "<template><div style='margin: 1em 0 2em 0.5em'></div></template>",
+    "<template><div :style=\"{ marginTop: '1em' }\"></div></template>",
+  ],
+  invalid: [
+    {
+      code: "<template><div style='margin-top: 1em; margin-right: 0; margin-bottom: 2em; margin-left: 0.5em;'></div></template>",
+      errors: [vueCreateError("margin")],
+    },
+    {
+      code: "<template><div style='border-width: 1px; border-style: solid; border-color: #000;'></div></template>",
+      errors: [vueCreateError("border")],
+    },
+  ],
+};
+
 describe("prefer-shorthand-css-notations", () => {
-  it("prefer-shorthand-css-notations", () => {
+  it("React", () => {
     ruleTester.run("prefer-shorthand-css-notations", rule, tests);
+  });
+
+  it("Vue", () => {
+    vueRuleTester.run("prefer-shorthand-css-notations", rule, vueTests);
   });
 });

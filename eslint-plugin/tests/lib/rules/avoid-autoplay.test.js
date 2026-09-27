@@ -24,7 +24,7 @@
 
 const rule = require("../../../lib/rules/avoid-autoplay");
 const { RuleTester } = require("eslint");
-const { describe, it } = require('node:test');
+const { describe, it } = require("node:test");
 
 //------------------------------------------------------------------------------
 // Tests
@@ -38,6 +38,17 @@ const ruleTester = new RuleTester({
       ecmaFeatures: {
         jsx: true,
       },
+    },
+  },
+});
+
+const vueRuleTester = new RuleTester({
+  languageOptions: {
+    parser: require("vue-eslint-parser"),
+    parserOptions: {
+      ecmaVersion: 2021,
+      sourceType: "module",
+      parser: require("@typescript-eslint/parser"),
     },
   },
 });
@@ -86,9 +97,33 @@ const tests = {
   ],
 };
 
-describe('avoid-autoplay', () => {
-  it('autoplay-audio-video-attribute-not-present', () => {
+const vueTests = {
+  valid: [
+    '<template><video preload="none"></video></template>',
+    '<template><audio preload="none"></audio></template>',
+  ],
+  invalid: [
+    {
+      code: "<template><video autoplay></video></template>",
+      errors: [BothError],
+    },
+    {
+      code: "<template><audio autoplay></audio></template>",
+      errors: [BothError],
+    },
+    {
+      code: '<template><video preload="auto"></video></template>',
+      errors: [enforcePreloadNoneError],
+    },
+  ],
+};
+
+describe("avoid-autoplay", () => {
+  it("React", () => {
     ruleTester.run("autoplay-audio-video-attribute-not-present", rule, tests);
   });
-});
 
+  it("Vue", () => {
+    vueRuleTester.run("avoid-autoplay", rule, vueTests);
+  });
+});

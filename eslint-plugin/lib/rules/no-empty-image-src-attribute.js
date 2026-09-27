@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -34,6 +40,22 @@ module.exports = {
     schema: [],
   },
   create(context) {
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        if (getVueElementName(node) !== "img") return;
+
+        const srcAttr = getVueAttribute(node, "src");
+        const srcValue = srcAttr?.value?.value;
+
+        if (srcValue === "" || !srcAttr) {
+          context.report({
+            node: srcAttr || node,
+            messageId: "SpecifySrcAttribute",
+          });
+        }
+      },
+    });
+
     return {
       JSXOpeningElement(node) {
         if (node.name.name === "img") {
@@ -55,6 +77,7 @@ module.exports = {
           }
         }
       },
+      ...vueTemplateVisitor,
     };
   },
 };

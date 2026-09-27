@@ -18,6 +18,11 @@
 
 "use strict";
 
+const {
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -34,6 +39,26 @@ module.exports = {
   },
   create(context) {
     const forbiddenProperties = ["transition", "animation"];
+
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        const styleAttr = getVueAttribute(node, "style");
+        const styleValue = styleAttr?.value?.value;
+        if (!styleValue) return;
+
+        const matched = forbiddenProperties.find((prop) =>
+          new RegExp(`(^|;)\\s*${prop}\\s*:`, "i").test(styleValue),
+        );
+        if (!matched) return;
+
+        context.report({
+          node: styleAttr,
+          messageId: "AvoidCSSAnimations",
+          data: { attribute: matched },
+        });
+      },
+    });
+
     return {
       JSXOpeningElement(node) {
         const styleAttribute = node.attributes.find(
@@ -60,6 +85,7 @@ module.exports = {
           }
         }
       },
+      ...vueTemplateVisitor,
     };
   },
 };

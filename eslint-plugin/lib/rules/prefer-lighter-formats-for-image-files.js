@@ -18,6 +18,12 @@
 
 "use strict";
 
+const {
+  getVueElementName,
+  getVueAttribute,
+  defineVueTemplateVisitor,
+} = require("../utils/vue-template");
+
 /** @type {import('eslint').Rule.RuleModule} */
 module.exports = {
   meta: {
@@ -36,6 +42,31 @@ module.exports = {
   create(context) {
     const eligibleExtensions = ["webp", "avif", "svg", "jxl"];
 
+    const vueTemplateVisitor = defineVueTemplateVisitor(context, {
+      VElement(node) {
+        if (getVueElementName(node) !== "img") return;
+
+        const parent = node.parent?.type === "VElement" ? node.parent : null;
+        if (getVueElementName(parent) === "picture") return;
+
+        const srcAttr = getVueAttribute(node, "src");
+        const srcValue = srcAttr?.value?.value;
+        if (!srcValue) return;
+
+        const fileName = srcValue.substring(srcValue.lastIndexOf("/") + 1);
+        const dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex === -1) return;
+
+        const imgExtension = fileName.substring(dotIndex + 1);
+        if (eligibleExtensions.includes(imgExtension.toLowerCase())) return;
+
+        context.report({
+          node,
+          messageId: "PreferLighterFormatsForImageFiles",
+          data: { eligibleExtensions: eligibleExtensions.join(", ") },
+        });
+      },
+    });
     return {
       JSXOpeningElement(node) {
         const tagName = node.name.name;
@@ -67,6 +98,7 @@ module.exports = {
           data: { eligibleExtensions: eligibleExtensions.join(", ") },
         });
       },
+      ...vueTemplateVisitor,
     };
   },
 };
